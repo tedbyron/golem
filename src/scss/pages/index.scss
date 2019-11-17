@@ -1,0 +1,70 @@
+* {
+  box-sizing: border-box;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+html {
+  min-height: 100%;
+  background-color: $color-cas-bg;
+  color: $color-cas-fg;
+}
+
+body {
+  font-family: $font-cas;
+  font-size: 12px;
+  min-height: 100%;
+}
+
+.cas-h1 {
+  text-align: center;
+}
+
+.cas-h2 {
+  text-align: center;
+}
+
+.cas-button {
+  border: none;
+  padding: 1em 2em;
+  background-color: $color-cas-button;
+  transition: all .15s ease-in-out;
+
+  &:hover {
+    background-color: darken($color-cas-button, 15%);
+    cursor: pointer;
+  }
+}
+
+.cas-grid-container {
+  display: flex;
+  justify-content: center;
+}
+
+.cas-grid, .cas-cell {
+  border: 1px solid $color-cas-grid;
+}
+
+.cas-grid {
+  margin: 0;
+  border-collapse: collapse;
+}
+
+.cas-cell-1 {
+  background-color: $color-cas-cell-1;
+}
+
+.cas-options {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+
+.cas-options-row {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
