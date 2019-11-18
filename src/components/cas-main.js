@@ -13,7 +13,7 @@ class CASMain extends React.Component {
   render() {
     return (
       <div className="cas-main">
-        <h1 className="cas-h1">Cellular Automaton</h1>
+        {/* <h1 className="cas-h1">Cellular Automaton</h1> */}
         <P5Wrapper
           sketch={this.state.grid}
         />

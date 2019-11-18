@@ -1,70 +1,82 @@
 export default function casGrid(p5) {
   const MAX_STATES = 20;
-  let rows = 75;
-  let cols = 125;
+  const STATE_COLORS = [];
+
+  let gridWidth = 800;
+  let gridHeight = 600;
+  let cellWidth = 5;
+  let rows = Math.ceil(gridWidth / cellWidth);
+  let cols = Math.ceil(gridHeight / cellWidth);
+
+  let grid = [];
+  let nextGrid = [];
+
   let speed = 24;
-  let rules = '23, 3, 2';
-  let survivalRule, birthRule, stateRule, grid, nextGrid, gridWidth, cellWidth, gridHeight;
-  let stateColors = [];
+  let rules = '246, 6, 3';
+  let birthRule, survivalRule, generationRule;
 
-  p5.setGridSize = () => {
-    gridWidth = 800; // TODO: fix this shit
-    cellWidth = gridWidth / cols;
-    gridHeight = cellWidth * rows;
-  }
-
-  p5.resetGrids = () => {
-    grid = [];
-    nextGrid = [];
-
+  p5.setGridRandom = () => {
     for (let row = 0; row < rows; row++) {
       grid[row] = [];
       nextGrid[row] = [];
       for (let col = 0; col < cols; col++) {
         grid[row][col] = 0;
-        nextGrid[row][col] = (Math.random() * 2)|0;
+        nextGrid[row][col] = Math.floor(Math.random() * 2);
       }
     }
   }
 
-  p5.setRules = () => {
-    let rulesArray = rules.match(/[0-9]+/g);
+  p5.setStyle = () => {
+    p5.stroke('black');
+    p5.strokeWeight(0);
 
-    survivalRule = rulesArray[0].split('');
-    for (let i = 0; i < survivalRule.length; i++) {
-      survivalRule[i] = ~~survivalRule[i];
-    }
-
-    birthRule = rulesArray[1].split('');
-    for (let i = 0; i < birthRule.length; i++) {
-      birthRule[i] = ~~birthRule[i] - 1; // TODO: idk???
-    }
-
-    stateRule = Math.min(MAX_STATES, rulesArray[2]);
-
-    if (stateRule === 2) {
-      for (let row = 0; row < rows; row++) {
-        for (let col = 0; col < cols; col++) {
-          if (nextGrid[row][col] > 1) {
-            nextGrid[row][col] = 0;
-          }
-        }
-      }
+    STATE_COLORS.push(p5.color(255), p5.color(255, 214, 0));
+    for (let i = 0; i < 20; i++) {
+      STATE_COLORS.push(
+        p5.color(
+          Math.floor(Math.random() * 251),
+          Math.floor(Math.random() * 251),
+          Math.floor(Math.random() * 251)
+        )
+      );
     }
   }
 
   p5.getNeighborCount = (row, col) => {
+    const NEIGHBORS = [
+      [-1, -1], [-1, 0], [-1, 1],
+      [ 0, -1],          [ 0, 1],
+      [ 1, -1], [ 1, 0], [ 1, 1]
+    ];
     let count = 0;
 
-    for (let i = -1; i <= 1; i++) {
-      for (let j = -1; j <= 1; j++) {
-        if (row + i >= 0 && row + i < rows && col + j >= 0 && col + j < cols && grid[row + i][col + j]) {
-          count++;
-        }
+    for (const [i, j] of NEIGHBORS) {
+      if (row + i >= 0
+      && row + i < rows
+      && col + j >= 0
+      && col + j < cols
+      && grid[row + i][col + j]) {
+        count++;
       }
     }
 
-    return --count;
+    return count;
+  }
+
+  p5.getRules = () => {
+    const RULES_ARRAY = rules.match(/-?[0-9]+/g);
+
+    birthRule = RULES_ARRAY[0].split('');
+    for (let i = 0; i < birthRule.length; i++) {
+      birthRule[i] = parseInt(birthRule[i], 10);
+    }
+
+    survivalRule = RULES_ARRAY[1].split('');
+    for (let i = 0; i < survivalRule.length; i++) {
+      survivalRule[i] = parseInt(survivalRule[i], 10);
+    }
+
+    generationRule = Math.min(MAX_STATES, parseInt(RULES_ARRAY[2], 10));
   }
 
   p5.gridStep = () => {
@@ -77,22 +89,19 @@ export default function casGrid(p5) {
           if (birthRule.includes(NEIGHBOR_COUNT)) {
             nextGrid[row][col] = 1;
           }
-        } else if (CURRENT_STATE && (CURRENT_STATE < stateRule - 1 || stateRule === 2)) {
-          let neighborCount = survivalRule
-            ? NEIGHBOR_COUNT
-            : 0;
-          let shouldSurvive = survivalRule.includes(neighborCount);
+        } else if (CURRENT_STATE && (CURRENT_STATE < generationRule - 1 || generationRule === 2)) {
+          let shouldSurvive = survivalRule.includes(-1) ? false : survivalRule.includes(NEIGHBOR_COUNT);
 
-          if (CURRENT_STATE === 1 && shouldSurvive) {
+          if (!shouldSurvive) {
+            nextGrid[row][col] = (CURRENT_STATE + 1) % generationRule;
+          } else if (CURRENT_STATE === 1) {
             nextGrid[row][col] = CURRENT_STATE;
-          } else if (!shouldSurvive) {
-            nextGrid[row][col] = (CURRENT_STATE + 1) % stateRule;
           }
 
           if (CURRENT_STATE > 1) {
             nextGrid[row][col] = CURRENT_STATE + 1;
           }
-        } else if (CURRENT_STATE >= stateRule - 1) {
+        } else if (CURRENT_STATE >= generationRule - 1) {
           nextGrid[row][col] = 0;
         }
       }
@@ -100,23 +109,13 @@ export default function casGrid(p5) {
   }
 
   p5.setup = () => {
-    window.addEventListener('resize', () => {
-      p5.setGridSize();
-      p5.resizeCanvas(gridWidth, gridHeight);
-    });
-
-    p5.setGridSize();
     p5.createCanvas(gridWidth, gridHeight);
-    p5.noStroke();
     p5.frameRate(speed);
-    p5.resetGrids();
 
-    stateColors.push(p5.color(255), p5.color(240, 200, 40));
-    for (let i = 0; i < 20; i++) {
-      stateColors.push(p5.color((Math.random() * 250)|0, (Math.random() * 250)|0, (Math.random() * 250)|0));
-    }
+    p5.setGridRandom();
+    p5.setStyle();
+    p5.getRules();
 
-    p5.setRules();
     p5.noLoop();
   }
 
@@ -127,15 +126,14 @@ export default function casGrid(p5) {
       for (let col = 0; col < cols; col++) {
         const CURRENT_STATE = nextGrid[row][col];
         if (CURRENT_STATE) {
-          p5.fill(stateColors[CURRENT_STATE]);
+          p5.fill(STATE_COLORS[CURRENT_STATE]);
+          p5.rect(row * cellWidth, col * cellWidth, cellWidth, cellWidth);
           grid[row][col] = CURRENT_STATE;
         } else {
           p5.fill(0);
           grid[row][col] = CURRENT_STATE;
         }
         nextGrid[row][col] = 0;
-        p5.stroke(0);
-        p5.rect(row * cellWidth, col * cellWidth, cellWidth, cellWidth);
       }
     }
 
