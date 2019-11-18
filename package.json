@@ -5,8 +5,10 @@
   "dependencies": {
     "node-sass": "^4.13.0",
     "normalize.css": "^8.0.1",
+    "p5": "^0.10.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "react-p5-wrapper": "^2.0.0",
     "react-scripts": "3.2.0"
   },
   "scripts": {

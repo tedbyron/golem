@@ -38,24 +38,6 @@ body {
   }
 }
 
-.cas-grid-container {
-  display: flex;
-  justify-content: center;
-}
-
-.cas-grid, .cas-cell {
-  border: 1px solid $color-cas-grid;
-}
-
-.cas-grid {
-  margin: 0;
-  border-collapse: collapse;
-}
-
-.cas-cell-1 {
-  background-color: $color-cas-cell-1;
-}
-
 .cas-options {
   display: flex;
   flex-direction: column;
