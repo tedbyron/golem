@@ -8,8 +8,8 @@
 
 html {
   min-height: 100%;
-  background-color: $color-cas-bg;
-  color: $color-cas-fg;
+  background-color: $color-golem-bg;
+  color: $color-golem-fg;
 }
 
 body {
@@ -18,34 +18,34 @@ body {
   min-height: 100%;
 }
 
-.cas-h1 {
+.golem-h1 {
   text-align: center;
 }
 
-.cas-h2 {
+.golem-h2 {
   text-align: center;
 }
 
-.cas-button {
+.golem-button {
   border: none;
   padding: 1em 2em;
-  background-color: $color-cas-button;
+  background-color: $color-golem-button;
   transition: all .15s ease-in-out;
 
   &:hover {
-    background-color: darken($color-cas-button, 15%);
+    background-color: darken($color-golem-button, 15%);
     cursor: pointer;
   }
 }
 
-.cas-options {
+.golem-options {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-content: center;
 }
 
-.cas-options-row {
+.golem-options-row {
   display: flex;
   justify-content: center;
   align-content: center;
