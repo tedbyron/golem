@@ -71,8 +71,8 @@ export default class GolemMain extends React.Component {
         />
         <div className="golem-control">
           <div className="golem-stats">
-            <span>Generations: {/*{this.state.generation}*/}</span>
-            <span>Speed: {/*{this.state.speed}*/} steps/s</span>
+            <span>Generations: -{/*{this.state.generation}*/}</span>
+            <span>Speed: -{/*{this.state.speed}*/} steps/s</span>
           </div>
           <GolemOptions
             compactRules={this.state.compactRules}

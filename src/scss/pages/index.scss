@@ -40,8 +40,9 @@ body {
 }
 
 .golem-control {
-  max-width: 90%;
+  max-width: $bp-lg;
   margin: 0 auto;
+  padding: 0 3rem;
 
   > *:not(:last-child) {
     margin-bottom: 1rem;
@@ -50,27 +51,69 @@ body {
 
 .golem-stats {
   display: grid;
-  grid-template-columns: repeat(2, 50%);
   padding: .5rem 1.25rem;
   border-right: 2px solid $color-golem-fg;
   border-bottom: 2px solid $color-golem-fg;
   border-left: 2px solid $color-golem-fg;
+
+  span:not(:last-child) {
+    margin-bottom: .5rem;
+
+    @media screen and (min-width: $bp-sm) {
+      margin-bottom: unset;
+    }
+  }
+
+  @media screen and (min-width: $bp-sm) {
+    grid-template-columns: repeat(2, 50%);
+  }
+
+  @media screen and (min-width: $bp-lg) {
+    text-align: center;
+  }
 }
 
 .golem-options {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(2, calc(50% - .5rem));
+  row-gap: 1rem;
+  column-gap: .5rem;
+  justify-content: space-between;
   align-content: center;
+  margin-bottom: 1rem;
+
+  @media screen and (min-width: $bp-sm) {
+    grid-template-columns: repeat(4, calc(25% - .25rem));
+  }
 }
 
 .golem-options-row {
-  display: flex;
+  display: grid;
+  row-gap: 1rem;
+  column-gap: .5rem;
   justify-content: space-between;
   align-content: center;
 
   &:not(:last-child) {
     margin-bottom: 1rem;
+  }
+
+  @media screen and (min-width: $bp-sm) {
+    grid-template-columns: repeat(2, calc(50% - .5rem));
+  }
+
+  @media screen and (min-width: $bp-md) {
+    grid-template-columns: repeat(4, calc(25% - .25rem));
+  }
+}
+
+.golem-options-w2 {
+  @media screen and (min-width: $bp-sm) {
+    grid-column-start: span 2;
+  }
+
+  @media screen and (min-width: $bp-lg) {
+    grid-column-start: auto;
   }
 }
 

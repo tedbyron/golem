@@ -1,5 +1,5 @@
 # Golem
-> A cellular automaton simulator
+> A cellular automaton simulator in React and p5.js
 
 ## Resources
 - [React](https://reactjs.org/docs/)
