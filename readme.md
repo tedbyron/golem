@@ -1,5 +1,5 @@
 # Golem
-> A Cellular Automaton Simulator
+> A cellular automaton simulator
 
 ## Resources
 - [React](https://reactjs.org/docs/)

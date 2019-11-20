@@ -2,38 +2,103 @@ export default function GolemGrid(p5) {
   const MAX_STATES = 20;
   const STATE_COLORS = [];
 
-  let gridWidth = 737;
-  let gridHeight = 500;
   let cellWidth = 5;
+  let gridWidth = Math.floor((document.documentElement.clientWidth - 4) / cellWidth) * cellWidth;
+  let gridHeight = 500;
   let rows = Math.floor(gridWidth / cellWidth);
   let cols = Math.floor(gridHeight / cellWidth);
+  let gridIsLooping;
 
-  let grid = [];
-  let nextGrid = [];
+  let grid, nextGrid, generationCount, speed, compactRules, birthRule, survivalRule, generationRule;
 
-  let speed = 24;
-  let rules = '3, 23, 2'; // conway's game of life
-  // let rules = '2, -1, 3'; // brian's brain
-  // let rules = '3678, 34678, 3'; // starry night
-  // let rules = '246, 346, 6'; // lucy in the sky
-  let birthRule, survivalRule, generationRule;
+  /**
+   * react-p5-wrapper function for inheriting props
+   * @param props [object] inherited react props
+   */
+  p5.myCustomRedrawAccordingToNewPropsHandler = (props) => {
+    speed = props.speed;
 
-  p5.setGridRandom = () => {
+    if (compactRules !== props.compactRules) {
+      compactRules = props.compactRules;
+      p5.getRules();
+
+      if (grid instanceof Array) {
+        p5.setNextGridSame();
+      }
+    }
+
+    if (props.buttonClick === 'startstop') {
+      if (gridIsLooping) {
+        p5.noLoop();
+        gridIsLooping = false;
+      } else {
+        p5.loop();
+        gridIsLooping = true;
+      }
+    } else if (props.buttonClick === 'step') {
+      p5.redraw();
+    } else if (props.buttonClick === 'clear') {
+      p5.setNextGridZero();
+    } else if (props.buttonClick === 'randomize') {
+      p5.setNextGridRandom();
+    }
+  };
+
+  /**
+   * set the next grid to contain random generation 1 cells or dead cells
+   */
+  p5.setNextGridRandom = () => {
+    generationCount = 0;
+
     for (let row = 0; row < rows; row++) {
-      grid[row] = [];
-      nextGrid[row] = [];
       for (let col = 0; col < cols; col++) {
-        grid[row][col] = 0;
         nextGrid[row][col] = Math.floor(Math.random() * 2);
       }
     }
+
+    p5.redraw();
   }
 
+  /**
+   * set the next grid to be the same as the current to avoid a step using the
+   * previous ruleset; for use when there is a change in rules
+   */
+  p5.setNextGridSame = (resetGenCount) => {
+    for (let row = 0; row < rows; row++) {
+      for (let col = 0; col < cols; col++) {
+        nextGrid[row][col] = grid[row][col];
+      }
+    }
+
+    if (generationCount > 0) {
+      generationCount--;
+    }
+    p5.redraw();
+  }
+
+  /**
+   * set the next grid to contain only dead cells
+   */
+  p5.setNextGridZero = () => {
+    generationCount = 0;
+
+    for (let row = 0; row < rows; row++) {
+      for (let col = 0; col < cols; col++) {
+        nextGrid[row][col] = 0;
+      }
+    }
+
+    p5.redraw();
+  }
+
+  /**
+   * set STATE_COLORS; generations after 1 have random colors
+   */
   p5.setStyle = () => {
     p5.stroke('black');
     p5.strokeWeight(0);
 
-    // set colors for possible cell states
+    // set colors for all possible cell states
     STATE_COLORS.push(p5.color(0), p5.color(255, 214, 0));
     for (let i = 0; i < 20; i++) {
       STATE_COLORS.push(
@@ -46,6 +111,11 @@ export default function GolemGrid(p5) {
     }
   }
 
+  /**
+   * calculate the number of neighbors a cell has
+   * @param row [number] row number of the cell
+   * @param col [number] column number of the cell
+   */
   p5.getNeighborCount = (row, col) => {
     const NEIGHBORS = [
       [-1, -1], [-1,  0], [-1,  1],
@@ -68,8 +138,11 @@ export default function GolemGrid(p5) {
     return count;
   }
 
+  /**
+   * separate the compactRules for later use
+   */
   p5.getRules = () => {
-    const RULES_ARRAY = rules.match(/-?[0-9]+/g);
+    const RULES_ARRAY = compactRules.match(/-?[0-9]+/g);
 
     // number of neighbors needed for a dead cell to come to life
     birthRule = RULES_ARRAY[0].split('');
@@ -91,6 +164,9 @@ export default function GolemGrid(p5) {
     generationRule = Math.min(MAX_STATES, parseInt(RULES_ARRAY[2], 10));
   }
 
+  /**
+   * calculate every future cell state into nextGrid
+   */
   p5.gridStep = () => {
     // loop through every cell and determine its future state
     for (let row = 0; row < rows; row++) {
@@ -126,24 +202,35 @@ export default function GolemGrid(p5) {
     }
   }
 
+  /**
+   * initialize canvas and grids
+   */
   p5.setup = () => {
     p5.createCanvas(gridWidth, gridHeight);
     p5.frameRate(speed);
 
-    p5.getRules();
-    p5.setGridRandom();
+    grid = new Array(rows).fill().map(() => new Array(cols));
+    nextGrid = new Array(rows).fill().map(() => new Array(cols));
+    gridIsLooping = false;
+
+    p5.setNextGridRandom();
     p5.setStyle();
+    p5.getRules();
 
     p5.noLoop();
   }
 
+  /**
+   * draw the grid in the canvas
+   */
   p5.draw = () => {
     p5.background(0);
+    generationCount++;
 
     // draw live cells on the canvas and advance the state of the grid
     for (let row = 0; row < rows; row++) {
       for (let col = 0; col < cols; col++) {
-        const CURRENT_STATE = nextGrid[row][col];
+        const CURRENT_STATE = Math.min(nextGrid[row][col], generationRule - 1);
         if (CURRENT_STATE) {
           p5.fill(STATE_COLORS[CURRENT_STATE]);
           p5.rect(row * cellWidth, col * cellWidth, cellWidth, cellWidth);
@@ -153,6 +240,5 @@ export default function GolemGrid(p5) {
     }
 
     p5.gridStep();
-    p5.loop();
   }
 }
