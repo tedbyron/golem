@@ -17,12 +17,6 @@ export default function GolemGrid(p5) {
     p5.createCanvas(canvasWidth, canvasHeight);
     p5.frameRate(speed);
 
-    rows = Math.floor(canvasWidth / cellWidth);
-    cols = Math.floor(canvasHeight / cellWidth);
-    grid = new Array(rows).fill().map(() => new Array(cols));
-    nextGrid = new Array(rows).fill().map(() => new Array(cols));
-    gridIsLooping = false;
-
     p5.setNextGridRandom();
     p5.setStyle();
     p5.getRules();
@@ -38,15 +32,20 @@ export default function GolemGrid(p5) {
     generationCount++;
 
     // draw live cells on the canvas and advance the state of the grid
-    for (let row = 0; row < rows; row++) {
-      for (let col = 0; col < cols; col++) {
+    // while loops for performance
+    let row = 0
+    while (row < rows) {
+      let col = 0;
+      while (col < cols) {
         const CURRENT_STATE = Math.min(nextGrid[row][col], generationRule - 1);
         if (CURRENT_STATE) {
           p5.fill(STATE_COLORS[CURRENT_STATE]);
           p5.rect(row * cellWidth, col * cellWidth, cellWidth, cellWidth);
         }
         grid[row][col] = CURRENT_STATE;
+        col++;
       }
+      row++;
     }
 
     p5.gridStep();
@@ -68,15 +67,12 @@ export default function GolemGrid(p5) {
       }
     }
 
-    if (props.buttonClick === 'startstop') {
-      if (gridIsLooping) {
-        p5.noLoop();
-        gridIsLooping = false;
-      } else {
-        p5.loop();
-        gridIsLooping = true;
-      }
-    } else if (props.buttonClick === 'step') {
+    if (gridIsLooping !== props.gridIsLooping) {
+      gridIsLooping = props.gridIsLooping;
+      gridIsLooping ? p5.loop() : p5.noLoop();
+    }
+
+    if (props.buttonClick === 'step') {
       p5.redraw();
     } else if (props.buttonClick === 'clear') {
       p5.setNextGridZero();
@@ -133,6 +129,9 @@ export default function GolemGrid(p5) {
 
     rows = Math.floor(canvasWidth / cellWidth);
     cols = Math.floor(canvasHeight / cellWidth);
+
+    grid = new Array(rows).fill().map(() => new Array(cols));
+    nextGrid = new Array(rows).fill().map(() => new Array(cols));
   }
 
   /**

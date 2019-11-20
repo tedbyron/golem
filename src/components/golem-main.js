@@ -15,46 +15,56 @@ export default class GolemMain extends React.Component {
       generation: 0,
       speed: 30,
       compactRules: '3/23/2',
+      gridIsLooping: 0,
       buttonClick: ''
     };
   }
 
   /**
-   * set the buttonClick state to pass to the P5Wrapper
+   * set the gridIsLooping state to pass to the P5Wrapper
+   */
+  onStartStopClick = () => {
+    this.setState({
+      gridIsLooping: !this.state.gridIsLooping
+    }, () => {
+      document.getElementsByClassName('golem-options-start')[0].value = this.state.gridIsLooping
+        ? 'Pause'
+        : 'Start';
+    });
+  }
+
+  /**
+   * set the buttonClick state to pass to the P5Wrapper; reset buttonClick state
    * @param button [string] the button that was pressed
    */
   onButtonClick = (button) => {
     this.setState({
       buttonClick: button
-    }, this.resetButtonClickState);
+    }, () => {
+      this.setState({
+        buttonClick: ''
+      });
+    });
   }
 
   /**
    * immediately reset the buttonClick state to perform a single action
    */
   resetButtonClickState = () => {
-    this.setState({
-      buttonClick: ''
-    });
   }
 
   /**
-   * get the compactRules from the selected option in the rule select element
+   * get the compactRules from the selected option in the rule select element;
+   * set the rules textbox placeholder to the preset rules
    */
   onSelectRulesChange = () => {
     const SELECT_ELEMENT = document.getElementsByClassName('golem-input-select')[0];
 
     this.setState({
       compactRules: SELECT_ELEMENT.options[SELECT_ELEMENT.selectedIndex].value
-    }, this.setRulesPlaceholder);
-  }
-
-  /**
-   * clear the rules text input and set the placeholder to the compactRules
-   * state
-   */
-  setRulesPlaceholder = () => {
-    document.getElementsByClassName('golem-input-text')[0].placeholder = this.state.compactRules;
+    }, () => {
+      document.getElementsByClassName('golem-input-text')[0].placeholder = this.state.compactRules
+    });
   }
 
   render() {
@@ -67,6 +77,7 @@ export default class GolemMain extends React.Component {
           sketch={this.state.grid}
           speed={this.state.speed}
           compactRules={this.state.compactRules}
+          gridIsLooping={this.state.gridIsLooping}
           buttonClick={this.state.buttonClick}
         />
         <div className="golem-control">
@@ -76,6 +87,7 @@ export default class GolemMain extends React.Component {
           </div>
           <GolemOptions
             compactRules={this.state.compactRules}
+            onStartStopClick={this.onStartStopClick}
             onButtonClick={this.onButtonClick}
             onSelectRulesChange={this.onSelectRulesChange}
           />

@@ -8,7 +8,7 @@ export default class GolemOptions extends React.Component {
   render() {
     return (
       <div className="golem-options">
-        <input type="button" className="golem-input-button" value="Start/Stop" onClick={() => this.props.onButtonClick('startstop')}/>
+        <input type="button" className="golem-input-button golem-options-start" value="Start" onClick={() => this.props.onStartStopClick()}/>
         <input type="button" className="golem-input-button" value="Step" onClick={() => this.props.onButtonClick('step')}/>
         <input type="button" className="golem-input-button" value="Clear" onClick={() => this.props.onButtonClick('clear')}/>
         <input type="button" className="golem-input-button" value="Randomize" onClick={() => this.props.onButtonClick('randomize')}/>
