@@ -127,13 +127,18 @@ body {
 
 .golem-input-button {
   padding: .5rem .5rem;
-  border: 2px solid $color-golem-button;
+  border: 2px solid $color-golem-fg;
   background-color: $color-golem-bg;
   color: $color-golem-fg;
 
-  &:hover {
+  &:hover:not(:disabled) {
     background-color: lighten($color-golem-bg, 15%);
     cursor: pointer;
+  }
+
+  &:disabled {
+    color: $color-golem-disabled;
+    border: 2px solid $color-golem-disabled;
   }
 }
 

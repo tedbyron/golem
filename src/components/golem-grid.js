@@ -28,7 +28,7 @@ export default function GolemGrid(p5) {
    * draw the grid in the canvas
    */
   p5.draw = () => {
-    p5.background(0);
+    p5.background('#212121');
     generationCount++;
 
     // draw live cells on the canvas and advance the state of the grid
@@ -120,21 +120,6 @@ export default function GolemGrid(p5) {
   }
 
   /**
-   * set the canvas and grid sizes
-   */
-  p5.setCanvasSize = () => {
-    cellWidth = 5;
-    canvasWidth = Math.min(MAX_CANVAS_WIDTH, Math.floor((document.documentElement.clientWidth - 4) / cellWidth) * cellWidth);
-    canvasHeight = 500;
-
-    rows = Math.floor(canvasWidth / cellWidth);
-    cols = Math.floor(canvasHeight / cellWidth);
-
-    grid = new Array(rows).fill().map(() => new Array(cols));
-    nextGrid = new Array(rows).fill().map(() => new Array(cols));
-  }
-
-  /**
    * set the canvas and grid sizes; copy possible cell states to the resized
    * grid
    */
@@ -159,6 +144,21 @@ export default function GolemGrid(p5) {
 
     p5.setNextGridSame(false);
     p5.resizeCanvas(canvasWidth, canvasHeight);
+  }
+
+  /**
+   * set the canvas and grid sizes
+   */
+  p5.setCanvasSize = () => {
+    cellWidth = 5;
+    canvasWidth = Math.min(MAX_CANVAS_WIDTH, Math.floor((document.documentElement.clientWidth - 4) / cellWidth) * cellWidth);
+    canvasHeight = 500;
+
+    rows = Math.floor(canvasWidth / cellWidth);
+    cols = Math.floor(canvasHeight / cellWidth);
+
+    grid = new Array(rows).fill().map(() => new Array(cols));
+    nextGrid = new Array(rows).fill().map(() => new Array(cols));
   }
 
   /**

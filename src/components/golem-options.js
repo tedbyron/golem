@@ -8,12 +8,14 @@ export default class GolemOptions extends React.Component {
   render() {
     return (
       <div className="golem-options">
-        <input type="button" className="golem-input-button golem-options-start" value="Start" onClick={() => this.props.onStartStopClick()}/>
-        <input type="button" className="golem-input-button" value="Step" onClick={() => this.props.onButtonClick('step')}/>
+        <input type="button" className="golem-input-button" id="golem-options-start" value="Start" onClick={() => this.props.onStartStopClick()}/>
+        <input type="button" className="golem-input-button" id="golem-options-step" value="Step" onClick={() => this.props.onButtonClick('step')}/>
         <input type="button" className="golem-input-button" value="Clear" onClick={() => this.props.onButtonClick('clear')}/>
         <input type="button" className="golem-input-button" value="Randomize" onClick={() => this.props.onButtonClick('randomize')}/>
+
         <label className="golem-input-label golem-options-w2" htmlFor="compact-rules">Rules &lt;B/S/C&gt;</label>
         <input type="text" className="golem-input-text golem-options-w2" name="compact-rules" size="21" disabled/>
+
         <label className="golem-input-label golem-options-w2">Preset Rules</label>
         <select className="golem-input-select golem-options-w2" defaultValue="3/23/2" onChange={() => this.props.onSelectRulesChange()}>
           <option value="" disabled>(None)</option>

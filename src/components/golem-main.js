@@ -15,21 +15,28 @@ export default class GolemMain extends React.Component {
       generation: 0,
       speed: 30,
       compactRules: '3/23/2',
-      gridIsLooping: 0,
+      gridIsLooping: false,
       buttonClick: ''
     };
   }
 
   /**
-   * set the gridIsLooping state to pass to the P5Wrapper
+   * set the gridIsLooping state to pass to the P5Wrapper; set button attributes
    */
   onStartStopClick = () => {
     this.setState({
       gridIsLooping: !this.state.gridIsLooping
     }, () => {
-      document.getElementsByClassName('golem-options-start')[0].value = this.state.gridIsLooping
-        ? 'Pause'
-        : 'Start';
+      const START_BUTTON = document.getElementById('golem-options-start');
+      const STEP_BUTTON = document.getElementById('golem-options-step');
+
+      if (this.state.gridIsLooping) {
+        START_BUTTON.value = 'Pause';
+        STEP_BUTTON.disabled = true;
+      } else {
+        START_BUTTON.value = 'Start';
+        STEP_BUTTON.disabled = false;
+      }
     });
   }
 
@@ -45,12 +52,6 @@ export default class GolemMain extends React.Component {
         buttonClick: ''
       });
     });
-  }
-
-  /**
-   * immediately reset the buttonClick state to perform a single action
-   */
-  resetButtonClickState = () => {
   }
 
   /**
