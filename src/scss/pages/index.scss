@@ -18,19 +18,27 @@ body {
   min-height: 100%;
 }
 
-.golem-h1-wrapper {
+.golem-heading-wrapper {
   display: flex;
   justify-content: center;
 }
 
-.golem-h1 {
-  display: inline-block;
-  margin: .5rem auto 0 auto;
+.golem-heading {
+  font-size: 1.25rem;
+  margin: .5rem 5px 0 5px;
   padding: .75rem;
   border-top: 2px solid $color-golem-fg;
   border-right: 2px solid $color-golem-fg;
   border-left: 2px solid $color-golem-fg;
   text-align: center;
+
+  @media screen and (min-width: $bp-sm) {
+    font-size: 1.5rem;
+  }
+
+  @media screen and (min-width: $bp-md) {
+    font-size: 2rem;
+  }
 }
 
 .p5Canvas {

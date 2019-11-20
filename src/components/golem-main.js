@@ -60,8 +60,8 @@ export default class GolemMain extends React.Component {
   render() {
     return (
       <div className="golem-main">
-        <div className="golem-h1-wrapper">
-          <h1 className="golem-h1">Cellular Automaton</h1>
+        <div className="golem-heading-wrapper">
+          <span className="golem-heading">Cellular Automaton</span>
         </div>
         <P5Wrapper
           sketch={this.state.grid}
