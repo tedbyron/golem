@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "formik": "^2.0.4",
     "node-sass": "^4.13.0",
     "normalize.css": "^8.0.1",
     "p5": "^0.10.2",

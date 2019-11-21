@@ -1,5 +1,6 @@
 export default function GolemGrid(p5) {
   const MAX_CANVAS_WIDTH = 1200;
+  const MAX_CANVAS_HEIGHT = 400;
   const MAX_STATES = 25;
   const STATE_COLORS = [];
 
@@ -31,9 +32,7 @@ export default function GolemGrid(p5) {
     p5.background('#212121');
     generationCount++;
 
-    // draw live cells on the canvas and advance the state of the grid
-    // while loops for performance
-    let row = 0
+    let row = 0;
     while (row < rows) {
       let col = 0;
       while (col < cols) {
@@ -85,37 +84,39 @@ export default function GolemGrid(p5) {
    * calculate every future cell state into nextGrid
    */
   p5.gridStep = () => {
-    // loop through every cell and determine its future state
-    for (let row = 0; row < rows; row++) {
-      for (let col = 0; col < cols; col++) {
-        // get each cell's state and its number of neighbors
+    let row = 0;
+
+    while (row < rows) {
+      let col = 0;
+
+      while (col < cols) {
         const CURRENT_STATE = grid[row][col];
         const NEIGHBOR_COUNT = p5.getNeighborCount(row, col);
 
         if (!CURRENT_STATE) {
           if (birthRule.includes(NEIGHBOR_COUNT)) {
-            // if the cell fulfils the birth rule
             nextGrid[row][col] = 1;
           }
         } else if (CURRENT_STATE < generationRule - 1 || generationRule === 2) {
-          // if the cell fulfils the survival rule
-          let shouldSurvive = survivalRule === -1 ? false : survivalRule.includes(NEIGHBOR_COUNT);
+          const SHOULD_SURVIVE = survivalRule === -1
+            ? false
+            : survivalRule.includes(NEIGHBOR_COUNT);
 
-          if (!shouldSurvive) {
-            // advance the state if the cell should die
+          if (!SHOULD_SURVIVE) {
             nextGrid[row][col] = (CURRENT_STATE + 1) % generationRule;
           } else if (CURRENT_STATE === 1) {
-            // keep the state if the cell should survive and it's not already dying
             nextGrid[row][col] = CURRENT_STATE;
           } else {
-            // advance the state if the cell is dying
             nextGrid[row][col] = CURRENT_STATE + 1;
           }
-        } else if (CURRENT_STATE >= generationRule - 1) {
-          // if the cell has reached its final state before death
+        } else {
           nextGrid[row][col] = 0;
         }
+
+        col++;
       }
+
+      row++;
     }
   }
 
@@ -125,20 +126,20 @@ export default function GolemGrid(p5) {
    */
   p5.onWindowResize = () => {
     cellWidth = 5;
-    canvasWidth = Math.min(MAX_CANVAS_WIDTH, Math.floor((document.documentElement.clientWidth - 4) / cellWidth) * cellWidth);
-    canvasHeight = 500;
+    canvasWidth = Math.min(MAX_CANVAS_WIDTH, Math.floor((document.body.clientWidth - 4) / cellWidth) * cellWidth);
+    canvasHeight = Math.floor(MAX_CANVAS_HEIGHT / cellWidth) * cellWidth;
 
     rows = Math.floor(canvasWidth / cellWidth);
     cols = Math.floor(canvasHeight / cellWidth);
 
-    let tempGrid = grid.slice();
+    CONST TEMP_GRID = grid.slice();
 
     grid = new Array(rows).fill().map(() => new Array(cols));
     nextGrid = new Array(rows).fill().map(() => new Array(cols));
 
-    for (let row = 0; row < Math.min(tempGrid.length, grid.length); row++) {
-      for (let col = 0; col < Math.min(tempGrid[0].length, grid[0].length); col++) {
-        grid[row][col] = tempGrid[row][col];
+    for (let row = 0; row < Math.min(TEMP_GRID.length, grid.length); row++) {
+      for (let col = 0; col < Math.min(TEMP_GRID[0].length, grid[0].length); col++) {
+        grid[row][col] = TEMP_GRID[row][col];
       }
     }
 
@@ -151,8 +152,8 @@ export default function GolemGrid(p5) {
    */
   p5.setCanvasSize = () => {
     cellWidth = 5;
-    canvasWidth = Math.min(MAX_CANVAS_WIDTH, Math.floor((document.documentElement.clientWidth - 4) / cellWidth) * cellWidth);
-    canvasHeight = 500;
+    canvasWidth = Math.min(MAX_CANVAS_WIDTH, Math.floor((document.body.clientWidth - 4) / cellWidth) * cellWidth);
+    canvasHeight = Math.floor(MAX_CANVAS_HEIGHT / cellWidth) * cellWidth;
 
     rows = Math.floor(canvasWidth / cellWidth);
     cols = Math.floor(canvasHeight / cellWidth);
@@ -219,7 +220,6 @@ export default function GolemGrid(p5) {
     p5.stroke('black');
     p5.strokeWeight(0);
 
-    // set colors for all possible cell states
     STATE_COLORS.push(p5.color(0), p5.color(255, 214, 0));
     for (let i = 0; i < MAX_STATES - 2; i++) {
       STATE_COLORS.push(
@@ -243,9 +243,9 @@ export default function GolemGrid(p5) {
       [ 0, -1],           [ 0,  1],
       [ 1, -1], [ 1,  0], [ 1,  1]
     ];
+
     let count = 0;
 
-    // loop through available neighbors and count neighbors if they are alive and not dying
     for (const [i, j] of NEIGHBORS) {
       if (row + i >= 0
       && row + i < rows
@@ -265,13 +265,11 @@ export default function GolemGrid(p5) {
   p5.getRules = () => {
     const RULES_ARRAY = compactRules.match(/-?[0-9]+/g);
 
-    // number of neighbors needed for a dead cell to come to life
     birthRule = RULES_ARRAY[0].split('');
     for (let i = 0; i < birthRule.length; i++) {
       birthRule[i] = parseInt(birthRule[i], 10);
     }
 
-    // number of neighbors needed for a live cell to survive, -1 if cells cannot survive
     if (RULES_ARRAY[1].match(/-1/g)) {
       survivalRule = -1;
     } else {
@@ -281,7 +279,6 @@ export default function GolemGrid(p5) {
       }
     }
 
-    // number of possible cell states
     generationRule = Math.min(MAX_STATES, parseInt(RULES_ARRAY[2], 10));
   }
 }

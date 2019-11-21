@@ -21,26 +21,6 @@ export default class GolemMain extends React.Component {
   }
 
   /**
-   * set the gridIsLooping state to pass to the P5Wrapper; set button attributes
-   */
-  onStartStopClick = () => {
-    this.setState({
-      gridIsLooping: !this.state.gridIsLooping
-    }, () => {
-      const START_BUTTON = document.getElementById('golem-options-start');
-      const STEP_BUTTON = document.getElementById('golem-options-step');
-
-      if (this.state.gridIsLooping) {
-        START_BUTTON.value = 'Pause';
-        STEP_BUTTON.disabled = true;
-      } else {
-        START_BUTTON.value = 'Start';
-        STEP_BUTTON.disabled = false;
-      }
-    });
-  }
-
-  /**
    * set the buttonClick state to pass to the P5Wrapper; reset buttonClick state
    * @param button [string] the button that was pressed
    */
@@ -59,13 +39,38 @@ export default class GolemMain extends React.Component {
    * set the rules textbox placeholder to the preset rules
    */
   onSelectRulesChange = () => {
-    const SELECT_ELEMENT = document.getElementsByClassName('golem-input-select')[0];
+    const SELECT_ELEMENT = document.getElementById('golem-options-presets');
 
     this.setState({
       compactRules: SELECT_ELEMENT.options[SELECT_ELEMENT.selectedIndex].value
     }, () => {
-      document.getElementsByClassName('golem-input-text')[0].placeholder = this.state.compactRules
+      document.getElementById('golem-options-rules').placeholder = this.state.compactRules
     });
+  }
+
+  /**
+   * set the gridIsLooping state to pass to the P5Wrapper; set button attributes
+   */
+  onStartPauseClick = () => {
+    this.setState({
+      gridIsLooping: !this.state.gridIsLooping
+    }, this.setStartPause);
+  }
+
+  /**
+   * set the start/pause button value
+   */
+  setStartPause = () => {
+    const START_BUTTON = document.getElementById('golem-options-start');
+    const STEP_BUTTON = document.getElementById('golem-options-step');
+
+    if (this.state.gridIsLooping) {
+      START_BUTTON.value = 'Pause';
+      STEP_BUTTON.disabled = true;
+    } else {
+      START_BUTTON.value = 'Start';
+      STEP_BUTTON.disabled = false;
+    }
   }
 
   render() {
@@ -88,9 +93,10 @@ export default class GolemMain extends React.Component {
           </div>
           <GolemOptions
             compactRules={this.state.compactRules}
-            onStartStopClick={this.onStartStopClick}
             onButtonClick={this.onButtonClick}
             onSelectRulesChange={this.onSelectRulesChange}
+            onStartPauseClick={this.onStartPauseClick}
+            setStartPause={this.setStartPause}
           />
         </div>
       </div>

@@ -1,6 +1,6 @@
 {
   "short_name": "Golem",
-  "name": "Golem: Cellular Automaton Simulator",
+  "name": "Golem: A cellular automaton simulator in React and p5.js",
   "icons": [
     {
       "src": "favicon.ico",
