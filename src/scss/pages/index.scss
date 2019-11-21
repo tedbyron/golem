@@ -169,3 +169,7 @@ body {
   border: none;
   padding: .5rem .5rem;
 }
+
+.golem-input-text-invalid {
+  border-right: 1rem solid $color-golem-invalid;
+}

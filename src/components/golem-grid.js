@@ -1,13 +1,13 @@
 export default function GolemGrid(p5) {
   const MAX_CANVAS_WIDTH = 1200;
   const MAX_CANVAS_HEIGHT = 400;
-  const MAX_STATES = 25;
+  const MAX_GENS = 25;
   const STATE_COLORS = [];
 
   let cellWidth, canvasWidth, canvasHeight, rows, cols;
   let grid, nextGrid;
-  let compactRules, birthRule, survivalRule, generationRule;
-  let generationCount, speed, gridIsLooping;
+  let birthRule, survivalRule, generationRule;
+  let speed, gridIsLooping, generationCount;
 
   /**
    * initialize canvas and grids
@@ -18,10 +18,10 @@ export default function GolemGrid(p5) {
     p5.createCanvas(canvasWidth, canvasHeight);
     p5.frameRate(speed);
 
-    p5.setNextGridRandom();
     p5.setStyle();
-    p5.getRules();
+    p5.setNextGridRandom();
 
+    p5.noSmooth();
     p5.noLoop();
   }
 
@@ -36,7 +36,7 @@ export default function GolemGrid(p5) {
     while (row < rows) {
       let col = 0;
       while (col < cols) {
-        const CURRENT_STATE = Math.min(nextGrid[row][col], generationRule - 1);
+        const CURRENT_STATE = nextGrid[row][col];
         if (CURRENT_STATE) {
           p5.fill(STATE_COLORS[CURRENT_STATE]);
           p5.rect(row * cellWidth, col * cellWidth, cellWidth, cellWidth);
@@ -55,15 +55,21 @@ export default function GolemGrid(p5) {
    * @param props [object] inherited react props
    */
   p5.myCustomRedrawAccordingToNewPropsHandler = (props) => {
-    speed = props.speed;
-
-    if (compactRules !== props.compactRules) {
-      compactRules = props.compactRules;
-      p5.getRules();
+    if (birthRule !== props.birthRule
+    || survivalRule !== props.survivalRule
+    || generationRule !== props.generationRule) {
+      birthRule = props.birthRule;
+      survivalRule = props.survivalRule;
+      generationRule = Math.min(props.generationRule, MAX_GENS);
 
       if (grid instanceof Array) {
         p5.setNextGridSame(true);
       }
+    }
+
+    if (speed !== props.speed) {
+      speed = props.speed;
+      p5.frameRate(speed);
     }
 
     if (gridIsLooping !== props.gridIsLooping) {
@@ -217,11 +223,11 @@ export default function GolemGrid(p5) {
    * set STATE_COLORS; generations after 1 have random colors
    */
   p5.setStyle = () => {
-    p5.stroke('black');
+    p5.stroke('#212121')
     p5.strokeWeight(0);
 
-    STATE_COLORS.push(p5.color(0), p5.color(255, 214, 0));
-    for (let i = 0; i < MAX_STATES - 2; i++) {
+    STATE_COLORS.push(p5.color('#212121'), p5.color(255, 214, 0));
+    for (let i = 0; i < MAX_GENS - 2; i++) {
       STATE_COLORS.push(
         p5.color(
           Math.floor(Math.random() * 251),
@@ -257,28 +263,5 @@ export default function GolemGrid(p5) {
     }
 
     return count;
-  }
-
-  /**
-   * separate the compactRules for later use
-   */
-  p5.getRules = () => {
-    const RULES_ARRAY = compactRules.match(/-?[0-9]+/g);
-
-    birthRule = RULES_ARRAY[0].split('');
-    for (let i = 0; i < birthRule.length; i++) {
-      birthRule[i] = parseInt(birthRule[i], 10);
-    }
-
-    if (RULES_ARRAY[1].match(/-1/g)) {
-      survivalRule = -1;
-    } else {
-      survivalRule = RULES_ARRAY[1].split('');
-      for (let i = 0; i < survivalRule.length; i++) {
-        survivalRule[i] = parseInt(survivalRule[i], 10);
-      }
-    }
-
-    generationRule = Math.min(MAX_STATES, parseInt(RULES_ARRAY[2], 10));
   }
 }

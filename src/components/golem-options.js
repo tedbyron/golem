@@ -2,7 +2,7 @@ import React from 'react';
 
 export default class GolemOptions extends React.Component {
   componentDidMount() {
-    document.getElementById('golem-options-rules').placeholder = this.props.compactRules;
+    this.props.onGolemOptionsDidMount();
   }
 
   componentDidUpdate() {
@@ -13,7 +13,7 @@ export default class GolemOptions extends React.Component {
     return (
       <div className="golem-options">
         <div className="golem-options-buttons">
-          <input type="button" className="golem-input-button" id="golem-options-start" value="Start" onClick={() => this.props.onStartPauseClick()}/>
+          <input type="button" className="golem-input-button" id="golem-options-start" value="Start" onClick={this.props.onStartPauseClick}/>
           <input type="button" className="golem-input-button" id="golem-options-step" value="Step" onClick={() => this.props.onButtonClick('step')}/>
           <input type="button" className="golem-input-button" value="Clear" onClick={() => this.props.onButtonClick('clear')}/>
           <input type="button" className="golem-input-button" value="Randomize" onClick={() => this.props.onButtonClick('randomize')}/>
@@ -21,12 +21,12 @@ export default class GolemOptions extends React.Component {
 
         <div className="golem-options-text">
           <label className="golem-input-label" htmlFor="compact-rules">Rules (B/S/C)</label>
-          <input type="text" className="golem-input-text" id="golem-options-rules" name="compact-rules" disabled/>
+          <input type="text" className="golem-input-text" id="golem-options-rules" name="compact-rules" onInput={this.props.onRulesInput}/>
         </div>
 
         <div className="golem-options-text">
           <label className="golem-input-label">Preset Rules</label>
-          <select className="golem-input-select" id="golem-options-presets" defaultValue="3/23/2" onChange={() => this.props.onSelectRulesChange()}>
+          <select className="golem-input-select" id="golem-options-presets" defaultValue="3/23/2" onChange={this.props.onSelectRulesChange}>
           <option value="" disabled>(None)</option>
           <option value="3457/2367/5">Banners</option>
           <option value="23/23/8">BelZhab</option>
@@ -77,10 +77,10 @@ export default class GolemOptions extends React.Component {
           <option value="" disabled></option>
           <option value="2567/4567/4">(Ted's) Beehive</option>
           <option value="456/4567/6">(Ted's) Dotcillation</option>
+          <option value="256/456/3">(Ted's) RainBrain</option>
           <option value="246/346/6">(Ted's) Runners</option>
           <option value="3678/34678/3">(Ted's) Starry Night</option>
           <option value="357/345/4">(Ted's) Sunbursts</option>
-          <option value="256/456/3">(Ted's) Ted's Brain</option>
         </select>
         </div>
       </div>
