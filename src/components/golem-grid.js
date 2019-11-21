@@ -132,7 +132,7 @@ export default function GolemGrid(p5) {
     rows = Math.floor(canvasWidth / cellWidth);
     cols = Math.floor(canvasHeight / cellWidth);
 
-    CONST TEMP_GRID = grid.slice();
+    const TEMP_GRID = grid.slice();
 
     grid = new Array(rows).fill().map(() => new Array(cols));
     nextGrid = new Array(rows).fill().map(() => new Array(cols));
