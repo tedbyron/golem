@@ -28,6 +28,9 @@ export default class GolemOptions extends React.Component {
           <label className="golem-input-label">Preset Rules</label>
           <select className="golem-input-select" id="golem-options-presets" defaultValue="3/23/2" onChange={this.props.onSelectRulesChange}>
           <option value="" disabled>(None)</option>
+          <option value="36/125/2">2x2</option>
+          <option value="34/23/2">34 Life</option>
+          <option value="4678/35678/2">Anneal</option>
           <option value="3457/2367/5">Banners</option>
           <option value="23/23/8">BelZhab</option>
           <option value="23/145678/8">BelZhab Sediment</option>
@@ -40,6 +43,8 @@ export default class GolemOptions extends React.Component {
           <option value="378/124567/4">Caterpillars</option>
           <option value="1234/2345/8">Circuit Genius</option>
           <option value="2/23/8">Cooties</option>
+          <option value="35678/5678/2">Diamoeba</option>
+          <option value="37/23/2">DryLife</option>
           <option value="36/012478/18">Ebb & Flow</option>
           <option value="37/012468/18">Ebb & Flow II</option>
           <option value="2/2/25">Faders</option>
@@ -54,9 +59,12 @@ export default class GolemOptions extends React.Component {
           <option value="3/23/2">Life</option>
           <option value="458/012345/3">Lines</option>
           <option value="3/345/6">LivingOnTheEdge</option>
+          <option value="3/1234/2">Mazectric</option>
           <option value="3/01245678/8">Meteor Guns</option>
+          <option value="3678/245/2">Morley</option>
           <option value="2478/45678/25">Nova</option>
           <option value="2/3/4">OrthoGo</option>
+          <option value="38/23/2">Pedestrian Life</option>
           <option value="34/345/6">Prairie on Fire</option>
           <option value="23/2/8">RainZha</option>
           <option value="2678/2467/6">Rake</option>
@@ -76,11 +84,13 @@ export default class GolemOptions extends React.Component {
           <option value="2356/1456/16">Xtasy</option>
           <option value="" disabled></option>
           <option value="2567/4567/4">(Ted's) Beehive</option>
-          <option value="456/4567/6">(Ted's) Dotcillation</option>
-          <option value="256/456/3">(Ted's) RainBrain</option>
-          <option value="246/346/6">(Ted's) Runners</option>
+          <option value="2/35/3">(Ted's) Headache</option>
+          <option value="378/2356/4">(Ted's) Mitosis</option>
+          <option value="2578/2578/6">(Ted's) Runners</option>
+          <option value="3/0123/2">(Ted's) SlowMaze</option>
           <option value="3678/34678/3">(Ted's) Starry Night</option>
           <option value="357/345/4">(Ted's) Sunbursts</option>
+          <option value="2468/3467/13">(Ted's) Zoomies</option>
         </select>
         </div>
       </div>
