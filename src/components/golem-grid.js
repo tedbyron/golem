@@ -58,7 +58,6 @@ export default function GolemGrid(p5) {
     if (birthRule !== props.rules[0]
     || survivalRule !== props.rules[1]
     || generationRule !== props.rules[2]) {
-      console.log(props.rules);
       birthRule = props.rules[0];
       survivalRule = props.rules[1];
       generationRule = Math.min(props.rules[2], MAX_GENS);
@@ -139,7 +138,7 @@ export default function GolemGrid(p5) {
     rows = Math.floor(canvasWidth / cellWidth);
     cols = Math.floor(canvasHeight / cellWidth);
 
-    const TEMP_GRID = grid.slice();
+    const TEMP_GRID = grid;
 
     grid = new Array(rows).fill().map(() => new Array(cols));
     nextGrid = new Array(rows).fill().map(() => new Array(cols));
