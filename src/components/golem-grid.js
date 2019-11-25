@@ -2,7 +2,7 @@ export default function GolemGrid(p5) {
   const MAX_CANVAS_WIDTH = 1200;
   const MAX_CANVAS_HEIGHT = 400;
   const MAX_GENS = 25;
-  const STATE_COLORS = [];
+  const GEN_COLORS = [];
 
   let cellWidth, canvasWidth, canvasHeight, rows, cols;
   let grid, nextGrid;
@@ -38,7 +38,7 @@ export default function GolemGrid(p5) {
       while (col < cols) {
         const CURRENT_STATE = nextGrid[row][col];
         if (CURRENT_STATE) {
-          p5.fill(STATE_COLORS[CURRENT_STATE]);
+          p5.fill(GEN_COLORS[CURRENT_STATE]);
           p5.rect(row * cellWidth, col * cellWidth, cellWidth, cellWidth);
         }
         grid[row][col] = CURRENT_STATE;
@@ -55,12 +55,13 @@ export default function GolemGrid(p5) {
    * @param props [object] inherited react props
    */
   p5.myCustomRedrawAccordingToNewPropsHandler = (props) => {
-    if (birthRule !== props.birthRule
-    || survivalRule !== props.survivalRule
-    || generationRule !== props.generationRule) {
-      birthRule = props.birthRule;
-      survivalRule = props.survivalRule;
-      generationRule = Math.min(props.generationRule, MAX_GENS);
+    if (birthRule !== props.rules[0]
+    || survivalRule !== props.rules[1]
+    || generationRule !== props.rules[2]) {
+      console.log(props.rules);
+      birthRule = props.rules[0];
+      survivalRule = props.rules[1];
+      generationRule = Math.min(props.rules[2], MAX_GENS);
 
       if (grid instanceof Array) {
         p5.setNextGridSame(true);
@@ -191,7 +192,10 @@ export default function GolemGrid(p5) {
   p5.setNextGridSame = (redraw) => {
     for (let row = 0; row < rows; row++) {
       for (let col = 0; col < cols; col++) {
-        nextGrid[row][col] = grid[row][col];
+        const CURRENT_STATE = grid[row][col];
+        nextGrid[row][col] = CURRENT_STATE < generationRule
+          ? CURRENT_STATE
+          : 0;
       }
     }
 
@@ -220,15 +224,15 @@ export default function GolemGrid(p5) {
   }
 
   /**
-   * set STATE_COLORS; generations after 1 have random colors
+   * set GEN_COLORS; generations after 1 have random colors
    */
   p5.setStyle = () => {
     p5.stroke('#212121')
     p5.strokeWeight(0);
 
-    STATE_COLORS.push(p5.color('#212121'), p5.color(255, 214, 0));
+    GEN_COLORS.push(p5.color('#212121'), p5.color(255, 214, 0));
     for (let i = 0; i < MAX_GENS - 2; i++) {
-      STATE_COLORS.push(
+      GEN_COLORS.push(
         p5.color(
           Math.floor(Math.random() * 251),
           Math.floor(Math.random() * 251),

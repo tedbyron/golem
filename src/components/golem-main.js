@@ -14,9 +14,7 @@ export default class GolemMain extends React.Component {
       grid: GolemGrid,
       generation: 0,
       speed: 30,
-      birthRule: [3],
-      survivalRule: [2, 3],
-      generationRule: 2,
+      rules: [[3], [2, 3], 2],
       gridIsLooping: false,
       buttonClick: ''
     };
@@ -41,7 +39,7 @@ export default class GolemMain extends React.Component {
    */
   onGolemOptionsDidMount = () => {
     const RULES_ELEMENT = document.getElementById('golem-options-rules');
-    RULES_ELEMENT.value = `${this.state.birthRule.join('')}/${this.state.survivalRule.join('')}/${this.state.generationRule}`
+    RULES_ELEMENT.value = `${this.state.rules[0].join('')}/${this.state.rules[1].join('')}/${this.state.rules[2]}`
   }
 
   /**
@@ -75,9 +73,7 @@ export default class GolemMain extends React.Component {
       && generationRule >= 2) {
         RULES_ELEMENT.classList.remove('golem-input-text-invalid');
         this.setState({
-          birthRule: birthRule,
-          survivalRule: survivalRule,
-          generationRule: generationRule
+          rules: [birthRule, survivalRule, generationRule]
         });
       } else {
         RULES_ELEMENT.classList.add('golem-input-text-invalid');
@@ -87,13 +83,24 @@ export default class GolemMain extends React.Component {
 
   /**
    * get the compactRules from the selected option in the rule select element;
-   * set the rules textbox placeholder to the preset rules
+   * set the rules textbox value to the selected preset's rules
    */
   onSelectRulesChange = () => {
     const SELECT_ELEMENT = document.getElementById('golem-options-presets');
-    document.getElementById('golem-options-rules').value = SELECT_ELEMENT.options[SELECT_ELEMENT.selectedIndex].value;
+    const SELECT_ELEMENT_VALUE = SELECT_ELEMENT.options[SELECT_ELEMENT.selectedIndex].value;
+    const RULES_ARRAY = SELECT_ELEMENT_VALUE.split('/');
 
-    this.onRulesInput();
+    document.getElementById('golem-options-rules').value = SELECT_ELEMENT_VALUE;
+
+    this.setState({
+      rules: [
+        RULES_ARRAY[0].split('').map(n => parseInt(n, 10)),
+        RULES_ARRAY[1].match(/-1/)
+          ? -1
+          : RULES_ARRAY[1].split('').map(n => parseInt(n, 10)),
+        parseInt(RULES_ARRAY[2], 10)
+      ]
+    });
   }
 
   /**
@@ -130,9 +137,7 @@ export default class GolemMain extends React.Component {
         <P5Wrapper
           sketch={this.state.grid}
           speed={this.state.speed}
-          birthRule={this.state.birthRule}
-          survivalRule={this.state.survivalRule}
-          generationRule={this.state.generationRule}
+          rules={this.state.rules}
           gridIsLooping={this.state.gridIsLooping}
           buttonClick={this.state.buttonClick}
         />
