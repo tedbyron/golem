@@ -22,7 +22,7 @@ export default class GolemMain extends React.Component {
 
   /**
    * set the buttonClick state to pass to the P5Wrapper; reset buttonClick state
-   * @param button [string] the button that was pressed
+   * @param {string} button - the button that was pressed
    */
   onButtonClick = (button) => {
     this.setState({

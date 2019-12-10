@@ -52,7 +52,7 @@ export default function GolemGrid(p5) {
 
   /**
    * react-p5-wrapper function for inheriting props
-   * @param props [object] inherited react props
+   * @param {Object} props - inherited react props
    */
   p5.myCustomRedrawAccordingToNewPropsHandler = (props) => {
     if (birthRule !== props.rules[0]
@@ -186,7 +186,7 @@ export default function GolemGrid(p5) {
   /**
    * set the next grid to be the same as the current to avoid a step using the
    * previous ruleset; for use when there is a change in rules
-   * @param redraw [boolean] whether the canvas should be redrawn
+   * @param {boolean} redraw - whether the canvas should be redrawn
    */
   p5.setNextGridSame = (redraw) => {
     for (let row = 0; row < rows; row++) {
@@ -242,9 +242,10 @@ export default function GolemGrid(p5) {
   }
 
   /**
-   * calculate the number of neighbors a cell has
-   * @param row [number] row number of the cell
-   * @param col [number] column number of the cell
+   * calculate the number of generation 1 neighbors a cell has
+   * @param   {number} row - row number of the cell
+   * @param   {number} column - column number of the cell
+   * @returns {number} number of generation 1 neighbors
    */
   p5.getNeighborCount = (row, col) => {
     const NEIGHBORS = [
