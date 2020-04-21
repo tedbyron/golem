@@ -3,7 +3,7 @@ module.exports = {
     defaultTitle: 'Golem',
     defaultAuthor: 'Teddy Byron',
     defaultDescription: 'A cellular automaton simulator written in Rust, compiled to WebAssembly, and rendered with PixiJS.',
-    siteUrl: 'https://teds.netlify.com',
+    siteUrl: 'https://teds.netlify.app',
     referrer: 'no-referrer-when-downgrade',
     colorScheme: 'only dark',
   },
@@ -11,7 +11,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-canonical-urls',
       options: {
-        siteUrl: 'https://teds.netlify.com',
+        siteUrl: 'https://teds.netlify.app',
         stripQueryString: true,
       },
     },
