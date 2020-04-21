@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Stage } from 'react-pixi-fiber';
-import { document, window } from 'browser-monads';
 
-import Cells from './cells';
+import GolemCells from './golemCells';
 import { Automaton } from '../../rs/pkg/golem';
 
 const MAX_WIDTH = 1200;
@@ -29,7 +28,7 @@ const GolemStage = class extends React.Component {
 
     const { rows, cols } = this.state;
     this.automaton = Automaton.new(rows, cols);
-    this.automaton.randomize_cells(25);
+    this.automaton.randomize_cells(25); // TODO
   }
 
   componentDidMount() {
@@ -87,7 +86,7 @@ const GolemStage = class extends React.Component {
         options={{ width, height, backgroundColor }}
         className="golem-stage"
       >
-        <Cells
+        <GolemCells
           rows={cols}
           cols={rows}
           cellsPtr={this.automaton.cells()}

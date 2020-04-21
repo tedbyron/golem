@@ -25,6 +25,6 @@ const behavior = {
     instance.endFill();
   },
 };
-const type = 'Cells';
+const type = 'GolemCells';
 
 export default CustomPIXIComponent(behavior, type);

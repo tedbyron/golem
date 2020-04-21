@@ -22,7 +22,6 @@
   },
   "homepage": "https://github.com/tedbyron/golem#readme",
   "dependencies": {
-    "browser-monads": "^1.0.0",
     "gatsby": "^2.20.27",
     "gatsby-plugin-canonical-urls": "^2.2.3",
     "gatsby-plugin-html-attributes": "^1.0.5",
@@ -36,7 +35,7 @@
     "gatsby-plugin-sitemap": "^2.3.5",
     "node-sass": "^4.13.1",
     "normalize.css": "^8.0.1",
-    "pixi.js": "^5.2.1",
+    "pixi.js": "^5.2.2",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
