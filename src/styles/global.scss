@@ -11,6 +11,7 @@ html {
 }
 
 body {
+  position: relative;
   font-family: $font-ps2p;
   font-size: 12px;
 }
@@ -46,9 +47,52 @@ select {
 }
 
 .golem-subheading {
+  font-size: 1rem;
   margin: 0;
   border: 2px solid $color-golem-fg;
   padding: 0.75rem;
+
+  @media screen and (min-width: $bp-sm) {
+    font-size: 1.25rem;
+  }
+
+  @media screen and (min-width: $bp-md) {
+    font-size: 1.5rem;
+  }
+}
+
+.golem-link-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+.golem-link {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid $color-golem-fg;
+  padding: 0.75rem;
+  background-color: $color-golem-bg;
+  color: $color-golem-fg;
+  text-align: center;
+  text-decoration: none;
+
+  &:hover:not(:disabled) {
+    background-color: $color-golem-hover;
+    cursor: pointer;
+  }
+
+  &:active {
+    border: 2px solid $color-golem-active;
+  }
+
+  @media screen and (min-width: $bp-sm) {
+    position: unset;
+    transform: unset;
+    font-size: 1.25rem;
+  }
 }
 
 .golem-stage-fallback {
@@ -117,13 +161,13 @@ select {
 }
 
 .golem-input-button {
-  padding: 0.5rem;
   border: 2px solid $color-golem-fg;
+  padding: 0.5rem;
   background-color: $color-golem-bg;
   color: $color-golem-fg;
 
   &:hover:not(:disabled) {
-    background-color: lighten($color-golem-bg, 15%);
+    background-color: $color-golem-hover;
     cursor: pointer;
   }
 
