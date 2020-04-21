@@ -9,4 +9,5 @@
     url('../fonts/press-start-2p-v8-latin-regular.woff') format('woff'),
     url('../fonts/press-start-2p-v8-latin-regular.ttf') format('truetype'),
     url('../fonts/press-start-2p-v8-latin-regular.svg#PressStart2P') format('svg');
+  font-display: swap;
 }
