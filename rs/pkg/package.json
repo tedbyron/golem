@@ -1,0 +1,21 @@
+{
+  "name": "golem",
+  "collaborators": [
+    "Teddy Byron <ted@tedbyron.com>"
+  ],
+  "description": "A cellular automaton simulator written in Rust, compiled to WebAssembly, and rendered with PixiJS.",
+  "version": "1.0.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tedbyron/golem"
+  },
+  "files": [
+    "golem_bg.wasm",
+    "golem.js",
+    "golem.d.ts"
+  ],
+  "module": "golem.js",
+  "types": "golem.d.ts",
+  "sideEffects": false
+}

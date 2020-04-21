@@ -1,35 +1,56 @@
 {
   "name": "golem",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "node-sass": "^4.13.0",
-    "normalize.css": "^8.0.1",
-    "p5": "^0.10.2",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "react-p5-wrapper": "^2.0.0",
-    "react-scripts": "3.2.0"
-  },
+  "version": "1.0.0",
+  "description": "A cellular automaton simulator written in Rust, compiled to WebAssembly, and rendered with PixiJS.",
+  "main": "n/a",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "clean": "gatsby clean",
+    "start": "npm run develop",
+    "build": "npm run clean && gatsby build",
+    "develop": "npm run clean && gatsby develop",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "preload-fonts": "gatsby-preload-fonts"
   },
-  "eslintConfig": {
-    "extends": "react-app"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tedbyron/golem.git"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "author": "Teddy Byron",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tedbyron/golem/issues"
+  },
+  "homepage": "https://github.com/tedbyron/golem#readme",
+  "dependencies": {
+    "browser-monads": "^1.0.0",
+    "gatsby": "^2.20.27",
+    "gatsby-plugin-canonical-urls": "^2.2.3",
+    "gatsby-plugin-html-attributes": "^1.0.5",
+    "gatsby-plugin-manifest": "^2.3.5",
+    "gatsby-plugin-netlify": "^2.2.3",
+    "gatsby-plugin-offline": "^3.1.4",
+    "gatsby-plugin-preload-fonts": "^1.1.3",
+    "gatsby-plugin-purgecss": "^5.0.0",
+    "gatsby-plugin-react-helmet": "^3.2.4",
+    "gatsby-plugin-sass": "^2.2.3",
+    "gatsby-plugin-sitemap": "^2.3.5",
+    "node-sass": "^4.13.1",
+    "normalize.css": "^8.0.1",
+    "pixi.js": "^5.2.1",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-helmet": "^6.0.0",
+    "react-pixi-fiber": "^0.14.0"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-loader": "^3.0.2",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-hooks": "^2.5.0",
+    "gatsby-plugin-eslint": "^2.0.8"
   }
 }
