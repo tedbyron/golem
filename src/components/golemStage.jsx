@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Stage } from 'react-pixi-fiber';
+import { createStageClass } from 'react-pixi-fiber';
 
 import GolemCells from './golemCells';
 import { Automaton } from '../../rs/pkg/golem';
 
 const MAX_WIDTH = 1200;
 const MAX_HEIGHT = 400;
+
+const Stage = createStageClass();
 
 const GolemStage = class extends React.Component {
   constructor(props) {
