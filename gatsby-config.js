@@ -41,15 +41,7 @@ module.exports = {
       },
     },
     'gatsby-plugin-preload-fonts',
-    {
-      resolve: 'gatsby-plugin-purgecss',
-      options: {
-        whitelist: [
-          '___gatsby',
-          'gatsby-focus-wrapper',
-        ],
-      },
-    },
+    'gatsby-plugin-purgecss',
     'gatsby-plugin-offline',
   ],
 };
