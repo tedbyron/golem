@@ -91,7 +91,7 @@ const GolemStage = class extends React.Component {
   }
 
   render() {
-    const { cellSize, colors } = this.props;
+    const { cellSize, stepSize, colors } = this.props;
     const {
       width, height, backgroundColor, rows, cols, automaton, displayObj,
     } = this.state;
@@ -103,6 +103,7 @@ const GolemStage = class extends React.Component {
       >
         <GolemCells
           cellSize={cellSize}
+          stepSize={stepSize}
           colors={colors}
           rows={rows}
           cols={cols}
@@ -118,5 +119,6 @@ export default GolemStage;
 
 GolemStage.propTypes = {
   cellSize: PropTypes.number.isRequired,
+  stepSize: PropTypes.number.isRequired,
   colors: PropTypes.arrayOf(PropTypes.number).isRequired,
 };

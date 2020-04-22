@@ -6,7 +6,7 @@ const behavior = {
   customDisplayObject: (props) => props.displayObj,
   customApplyProps: (instance, _, props) => {
     const {
-      app, cellSize, colors, rows, cols, automaton,
+      app, cellSize, stepSize, colors, rows, cols, automaton,
     } = props;
 
     app.ticker.add(() => {
@@ -30,7 +30,7 @@ const behavior = {
 
       instance.endFill();
 
-      automaton.step(1);
+      automaton.step(stepSize);
     });
   },
 };
