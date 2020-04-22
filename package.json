@@ -22,10 +22,10 @@
   },
   "homepage": "https://github.com/tedbyron/golem#readme",
   "dependencies": {
-    "gatsby": "^2.20.27",
+    "gatsby": "^2.20.29",
     "gatsby-plugin-canonical-urls": "^2.2.3",
     "gatsby-plugin-html-attributes": "^1.0.5",
-    "gatsby-plugin-manifest": "^2.3.5",
+    "gatsby-plugin-manifest": "^2.3.6",
     "gatsby-plugin-netlify": "^2.2.3",
     "gatsby-plugin-offline": "^3.1.4",
     "gatsby-plugin-preload-fonts": "^1.1.3",

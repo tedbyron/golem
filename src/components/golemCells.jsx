@@ -1,30 +1,39 @@
-import { CustomPIXIComponent } from 'react-pixi-fiber';
-import * as PIXI from 'pixi.js';
+import { CustomPIXIComponent, withApp } from 'react-pixi-fiber';
 
 import { memory } from '../../rs/pkg/golem_bg.wasm';
 
 const behavior = {
-  customDisplayObject: () => new PIXI.Graphics(),
-  customApplyProps: (instance, _, newProps) => {
+  customDisplayObject: (props) => props.displayObj,
+  customApplyProps: (instance, _, props) => {
     const {
-      rows, cols, cellsPtr, cellSize, colors,
-    } = newProps;
-    const cells = new Uint8Array(memory.buffer, cellsPtr, rows * cols);
+      app, cellSize, colors, rows, cols, automaton,
+    } = props;
 
-    instance.clear();
-    instance.beginFill(colors[0]);
+    app.ticker.add(() => {
+      const cells = new Uint8Array(memory.buffer, automaton.cells(), rows * cols);
 
-    for (let row = 0; row < rows; row += 1) {
-      for (let col = 0; col < cols; col += 1) {
-        if (cells[row * cols + col] > 0) {
-          instance.drawRect(row * cellSize, col * cellSize, cellSize, cellSize);
+      instance.clear();
+      instance.beginFill(colors[0]);
+
+      for (let row = 0; row < rows; row += 1) {
+        for (let col = 0; col < cols; col += 1) {
+          if (cells[row * cols + col] > 0) {
+            instance.drawRect(
+              col * cellSize,
+              row * cellSize,
+              cellSize,
+              cellSize,
+            );
+          }
         }
       }
-    }
 
-    instance.endFill();
+      instance.endFill();
+
+      automaton.step(1);
+    });
   },
 };
 const type = 'GolemCells';
 
-export default CustomPIXIComponent(behavior, type);
+export default withApp(CustomPIXIComponent(behavior, type));
