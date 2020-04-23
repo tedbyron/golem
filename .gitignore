@@ -105,3 +105,6 @@ public/
 
 # Rust build
 rs/target/
+
+# MacOS thingy
+.DS_Store
