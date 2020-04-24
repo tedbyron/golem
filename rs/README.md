@@ -1,3 +1,3 @@
 # golem
 
-> A cellular automaton simulator written in Rust, compiled to WebAssembly, and rendered with PixiJS.
+> A cellular automaton simulator written in Rust and compiled to WebAssembly.

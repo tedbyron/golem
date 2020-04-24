@@ -1,5 +1,5 @@
 {
-  "name": "golem",
+  "name": "golem-web",
   "version": "1.0.0",
   "description": "A cellular automaton simulator written in Rust, compiled to WebAssembly, and rendered with PixiJS.",
   "main": "n/a",
@@ -33,7 +33,8 @@
     "gatsby-plugin-react-helmet": "^3.2.4",
     "gatsby-plugin-sass": "^2.2.3",
     "gatsby-plugin-sitemap": "^2.3.5",
-    "node-sass": "^4.13.1",
+    "golem": "file:rs/pkg",
+    "node-sass": "^4.14.0",
     "normalize.css": "^8.0.1",
     "pixi.js": "^5.2.2",
     "prop-types": "^15.7.2",

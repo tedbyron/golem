@@ -14,16 +14,20 @@ const IndexPage = class extends React.Component {
     super(props);
     this.state = {
       cellSize: 5,
+      stepSize: 1,
       generation: 0, // TODO
+      grid: false, // TODO
       colors: [
+        0x212121,
         0xffd600,
       ],
-      grid: false, // TODO
     };
   }
 
   render() {
-    const { cellSize, colors, grid } = this.state;
+    const {
+      cellSize, stepSize, colors, grid,
+    } = this.state;
 
     return (
       <Layout>
@@ -51,8 +55,9 @@ const IndexPage = class extends React.Component {
             >
               <GolemStage
                 cellSize={cellSize}
-                colors={colors}
+                stepSize={stepSize}
                 grid={grid}
+                colors={colors}
               />
             </Suspense>
           )}

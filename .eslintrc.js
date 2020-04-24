@@ -17,4 +17,11 @@ module.exports = {
     'react',
     'react-hooks',
   ],
+  settings: {
+    'import/resolver': {
+      'node': {
+        'paths': ['rs/pkg']
+      },
+    },
+  },
 };
