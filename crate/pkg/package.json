@@ -12,10 +12,8 @@
   },
   "files": [
     "golem_bg.wasm",
-    "golem.js",
-    "golem.d.ts"
+    "golem.js"
   ],
   "module": "golem.js",
-  "types": "golem.d.ts",
   "sideEffects": false
 }

@@ -104,7 +104,7 @@ public/
 .tern-port
 
 # Rust build
-rs/target/
+crate/target/
 
 # MacOS thingy
 .DS_Store

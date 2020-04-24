@@ -6,29 +6,42 @@ const behavior = {
   customDisplayObject: (props) => props.displayObj,
   customApplyProps: (instance, _, props) => {
     const {
-      app, cellSize, stepSize, colors, rows, cols, automaton,
+      app, cellSize, stepSize, isPaused, colors, rows, cols, automaton,
     } = props;
 
-    app.ticker.add(() => {
+    const drawCells = () => {
       const cells = new Uint8Array(memory.buffer, automaton.cells(), rows * cols);
-
-      instance.clear();
 
       for (let row = 0; row < rows; row += 1) {
         for (let col = 0; col < cols; col += 1) {
-          instance.beginFill(colors[cells[row * cols + col]]);
-          instance.drawRect(
-            col * cellSize,
-            row * cellSize,
-            cellSize,
-            cellSize,
-          );
-          instance.endFill();
+          const state = cells[row * cols + col];
+          if (state > 0) {
+            instance.beginFill(colors[state]);
+            instance.drawRect(
+              col * cellSize,
+              row * cellSize,
+              cellSize,
+              cellSize,
+            );
+            instance.endFill();
+          }
         }
       }
+    };
 
-      automaton.step(stepSize);
-    });
+    if (app.ticker.count === 1) {
+      app.ticker.add(() => {
+        instance.clear();
+        drawCells();
+        automaton.step(stepSize);
+      });
+    }
+
+    if (isPaused) {
+      app.ticker.stop();
+    } else {
+      app.ticker.start();
+    }
   },
 };
 const type = 'GolemCells';

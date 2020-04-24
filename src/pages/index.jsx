@@ -12,21 +12,39 @@ const MAX_HEIGHT = 400;
 const IndexPage = class extends React.Component {
   constructor(props) {
     super(props);
+
+    const colors = [0x212121, 0xffd600];
+
+    for (let i = 0; i < 25; i += 1) {
+      colors.push(
+        parseInt(`${Math.floor(Math.random() * 251).toString(16)}${Math.floor(Math.random() * 251).toString(16)}${Math.floor(Math.random() * 251).toString(16)}`, 16),
+      );
+    }
+
     this.state = {
       cellSize: 5,
       stepSize: 1,
+      rules: { // TODO
+        survival: [2, 3],
+        birth: [3],
+        generation: 2,
+      },
       generation: 0, // TODO
+      isPaused: false,
       grid: false, // TODO
-      colors: [
-        0x212121,
-        0xffd600,
-      ],
+      colors,
     };
+  }
+
+  onStartPauseClick = () => {
+    this.setState((state) => ({
+      isPaused: !state.isPaused,
+    }));
   }
 
   render() {
     const {
-      cellSize, stepSize, colors, grid,
+      cellSize, stepSize, rules, generation, isPaused, grid, colors,
     } = this.state;
 
     return (
@@ -56,6 +74,8 @@ const IndexPage = class extends React.Component {
               <GolemStage
                 cellSize={cellSize}
                 stepSize={stepSize}
+                rules={rules}
+                isPaused={isPaused}
                 grid={grid}
                 colors={colors}
               />
@@ -64,8 +84,13 @@ const IndexPage = class extends React.Component {
 
 
           <div className="golem-control">
-            <GolemStats />
-            <GolemOptions />
+            <GolemStats
+              generation={generation}
+            />
+            <GolemOptions
+              isPaused={isPaused}
+              onStartPauseClick={this.onStartPauseClick}
+            />
           </div>
         </section>
       </Layout>

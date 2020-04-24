@@ -20,7 +20,7 @@ module.exports = {
   settings: {
     'import/resolver': {
       'node': {
-        'paths': ['rs/pkg']
+        'paths': ['crate/pkg']
       },
     },
   },

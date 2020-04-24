@@ -6,6 +6,10 @@ import * as PIXI from 'pixi.js';
 import { Automaton } from 'golem';
 import GolemCells from './golemCells';
 
+PIXI.settings.RESOLUTION = window.devicePixelRatio;
+PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
+PIXI.settings.GC_MODE = PIXI.GC_MODES.MANUAL;
+
 const MAX_WIDTH = 1200;
 const MAX_HEIGHT = 400;
 
@@ -33,18 +37,24 @@ const GolemStage = class extends React.Component {
     };
 
     const { automaton } = this.state;
-    automaton.randomize_cells(25); // TODO
+    automaton.randomize_cells(50); // TODO
   }
 
   componentDidMount() {
-    window.addEventListener('resize', this.onWindowResize);
+    window.addEventListener('resize', this.onResize);
   }
 
   componentDidUpdate(prevProps) {
-    const { cellSize } = this.props;
+    const { cellSize, rules } = this.props;
+    const { automaton } = this.state;
 
     if (cellSize !== prevProps.cellSize) {
-      this.onCellSizeChange(cellSize);
+      this.onResize();
+    }
+    if (rules !== prevProps.rules) {
+      automaton.set_survival_rule(rules.survival);
+      automaton.set_birth_rule(rules.birth);
+      automaton.set_generation_rule(rules.generation);
     }
   }
 
@@ -54,7 +64,9 @@ const GolemStage = class extends React.Component {
     displayObj.destroy();
   }
 
-  onCellSizeChange = (cellSize) => {
+  // TODO: resize automaton
+  onResize = () => {
+    const { cellSize } = this.props;
     const rows = Math.floor((MAX_HEIGHT - 4) / cellSize);
     const cols = Math.min(
       MAX_WIDTH / cellSize,
@@ -66,43 +78,33 @@ const GolemStage = class extends React.Component {
       height: rows * cellSize,
       rows,
       cols,
-    }, () => {
-      const { automaton } = this.state;
-      automaton.resize_width(cols);
-      automaton.resize_height(rows);
-    });
-  }
-
-  onWindowResize = () => {
-    const { cellSize } = this.props;
-    const { automaton } = this.state;
-    const cols = Math.min(
-      MAX_WIDTH / cellSize,
-      Math.floor((document.body.clientWidth - 4) / cellSize),
-    );
-
-    automaton.resize_width(cols);
-
-    this.setState({
-      width: cols * cellSize,
-      cols,
     });
   }
 
   render() {
-    const { cellSize, stepSize, colors } = this.props;
+    const {
+      cellSize, stepSize, isPaused, grid, colors,
+    } = this.props;
     const {
       width, height, backgroundColor, rows, cols, automaton, displayObj,
     } = this.state;
 
     return (
       <Stage
-        options={{ width, height, backgroundColor }}
+        options={{
+          width,
+          height,
+          backgroundColor,
+          autoDensity: true,
+          forceFXAA: true,
+        }}
         className="golem-stage"
       >
         <GolemCells
           cellSize={cellSize}
           stepSize={stepSize}
+          isPaused={isPaused}
+          grid={grid}
           colors={colors}
           rows={rows}
           cols={cols}
@@ -119,5 +121,12 @@ export default GolemStage;
 GolemStage.propTypes = {
   cellSize: PropTypes.number.isRequired,
   stepSize: PropTypes.number.isRequired,
+  rules: PropTypes.exact({
+    survival: PropTypes.arrayOf(PropTypes.number),
+    birth: PropTypes.arrayOf(PropTypes.number),
+    generation: PropTypes.number,
+  }).isRequired,
+  isPaused: PropTypes.bool.isRequired,
+  grid: PropTypes.bool.isRequired,
   colors: PropTypes.arrayOf(PropTypes.number).isRequired,
 };

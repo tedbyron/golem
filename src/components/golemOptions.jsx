@@ -1,16 +1,20 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const GolemOptions = () => (
+const GolemOptions = ({
+  isPaused,
+  onStartPauseClick,
+}) => (
   <div className="golem-options">
     <div className="golem-options-buttons">
-      <input type="button" className="golem-input-button" id="golem-options-start" value="Start" />
+      <input type="button" className="golem-input-button" id="golem-options-start" value={isPaused ? 'Start' : 'Pause'} onClick={onStartPauseClick} />
       <input type="button" className="golem-input-button" id="golem-options-step" value="Step" />
       <input type="button" className="golem-input-button" value="Clear" />
       <input type="button" className="golem-input-button" value="Randomize" />
     </div>
 
     <label className="golem-options-label" htmlFor="golem-options-rules">
-      <span className="golem-options-label-text">Rules (B/S/C)</span>
+      <span className="golem-options-label-text">Rules (S/B/C)</span>
       <input type="text" className="golem-input-text" id="golem-options-rules" />
     </label>
 
@@ -87,3 +91,8 @@ const GolemOptions = () => (
 );
 
 export default GolemOptions;
+
+GolemOptions.propTypes = {
+  isPaused: PropTypes.bool.isRequired,
+  onStartPauseClick: PropTypes.func.isRequired,
+};
