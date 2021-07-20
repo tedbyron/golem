@@ -37,17 +37,14 @@ module.exports = {
         start_url: '/',
         background_color: '#212121',
         theme_color: '#ffd600',
-        include_favicon: false,
+        icon: 'static/images/favicon.png',
       },
     },
     'gatsby-plugin-preload-fonts',
     {
       resolve: 'gatsby-plugin-purgecss',
       options: {
-        whitelist: [
-          '___gatsby',
-          'gatsby-focus-wrapper',
-        ],
+        whitelist: ['___gatsby', 'gatsby-focus-wrapper'],
       },
     },
     'gatsby-plugin-offline',

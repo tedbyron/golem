@@ -1,8 +1,7 @@
-#![warn(clippy::all, clippy::pedantic)]
-#![allow(clippy::doc_markdown)]
+#![warn(clippy::all, clippy::pedantic, clippy::nursery)]
 
-//! Cellular automaton simulation tools targeting
-//! [WebAssembly](https://webassembly.org).
+//! A cellular automaton simulator written in Rust and compiled to
+// `WebAssembly`.
 
 mod automaton;
 pub use automaton::Automaton;

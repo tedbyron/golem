@@ -1,10 +1,10 @@
-import { CustomPIXIComponent, withApp } from 'react-pixi-fiber';
+import { PixiComponent, withPixiApp } from '@inlet/react-pixi';
 
 import { memory } from 'golem/golem_bg.wasm';
 
 const behavior = {
-  customDisplayObject: (props) => props.displayObj,
-  customApplyProps: (instance, _, props) => {
+  create: (props) => props.displayObj,
+  applyProps: (instance, _, props) => {
     const {
       app, cellSize, stepSize, isPaused, colors, rows, cols, automaton,
     } = props;
@@ -44,6 +44,5 @@ const behavior = {
     }
   },
 };
-const type = 'GolemCells';
 
-export default withApp(CustomPIXIComponent(behavior, type));
+export default withPixiApp(PixiComponent('GolemCells', behavior));

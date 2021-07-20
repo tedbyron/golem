@@ -111,7 +111,7 @@ mod tests {
     }
 
     #[wasm_bindgen_test]
-    pub fn automaton_tick() {
+    pub fn automaton_step() {
         let mut a = build_automaton(6, 6, &[(1, 2), (2, 3), (3, 1), (3, 2), (3, 3)]);
         let a_1 = build_automaton(6, 6, &[(2, 1), (2, 3), (3, 2), (3, 3), (4, 2)]);
 

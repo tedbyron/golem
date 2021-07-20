@@ -1,4 +1,5 @@
 import React, { Suspense } from 'react';
+import * as PIXI from 'pixi.js';
 
 import Layout from '../components/layout';
 import GolemStats from '../components/golemStats';
@@ -34,13 +35,26 @@ const IndexPage = class extends React.Component {
       grid: false, // TODO
       colors,
     };
+
+    this.ticker = PIXI.Ticker.shared;
   }
 
   onStartPauseClick = () => {
     this.setState((state) => ({
       isPaused: !state.isPaused,
-    }));
+    }), () => {
+      const { isPaused } = this.state;
+
+      // TODO: what does this do? who knows? but it's here?
+      if (isPaused) {
+        this.ticker.stop();
+      } else {
+        this.ticker.start();
+      }
+    });
   }
+
+  onStepClick = () => {}
 
   render() {
     const {
@@ -67,7 +81,7 @@ const IndexPage = class extends React.Component {
                     height: Math.floor((MAX_HEIGHT - 4) / cellSize) * cellSize,
                   }}
                 >
-                  <span>Loading...</span>
+                  <span>Loading…</span>
                 </div>
               )}
             >
@@ -82,7 +96,6 @@ const IndexPage = class extends React.Component {
             </Suspense>
           )}
 
-
           <div className="golem-control">
             <GolemStats
               generation={generation}
@@ -90,6 +103,7 @@ const IndexPage = class extends React.Component {
             <GolemOptions
               isPaused={isPaused}
               onStartPauseClick={this.onStartPauseClick}
+              onStepClick={this.onStepClick}
             />
           </div>
         </section>

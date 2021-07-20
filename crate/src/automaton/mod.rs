@@ -27,8 +27,6 @@ impl Automaton {
     pub fn new(rows: usize, cols: usize) -> Self {
         utils::set_panic_hook();
 
-        let cells = vec![0; cols * rows];
-        let cells_step = vec![0; cols * rows];
         let neighbor_deltas = [
             [rows - 1, cols - 1],
             [rows - 1, 0],
@@ -43,8 +41,8 @@ impl Automaton {
         Self {
             rows,
             cols,
-            cells,
-            cells_step,
+            cells: vec![0; cols * rows],
+            cells_step: vec![0; cols * rows],
             rules: rules::Rules::default(),
             neighbor_deltas,
         }
@@ -52,10 +50,9 @@ impl Automaton {
 
     /// Resizes the automaton so that `cols` is equal to `new_width`.
     ///
-    /// If `new_width` is greater than `cols`, the automaton's rows are extended
-    /// by the difference, with each additional column filled with 0. If
-    /// `new_width` is less than `cols`, the automaton's rows are simply
-    /// truncated.
+    /// If `new_width` is greater than `cols`, the automaton's rows are extended by
+    /// the difference, with each additional column filled with 0. If `new_width` is
+    /// less than `cols`, the automaton's rows are simply truncated.
     pub fn resize_width(&mut self, new_width: usize) {
         match new_width.cmp(&self.cols) {
             Ordering::Greater => {
@@ -98,10 +95,9 @@ impl Automaton {
 
     /// Resizes the automaton so that `rows` is equal to `new_height`.
     ///
-    /// If `new_height` is greater than `rows`, the automaton's columns are
-    /// extended by the difference, with each additional row filled with 0. If
-    /// `new_height` is less than `rows`, the automaton's columns are simply
-    /// truncated.
+    /// If `new_height` is greater than `rows`, the automaton's columns are extended
+    /// by the difference, with each additional row filled with 0. If `new_height`
+    /// is less than `rows`, the automaton's columns are simply truncated.
     pub fn resize_height(&mut self, new_height: usize) {
         self.cells
             .resize_with(self.cols * new_height, Default::default);
@@ -117,8 +113,8 @@ impl Automaton {
         self.cells.as_ptr()
     }
 
-    /// Toggles the state of a cell. If the cell state is 0, it is set to 1. If
-    /// the cell is any other state, it is set to 0.
+    /// Toggles the state of a cell. If the cell state is 0, it is set to 1. If the
+    /// cell is any other state, it is set to 0.
     pub fn toggle_cell(&mut self, row: usize, col: usize) {
         let idx = self.index(row, col);
         if let Some(cell) = self.cells.get_mut(idx) {
@@ -150,8 +146,8 @@ impl Automaton {
 
     /// Randomizes the cell state of all the automaton's cells.
     ///
-    /// Loops through the automaton's cells and if `js_sys::Math::random` is
-    /// less than the percentage `n`, the cell state is set to 1.
+    /// Loops through the automaton's cells and if `js_sys::Math::random` is less
+    /// than the percentage `n`, the cell state is set to 1.
     pub fn randomize_cells(&mut self, n: f64) {
         for cell in &mut self.cells {
             *cell = if Math::random() < n / 100.0 { 1 } else { 0 };
@@ -181,13 +177,7 @@ impl Automaton {
                     let idx = self.index(row, col);
 
                     self.cells_step[idx] = match (self.cells[idx], self.neighbors(row, col)) {
-                        (0, n) => {
-                            if self.rules.birth.contains(&n) {
-                                1
-                            } else {
-                                0
-                            }
-                        }
+                        (0, n) => self.rules.birth.contains(&n).into(),
                         (1, n) if self.rules.survival.contains(&n) => 1,
                         (s, _) if s < self.rules.generation => s + 1,
                         _ => 0,
@@ -200,7 +190,7 @@ impl Automaton {
     }
 
     /// Returns the index of a cell in the automaton.
-    fn index(&self, row: usize, col: usize) -> usize {
+    const fn index(&self, row: usize, col: usize) -> usize {
         row * self.cols + col
     }
 
@@ -216,7 +206,7 @@ impl Automaton {
     }
 
     /// Returns the offsets of neighboring cell locations; these deltas are required
-    /// for an automaton's `neighbors` method.
+    /// for the automaton's `neighbors` method.
     fn set_neighbor_deltas(&mut self, rows: usize, cols: usize) {
         self.neighbor_deltas = [
             [rows - 1, cols - 1],
@@ -231,9 +221,10 @@ impl Automaton {
     }
 }
 
-/// Functions for integration tests.
 #[doc(hidden)]
 impl Automaton {
+    /// Function for integration tests.
+    ///
     /// Get a clone of the automaton's cells.
     #[must_use]
     pub fn to_vec(&self) -> Vec<u8> {

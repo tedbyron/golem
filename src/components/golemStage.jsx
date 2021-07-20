@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { createStageClass } from 'react-pixi-fiber';
+import { Stage } from '@inlet/react-pixi';
 import * as PIXI from 'pixi.js';
 
 import { Automaton } from 'golem';
@@ -12,8 +12,6 @@ PIXI.settings.GC_MODE = PIXI.GC_MODES.MANUAL;
 
 const MAX_WIDTH = 1200;
 const MAX_HEIGHT = 400;
-
-const Stage = createStageClass();
 
 const GolemStage = class extends React.Component {
   constructor(props) {
@@ -91,9 +89,9 @@ const GolemStage = class extends React.Component {
 
     return (
       <Stage
+        width={width}
+        height={height}
         options={{
-          width,
-          height,
           backgroundColor,
           autoDensity: true,
           forceFXAA: true,
@@ -122,9 +120,9 @@ GolemStage.propTypes = {
   cellSize: PropTypes.number.isRequired,
   stepSize: PropTypes.number.isRequired,
   rules: PropTypes.exact({
-    survival: PropTypes.arrayOf(PropTypes.number),
-    birth: PropTypes.arrayOf(PropTypes.number),
-    generation: PropTypes.number,
+    survival: PropTypes.arrayOf(PropTypes.number).isRequired,
+    birth: PropTypes.arrayOf(PropTypes.number).isRequired,
+    generation: PropTypes.number.isRequired,
   }).isRequired,
   isPaused: PropTypes.bool.isRequired,
   grid: PropTypes.bool.isRequired,

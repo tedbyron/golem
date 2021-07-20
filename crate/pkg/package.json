@@ -12,8 +12,15 @@
   },
   "files": [
     "golem_bg.wasm",
-    "golem.js"
+    "golem.js",
+    "golem_bg.js"
   ],
   "module": "golem.js",
-  "sideEffects": false
+  "sideEffects": false,
+  "keywords": [
+    "wasm",
+    "webassembly",
+    "game-of-life",
+    "cellular-automaton"
+  ]
 }

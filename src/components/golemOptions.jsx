@@ -4,11 +4,12 @@ import PropTypes from 'prop-types';
 const GolemOptions = ({
   isPaused,
   onStartPauseClick,
+  onStepClick,
 }) => (
   <div className="golem-options">
     <div className="golem-options-buttons">
       <input type="button" className="golem-input-button" id="golem-options-start" value={isPaused ? 'Start' : 'Pause'} onClick={onStartPauseClick} />
-      <input type="button" className="golem-input-button" id="golem-options-step" value="Step" />
+      <input type="button" className="golem-input-button" id="golem-options-step" value="Step" disabled={!isPaused} onClick={onStepClick} />
       <input type="button" className="golem-input-button" value="Clear" />
       <input type="button" className="golem-input-button" value="Randomize" />
     </div>
@@ -95,4 +96,5 @@ export default GolemOptions;
 GolemOptions.propTypes = {
   isPaused: PropTypes.bool.isRequired,
   onStartPauseClick: PropTypes.func.isRequired,
+  onStepClick: PropTypes.func.isRequired,
 };

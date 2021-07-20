@@ -19,8 +19,8 @@ module.exports = {
   ],
   settings: {
     'import/resolver': {
-      'node': {
-        'paths': ['crate/pkg']
+      node: {
+        paths: ['crate/pkg'],
       },
     },
   },
