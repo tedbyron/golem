@@ -15,7 +15,14 @@ module.exports = {
         stripQueryString: true,
       },
     },
-    'gatsby-plugin-eslint',
+    {
+      resolve: 'gatsby-plugin-eslint',
+      options: {
+        stages: ['develop'],
+        extensions: ['js', 'jsx', 'ts', 'tsx'],
+        exclude: ['node_modules', '.cache', 'public', 'crate'],
+      },
+    },
     {
       resolve: 'gatsby-plugin-html-attributes',
       options: {
