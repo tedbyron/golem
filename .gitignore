@@ -108,3 +108,6 @@ crate/target/
 
 # MacOS thingy
 .DS_Store
+
+# Local Netlify folder
+.netlify

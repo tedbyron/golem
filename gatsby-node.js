@@ -10,6 +10,7 @@ exports.onCreateWebpackConfig = ({ actions }) => {
     },
     experiments: {
       syncWebAssembly: true,
+      topLevelAwait: true,
     },
   });
 };

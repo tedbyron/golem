@@ -1,6 +1,6 @@
 import { PixiComponent, withPixiApp } from '@inlet/react-pixi';
 
-import { memory } from 'golem/golem_bg.wasm';
+const { memory } = await import('golem/golem_bg.wasm');
 
 const behavior = {
   create: (props) => props.displayObj,
