@@ -29,6 +29,7 @@ module.exports = {
         lang: 'en',
       },
     },
+    'gatsby-plugin-loadable-components-ssr',
     'gatsby-plugin-netlify',
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-sass',

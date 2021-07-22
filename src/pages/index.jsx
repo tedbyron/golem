@@ -1,11 +1,12 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import * as PIXI from 'pixi.js';
+import loadable from '@loadable/component';
 
 import Layout from '../components/layout';
 import GolemStats from '../components/golemStats';
 import GolemOptions from '../components/golemOptions';
 
-const GolemStage = React.lazy(() => import('../components/golemStage'));
+const GolemStage = loadable(() => import('../components/golemStage'));
 
 const MAX_WIDTH = 1200;
 const MAX_HEIGHT = 400;
@@ -68,33 +69,28 @@ const IndexPage = class extends React.Component {
             <h1 className="golem-heading">Golem</h1>
           </div>
 
-          { typeof document !== 'undefined' && (
-            <Suspense
-              fallback={(
-                <div
-                  className="golem-stage-fallback"
-                  style={{
-                    width: Math.min(
-                      MAX_WIDTH,
-                      Math.floor((document.body.clientWidth - 4) / cellSize) * cellSize,
-                    ),
-                    height: Math.floor((MAX_HEIGHT - 4) / cellSize) * cellSize,
-                  }}
-                >
-                  <span>Loading…</span>
-                </div>
-              )}
-            >
-              <GolemStage
-                cellSize={cellSize}
-                stepSize={stepSize}
-                rules={rules}
-                isPaused={isPaused}
-                grid={grid}
-                colors={colors}
-              />
-            </Suspense>
-          )}
+          <GolemStage
+            cellSize={cellSize}
+            stepSize={stepSize}
+            rules={rules}
+            isPaused={isPaused}
+            grid={grid}
+            colors={colors}
+            fallback={(
+              <div
+                className="golem-stage-fallback"
+                style={{
+                  width: Math.min(
+                    MAX_WIDTH,
+                    Math.floor((document.body.clientWidth - 4) / cellSize) * cellSize,
+                  ),
+                  height: Math.floor((MAX_HEIGHT - 4) / cellSize) * cellSize,
+                }}
+              >
+                <span>Loading…</span>
+              </div>
+            )}
+          />
 
           <div className="golem-control">
             <GolemStats

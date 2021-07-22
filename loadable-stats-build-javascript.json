@@ -1,0 +1,222 @@
+{
+  "hash": "f43f9dd263a453b221d5",
+  "publicPath": "/",
+  "outputPath": "C:\\Users\\Theodore.Byron\\Documents\\git\\golem",
+  "assetsByChunkName": {
+    "polyfill": [
+      "polyfill.js"
+    ],
+    "commons": [
+      "commons.css",
+      "commons.js"
+    ],
+    "component---cache-dev-404-page-js": [
+      "component---cache-dev-404-page-js.js"
+    ],
+    "component---src-pages-404-jsx": [
+      "component---src-pages-404-jsx.js"
+    ],
+    "component---src-pages-index-jsx": [
+      "component---src-pages-index-jsx.js"
+    ],
+    "components-golemStage": [
+      "components-golemStage.js"
+    ],
+    "framework": [
+      "framework.js"
+    ]
+  },
+  "assets": [
+    {
+      "type": "assets by status",
+      "cached": true,
+      "filteredChildren": 15,
+      "size": 12914102
+    }
+  ],
+  "namedChunkGroups": {
+    "polyfill": {
+      "name": "polyfill",
+      "chunks": [
+        "polyfill"
+      ],
+      "assets": [
+        {
+          "name": "polyfill.js"
+        }
+      ],
+      "filteredAssets": 0,
+      "assetsSize": null,
+      "filteredAuxiliaryAssets": 0,
+      "auxiliaryAssetsSize": 0,
+      "children": {},
+      "childAssets": {}
+    },
+    "commons": {
+      "name": "commons",
+      "chunks": [
+        "framework",
+        "commons"
+      ],
+      "assets": [
+        {
+          "name": "framework.js"
+        },
+        {
+          "name": "commons.css"
+        },
+        {
+          "name": "commons.js"
+        }
+      ],
+      "filteredAssets": 0,
+      "assetsSize": null,
+      "filteredAuxiliaryAssets": 5,
+      "auxiliaryAssetsSize": null,
+      "children": {},
+      "childAssets": {}
+    },
+    "component---cache-dev-404-page-js": {
+      "name": "component---cache-dev-404-page-js",
+      "chunks": [
+        "component---cache-dev-404-page-js"
+      ],
+      "assets": [
+        {
+          "name": "component---cache-dev-404-page-js.js"
+        }
+      ],
+      "filteredAssets": 0,
+      "assetsSize": null,
+      "filteredAuxiliaryAssets": 0,
+      "auxiliaryAssetsSize": 0,
+      "children": {},
+      "childAssets": {}
+    },
+    "component---src-pages-404-jsx": {
+      "name": "component---src-pages-404-jsx",
+      "chunks": [
+        "framework",
+        "commons",
+        "component---src-pages-404-jsx"
+      ],
+      "assets": [
+        {
+          "name": "framework.js"
+        },
+        {
+          "name": "commons.css"
+        },
+        {
+          "name": "commons.js"
+        },
+        {
+          "name": "component---src-pages-404-jsx.js"
+        }
+      ],
+      "filteredAssets": 0,
+      "assetsSize": null,
+      "filteredAuxiliaryAssets": 5,
+      "auxiliaryAssetsSize": null,
+      "children": {},
+      "childAssets": {}
+    },
+    "component---src-pages-index-jsx": {
+      "name": "component---src-pages-index-jsx",
+      "chunks": [
+        "framework",
+        "commons",
+        "component---src-pages-index-jsx"
+      ],
+      "assets": [
+        {
+          "name": "framework.js"
+        },
+        {
+          "name": "commons.css"
+        },
+        {
+          "name": "commons.js"
+        },
+        {
+          "name": "component---src-pages-index-jsx.js"
+        }
+      ],
+      "filteredAssets": 0,
+      "assetsSize": null,
+      "filteredAuxiliaryAssets": 5,
+      "auxiliaryAssetsSize": null,
+      "children": {},
+      "childAssets": {}
+    },
+    "components-golemStage": {
+      "name": "components-golemStage",
+      "chunks": [
+        "components-golemStage"
+      ],
+      "assets": [
+        {
+          "name": "components-golemStage.js"
+        }
+      ],
+      "filteredAssets": 0,
+      "assetsSize": null,
+      "filteredAuxiliaryAssets": 1,
+      "auxiliaryAssetsSize": null,
+      "children": {},
+      "childAssets": {}
+    }
+  },
+  "generator": "loadable-components",
+  "chunks": [
+    {
+      "id": "polyfill",
+      "files": [
+        "polyfill.js"
+      ]
+    },
+    {
+      "id": "commons",
+      "files": [
+        "commons.css",
+        "commons.js"
+      ]
+    },
+    {
+      "id": "_cache_dummy_js",
+      "files": [
+        "_cache_dummy_js.js"
+      ]
+    },
+    {
+      "id": "component---cache-dev-404-page-js",
+      "files": [
+        "component---cache-dev-404-page-js.js"
+      ]
+    },
+    {
+      "id": "component---src-pages-404-jsx",
+      "files": [
+        "component---src-pages-404-jsx.js"
+      ]
+    },
+    {
+      "id": "component---src-pages-index-jsx",
+      "files": [
+        "component---src-pages-index-jsx.js"
+      ]
+    },
+    {
+      "id": "components-golemStage",
+      "files": [
+        "components-golemStage.js"
+      ]
+    },
+    {
+      "id": "framework",
+      "files": [
+        "framework.js"
+      ]
+    }
+  ]
+}
