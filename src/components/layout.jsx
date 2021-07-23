@@ -14,15 +14,17 @@ const Layout = ({
   children,
 }) => (
   <>
-    <Head
-      title={title}
-      description={description}
-      pathname={pathname}
-    />
+    <React.StrictMode>
+      <Head
+        title={title}
+        description={description}
+        pathname={pathname}
+      />
 
-    <main role="main">
-      {children}
-    </main>
+      <main role="main">
+        {children}
+      </main>
+    </React.StrictMode>
   </>
 );
 

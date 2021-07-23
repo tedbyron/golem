@@ -69,28 +69,30 @@ const IndexPage = class extends React.Component {
             <h1 className="golem-heading">Golem</h1>
           </div>
 
-          <GolemStage
-            cellSize={cellSize}
-            stepSize={stepSize}
-            rules={rules}
-            isPaused={isPaused}
-            grid={grid}
-            colors={colors}
-            fallback={(
-              <div
-                className="golem-stage-fallback"
-                style={{
-                  width: Math.min(
-                    MAX_WIDTH,
-                    Math.floor((document.body.clientWidth - 4) / cellSize) * cellSize,
-                  ),
-                  height: Math.floor((MAX_HEIGHT - 4) / cellSize) * cellSize,
-                }}
-              >
-                <span>Loading…</span>
-              </div>
-            )}
-          />
+          { typeof document !== 'undefined' && (
+            <GolemStage
+              cellSize={cellSize}
+              stepSize={stepSize}
+              rules={rules}
+              isPaused={isPaused}
+              grid={grid}
+              colors={colors}
+              fallback={(
+                <div
+                  className="golem-stage-fallback"
+                  style={{
+                    width: Math.min(
+                      MAX_WIDTH,
+                      Math.floor((document.body.clientWidth - 4) / cellSize) * cellSize,
+                    ),
+                    height: Math.floor((MAX_HEIGHT - 4) / cellSize) * cellSize,
+                  }}
+                >
+                  <span>Loading…</span>
+                </div>
+              )}
+            />
+          )}
 
           <div className="golem-control">
             <GolemStats
