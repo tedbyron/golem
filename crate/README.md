@@ -1,3 +1,3 @@
 # golem
 
-> A cellular automaton simulator written in Rust and compiled to WebAssembly.
+> A cellular automaton simulation library with WebAssembly as a target.

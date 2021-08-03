@@ -1,14 +1,19 @@
 [package]
-name = "golem"
-description = "A cellular automaton simulator written in Rust, compiled to WebAssembly, and rendered with PixiJS."
-version = "1.0.0"
+name = "cellular-automaton"
+description = "A cellular automaton simulation library with WebAssembly as a target."
+version = "0.1.0"
 authors = ["Teddy Byron <ted@tedbyron.com>"]
 repository = "https://github.com/tedbyron/golem"
+homepage = "https://github.com/tedbyron/golem"
+documentation = "https://github.com/tedbyron/golem"
 readme = "README.md"
 keywords = ["wasm", "webassembly", "game-of-life", "cellular-automaton"]
 categories = ["wasm", "games"]
 license = "MIT"
 edition = "2018"
+exclude = [
+    "pkg/",
+]
 
 [lib]
 crate-type = ["cdylib", "rlib"]
