@@ -3,6 +3,13 @@
     "@loadable/babel-plugin"
   ],
   "presets": [
-    "babel-preset-gatsby"
+    [
+      "babel-preset-gatsby",
+      {
+        "targets": {
+          "browsers": ["> 0.5%, last 2 versions, supports wasm"]
+        }
+      }
+    ]
   ]
 }

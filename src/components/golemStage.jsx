@@ -33,9 +33,6 @@ const GolemStage = class extends React.Component {
       automaton: Automaton.new(rows, cols),
       displayObj: new PIXI.Graphics(),
     };
-
-    const { automaton } = this.state;
-    automaton.randomize_cells(50); // TODO
   }
 
   componentDidMount() {

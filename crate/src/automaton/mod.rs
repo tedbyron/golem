@@ -5,7 +5,6 @@ use std::cmp::Ordering;
 use std::iter;
 use std::mem;
 
-use js_sys::Math;
 use wasm_bindgen::prelude::wasm_bindgen;
 
 /// A two-dimensional cellular automaton with a finite grid of cells.
@@ -146,11 +145,15 @@ impl Automaton {
 
     /// Randomizes the cell state of all the automaton's cells.
     ///
-    /// Loops through the automaton's cells and if `js_sys::Math::random` is less
+    /// Loops through the automaton's cells and if `rand::random()` is less
     /// than the percentage `n`, the cell state is set to 1.
     pub fn randomize_cells(&mut self, n: f64) {
         for cell in &mut self.cells {
-            *cell = if Math::random() < n / 100.0 { 1 } else { 0 };
+            *cell = if rand::random::<f64>() < n / 100.0 {
+                1
+            } else {
+                0
+            };
         }
     }
 
@@ -197,7 +200,10 @@ impl Automaton {
     /// Returns the count of a cell's live, first-generation neighbors.
     fn neighbors(&self, row: usize, col: usize) -> u8 {
         self.neighbor_deltas.iter().fold(0, |count, delta| {
-            match self.cells[self.index((row + delta[0]) % self.rows, (col + delta[1]) % self.cols)]
+            match self
+                .cells
+                .get(self.index((row + delta[0]) % self.rows, (col + delta[1]) % self.cols))
+                .unwrap_or(&count)
             {
                 1 => count + 1,
                 _ => count,
@@ -217,7 +223,7 @@ impl Automaton {
             [1, cols - 1],
             [1, 0],
             [1, 1],
-        ]
+        ];
     }
 }
 

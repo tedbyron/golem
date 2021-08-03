@@ -20,6 +20,15 @@ function takeObject(idx) {
     return ret;
 }
 
+function addHeapObject(obj) {
+    if (heap_next === heap.length) heap.push(heap.length + 1);
+    const idx = heap_next;
+    heap_next = heap[idx];
+
+    heap[idx] = obj;
+    return idx;
+}
+
 const lTextDecoder = typeof TextDecoder === 'undefined' ? (0, module.require)('util').TextDecoder : TextDecoder;
 
 let cachedTextDecoder = new lTextDecoder('utf-8', { ignoreBOM: true, fatal: true });
@@ -62,13 +71,16 @@ function passArray8ToWasm0(arg, malloc) {
     return ptr;
 }
 
-function addHeapObject(obj) {
-    if (heap_next === heap.length) heap.push(heap.length + 1);
-    const idx = heap_next;
-    heap_next = heap[idx];
+function handleError(f, args) {
+    try {
+        return f.apply(this, args);
+    } catch (e) {
+        wasm.__wbindgen_exn_store(addHeapObject(e));
+    }
+}
 
-    heap[idx] = obj;
-    return idx;
+function getArrayU8FromWasm0(ptr, len) {
+    return getUint8Memory0().subarray(ptr / 1, ptr / 1 + len);
 }
 
 const lTextEncoder = typeof TextEncoder === 'undefined' ? (0, module.require)('util').TextEncoder : TextEncoder;
@@ -133,8 +145,6 @@ function getInt32Memory0() {
     }
     return cachegetInt32Memory0;
 }
-
-function notDefined(what) { return () => { throw new Error(`${what} is not defined`); }; }
 /**
 * A two-dimensional cellular automaton with a finite grid of cells.
 */
@@ -228,7 +238,7 @@ export class Automaton {
     /**
     * Randomizes the cell state of all the automaton's cells.
     *
-    * Loops through the automaton's cells and if `js_sys::Math::random` is less
+    * Loops through the automaton's cells and if `rand::random()` is less
     * than the percentage `n`, the cell state is set to 1.
     * @param {number} n
     */
@@ -269,6 +279,123 @@ export class Automaton {
     }
 }
 
+export function __wbg_randomFillSync_64cc7d048f228ca8() { return handleError(function (arg0, arg1, arg2) {
+    getObject(arg0).randomFillSync(getArrayU8FromWasm0(arg1, arg2));
+}, arguments) };
+
+export function __wbindgen_object_drop_ref(arg0) {
+    takeObject(arg0);
+};
+
+export function __wbg_getRandomValues_98117e9a7e993920() { return handleError(function (arg0, arg1) {
+    getObject(arg0).getRandomValues(getObject(arg1));
+}, arguments) };
+
+export function __wbg_process_2f24d6544ea7b200(arg0) {
+    var ret = getObject(arg0).process;
+    return addHeapObject(ret);
+};
+
+export function __wbindgen_is_object(arg0) {
+    const val = getObject(arg0);
+    var ret = typeof(val) === 'object' && val !== null;
+    return ret;
+};
+
+export function __wbg_versions_6164651e75405d4a(arg0) {
+    var ret = getObject(arg0).versions;
+    return addHeapObject(ret);
+};
+
+export function __wbg_node_4b517d861cbcb3bc(arg0) {
+    var ret = getObject(arg0).node;
+    return addHeapObject(ret);
+};
+
+export function __wbg_crypto_98fc271021c7d2ad(arg0) {
+    var ret = getObject(arg0).crypto;
+    return addHeapObject(ret);
+};
+
+export function __wbg_msCrypto_a2cdb043d2bfe57f(arg0) {
+    var ret = getObject(arg0).msCrypto;
+    return addHeapObject(ret);
+};
+
+export function __wbg_modulerequire_3440a4bcf44437db() { return handleError(function (arg0, arg1) {
+    var ret = module.require(getStringFromWasm0(arg0, arg1));
+    return addHeapObject(ret);
+}, arguments) };
+
+export function __wbg_newnoargs_68424965d85fcb08(arg0, arg1) {
+    var ret = new Function(getStringFromWasm0(arg0, arg1));
+    return addHeapObject(ret);
+};
+
+export function __wbg_call_9698e9b9c4668ae0() { return handleError(function (arg0, arg1) {
+    var ret = getObject(arg0).call(getObject(arg1));
+    return addHeapObject(ret);
+}, arguments) };
+
+export function __wbindgen_object_clone_ref(arg0) {
+    var ret = getObject(arg0);
+    return addHeapObject(ret);
+};
+
+export function __wbg_buffer_eb2155f17856c20b(arg0) {
+    var ret = getObject(arg0).buffer;
+    return addHeapObject(ret);
+};
+
+export function __wbg_self_3df7c33e222cd53b() { return handleError(function () {
+    var ret = self.self;
+    return addHeapObject(ret);
+}, arguments) };
+
+export function __wbg_window_0f90182e6c405ff2() { return handleError(function () {
+    var ret = window.window;
+    return addHeapObject(ret);
+}, arguments) };
+
+export function __wbg_globalThis_787cfd4f25a35141() { return handleError(function () {
+    var ret = globalThis.globalThis;
+    return addHeapObject(ret);
+}, arguments) };
+
+export function __wbg_global_af2eb7b1369372ed() { return handleError(function () {
+    var ret = global.global;
+    return addHeapObject(ret);
+}, arguments) };
+
+export function __wbindgen_is_undefined(arg0) {
+    var ret = getObject(arg0) === undefined;
+    return ret;
+};
+
+export function __wbg_length_0b194abde938d0c6(arg0) {
+    var ret = getObject(arg0).length;
+    return ret;
+};
+
+export function __wbg_new_ff8b26f7b2d7e2fb(arg0) {
+    var ret = new Uint8Array(getObject(arg0));
+    return addHeapObject(ret);
+};
+
+export function __wbg_set_67cdd115b9cb141f(arg0, arg1, arg2) {
+    getObject(arg0).set(getObject(arg1), arg2 >>> 0);
+};
+
+export function __wbg_newwithlength_a49b32b2030b93c3(arg0) {
+    var ret = new Uint8Array(arg0 >>> 0);
+    return addHeapObject(ret);
+};
+
+export function __wbg_subarray_1bb315d30e0c968c(arg0, arg1, arg2) {
+    var ret = getObject(arg0).subarray(arg1 >>> 0, arg2 >>> 0);
+    return addHeapObject(ret);
+};
+
 export function __wbg_new_59cb74e423758ede() {
     var ret = new Error();
     return addHeapObject(ret);
@@ -290,13 +417,17 @@ export function __wbg_error_4bb6c2a97407129a(arg0, arg1) {
     }
 };
 
-export function __wbindgen_object_drop_ref(arg0) {
-    takeObject(arg0);
+export function __wbindgen_is_string(arg0) {
+    var ret = typeof(getObject(arg0)) === 'string';
+    return ret;
 };
-
-export const __wbg_random_29218b0f217b2697 = typeof Math.random == 'function' ? Math.random : notDefined('Math.random');
 
 export function __wbindgen_throw(arg0, arg1) {
     throw new Error(getStringFromWasm0(arg0, arg1));
+};
+
+export function __wbindgen_memory() {
+    var ret = wasm.memory;
+    return addHeapObject(ret);
 };
 

@@ -6,11 +6,8 @@
   "scripts": {
     "build": "gatsby build",
     "develop": "gatsby develop",
-    "dev": "gatsby develop",
-    "start": "gatsby develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "preload-fonts": "gatsby-preload-fonts"
   },
   "repository": {
@@ -58,7 +55,7 @@
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "eslint-webpack-plugin": "^2.5.4",
+    "eslint-webpack-plugin": "^3.0.1",
     "gatsby-plugin-eslint": "^3.0.0"
   },
   "//": [
