@@ -1,5 +1,8 @@
 module.exports = {
-  parser: 'babel-eslint',
+  extends: [
+    'airbnb',
+    'airbnb/hooks',
+  ],
   globals: {
     document: true,
     window: true,
@@ -7,21 +10,11 @@ module.exports = {
     __PATH_PREFIX__: true,
     __BASE_PATH__: true,
   },
-  extends: [
-    'airbnb',
-    'airbnb/hooks',
-  ],
+  parser: '@babel/eslint-parser',
   plugins: [
     'import',
     'jsx-a11y',
     'react',
     'react-hooks',
   ],
-  settings: {
-    'import/resolver': {
-      node: {
-        paths: ['crate/pkg'],
-      },
-    },
-  },
 };

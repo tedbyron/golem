@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Head from './head';
 
 import 'normalize.css';
-import '../../static/fonts/fonts.css';
+import '../fonts/fonts.css';
 import '../styles/global.scss';
 
 const Layout = ({
@@ -14,17 +14,15 @@ const Layout = ({
   children,
 }) => (
   <>
-    <React.StrictMode>
-      <Head
-        title={title}
-        description={description}
-        pathname={pathname}
-      />
+    <Head
+      title={title}
+      description={description}
+      pathname={pathname}
+    />
 
-      <main role="main">
-        {children}
-      </main>
-    </React.StrictMode>
+    <main role="main">
+      {children}
+    </main>
   </>
 );
 

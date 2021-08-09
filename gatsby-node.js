@@ -1,5 +1,3 @@
-const LoadablePlugin = require('@loadable/webpack-plugin');
-
 exports.onCreateWebpackConfig = ({ actions }) => {
   actions.setWebpackConfig({
     module: {
@@ -13,8 +11,5 @@ exports.onCreateWebpackConfig = ({ actions }) => {
     experiments: {
       asyncWebAssembly: true,
     },
-    plugins: [
-      new LoadablePlugin(),
-    ],
   });
 };

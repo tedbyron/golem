@@ -1,7 +1,11 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/25b4d6b3-743c-4d32-9f12-64fa5edf0257/deploy-status)](https://app.netlify.com/sites/teds/deploys)
+<div align="center">
+  <h1><code>golem</code></h1>
 
-# golem
+  <p>
+    <strong>A cellular automaton simulator.</strong>
+  </p>
 
-> A cellular automaton simulator written in Rust, compiled to WebAssembly, and rendered with PixiJS.
-
-![program gif](screen.gif)
+  <p>
+    <a href="https://app.netlify.com/sites/teds/deploys"><img alt="Netlify deploy status" src="https://api.netlify.com/api/v1/badges/25b4d6b3-743c-4d32-9f12-64fa5edf0257/deploy-status"></a>
+  </p>
+</div>

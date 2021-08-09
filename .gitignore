@@ -103,9 +103,6 @@ public/
 # TernJS port file
 .tern-port
 
-# Rust build
-crate/target/
-
 # MacOS thingy
 .DS_Store
 

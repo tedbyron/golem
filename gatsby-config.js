@@ -2,7 +2,7 @@ module.exports = {
   siteMetadata: {
     defaultTitle: 'Golem',
     defaultAuthor: 'Teddy Byron',
-    defaultDescription: 'A cellular automaton simulator written in Rust, compiled to WebAssembly, and rendered with PixiJS.',
+    defaultDescription: 'A cellular automaton simulator.',
     siteUrl: 'https://teds.netlify.app',
     referrer: 'no-referrer-when-downgrade',
     colorScheme: 'only dark',
@@ -20,7 +20,7 @@ module.exports = {
       options: {
         stages: ['develop'],
         extensions: ['js', 'jsx', 'ts', 'tsx'],
-        exclude: ['node_modules', '.cache', 'public', 'crate'],
+        exclude: ['node_modules', '.cache', 'public'],
       },
     },
     {
@@ -30,31 +30,32 @@ module.exports = {
       },
     },
     'gatsby-plugin-loadable-components-ssr',
-    'gatsby-plugin-netlify',
-    'gatsby-plugin-react-helmet',
-    'gatsby-plugin-sass',
-    'gatsby-plugin-sitemap',
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
         name: 'Golem',
         short_name: 'Golem',
-        description: 'A cellular automaton simulator written in Rust, compiled to WebAssembly, and rendered with PixiJS.',
+        description: 'A cellular automaton simulator.',
         lang: 'en',
         display: 'minimal-ui',
         start_url: '/',
         background_color: '#212121',
         theme_color: '#ffd600',
-        icon: 'static/images/favicon.png',
+        icon: 'src/images/favicon.png',
       },
     },
+    'gatsby-plugin-netlify',
+    'gatsby-plugin-offline',
     'gatsby-plugin-preload-fonts',
+    'gatsby-plugin-react-helmet',
+    'gatsby-plugin-sass',
+    'gatsby-plugin-sitemap',
+
     {
       resolve: 'gatsby-plugin-purgecss',
       options: {
         whitelist: ['___gatsby', 'gatsby-focus-wrapper'],
       },
     },
-    'gatsby-plugin-offline',
   ],
 };
