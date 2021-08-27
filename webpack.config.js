@@ -7,7 +7,7 @@ module.exports = {
   devtool: 'inline-source-map',
   entry: './src/bootstrap.ts',
   experiments: {
-    syncWebAssembly: true,
+    asyncWebAssembly: true,
   },
   mode: 'production',
   module: {
@@ -22,7 +22,7 @@ module.exports = {
       },
       {
         test: /\.wasm$/,
-        type: 'webassembly/sync',
+        type: 'webassembly/async',
       },
     ],
   },
@@ -36,7 +36,7 @@ module.exports = {
     new ForkTsCheckerWebpackPlugin({
       eslint: {
         enabled: true,
-        files: './src/**/*',
+        files: './src/**/*.{ts,js}',
       },
     }),
     new HtmlWebpackPlugin({
