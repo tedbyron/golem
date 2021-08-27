@@ -1,20 +1,16 @@
 module.exports = {
   extends: [
-    'airbnb',
-    'airbnb/hooks',
+    'airbnb-base',
+    'airbnb-typescript/base',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/recommended-requiring-type-checking',
   ],
-  globals: {
-    document: true,
-    window: true,
-    graphql: true,
-    __PATH_PREFIX__: true,
-    __BASE_PATH__: true,
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    project: './tsconfig.json',
   },
-  parser: '@babel/eslint-parser',
   plugins: [
     'import',
-    'jsx-a11y',
-    'react',
-    'react-hooks',
+    '@typescript-eslint',
   ],
 };
