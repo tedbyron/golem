@@ -18,6 +18,10 @@
     "build": "webpack --config webpack.config.js",
     "start": "webpack-dev-server"
   },
+  "dependencies": {
+    "@tedbyron/ca": "^0.1.6",
+    "pixi.js": "^6.1.2"
+  },
   "devDependencies": {
     "copy-webpack-plugin": "^9.0.1",
     "webpack": "^5.51.1",
