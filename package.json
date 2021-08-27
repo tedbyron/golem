@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@tedbyron/ca": "^0.1.6",
+    "normalize.css": "^8.0.1",
     "pixi.js": "^6.1.2",
     "sass": "^1.38.1",
     "webpack": "^5.51.1"
