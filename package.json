@@ -1,64 +1,27 @@
 {
-  "name": "golem-web",
+  "name": "@tedbyron/golem",
   "version": "1.0.0",
-  "description": "A cellular automaton simulator written in Rust, compiled to WebAssembly, and rendered with PixiJS.",
-  "main": "n/a",
-  "scripts": {
-    "build": "gatsby build",
-    "develop": "gatsby develop",
-    "serve": "gatsby serve",
-    "clean": "gatsby clean",
-    "preload-fonts": "gatsby-preload-fonts"
-  },
+  "collaborators": [
+    "Teddy Byron <ted@tedbyron.com>"
+  ],
+  "description": "A cellular automaton simulator.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tedbyron/golem.git"
   },
-  "author": "Teddy Byron",
-  "license": "MIT",
+  "license": "MIT OR Apache-2.0",
   "bugs": {
     "url": "https://github.com/tedbyron/golem/issues"
   },
-  "homepage": "https://github.com/tedbyron/golem#readme",
-  "dependencies": {
-    "@inlet/react-pixi": "^6.6.3",
-    "@loadable/babel-plugin": "^5.13.2",
-    "@loadable/component": "^5.15.0",
-    "@loadable/webpack-plugin": "^5.15.0",
-    "babel-preset-gatsby": "^1.10.0",
-    "gatsby": "^3.10.0",
-    "gatsby-plugin-canonical-urls": "^3.10.0",
-    "gatsby-plugin-html-attributes": "^1.0.5",
-    "gatsby-plugin-loadable-components-ssr": "^3.2.0",
-    "gatsby-plugin-manifest": "^3.10.0",
-    "gatsby-plugin-netlify": "^3.10.0",
-    "gatsby-plugin-offline": "^4.10.0",
-    "gatsby-plugin-preload-fonts": "^2.10.0",
-    "gatsby-plugin-purgecss": "^6.0.2",
-    "gatsby-plugin-react-helmet": "^4.10.0",
-    "gatsby-plugin-sass": "^4.10.0",
-    "gatsby-plugin-sitemap": "^4.6.0",
-    "golem": "file:crate/pkg",
-    "node-sass": "^6.0.1",
-    "normalize.css": "^8.0.1",
-    "pixi.js": "^6.0.4",
-    "prop-types": "^15.7.2",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-helmet": "^6.1.0"
+  "homepage": "https://github.com/tedbyron/golem",
+  "scripts": {
+    "build": "webpack --config webpack.config.js",
+    "start": "webpack-dev-server"
   },
   "devDependencies": {
-    "babel-eslint": "^10.1.0",
-    "eslint": "^7.31.0",
-    "eslint-config-airbnb": "^18.2.1",
-    "eslint-plugin-import": "^2.23.4",
-    "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-react": "^7.24.0",
-    "eslint-plugin-react-hooks": "^4.2.0",
-    "eslint-webpack-plugin": "^3.0.1",
-    "gatsby-plugin-eslint": "^3.0.0"
-  },
-  "//": [
-    "//TODO: upgrade eslint-webpack-plugin to 3.0.0 after issue #106 fixed"
-  ]
+    "copy-webpack-plugin": "^9.0.1",
+    "webpack": "^5.51.1",
+    "webpack-cli": "^4.8.0",
+    "webpack-dev-server": "^4.0.0"
+  }
 }
