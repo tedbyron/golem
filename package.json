@@ -16,7 +16,7 @@
   "homepage": "https://github.com/tedbyron/golem",
   "scripts": {
     "build": "webpack --config webpack.config.js",
-    "start": "webpack-dev-server"
+    "dev": "webpack-dev-server"
   },
   "dependencies": {
     "@tedbyron/ca": "^0.1.6",

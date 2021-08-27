@@ -4,7 +4,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
 module.exports = {
-  devtool: 'inline-source-map',
   entry: './src/bootstrap.ts',
   experiments: {
     asyncWebAssembly: true,
