@@ -15,29 +15,43 @@
   },
   "homepage": "https://github.com/tedbyron/golem",
   "scripts": {
-    "build": "webpack --config webpack.config.js",
-    "dev": "webpack-dev-server"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
-    "@tedbyron/ca": "^0.1.6",
+    "@fullhuman/postcss-purgecss": "^4.0.3",
+    "@tedbyron/ca": "^0.1.5",
+    "@types/node": "^16.7.5",
+    "@types/react": "^17.0.19",
+    "@typescript-eslint/eslint-plugin": "^4.29.3",
+    "eslint-config-standard-with-typescript": "^20.0.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "next": "^11.0.1",
     "normalize.css": "^8.0.1",
-    "pixi.js": "^6.1.2",
-    "sass": "^1.38.1",
-    "webpack": "^5.51.1"
+    "postcss-flexbugs-fixes": "^5.0.2",
+    "postcss-preset-env": "^6.7.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "sass": "^1.37.5",
+    "typescript": "^4.4.2"
+  },
+  "browserslist": [
+    "> 0.2%",
+    "not dead",
+    "last 4 versions",
+    "supports wasm"
+  ],
+  "ts-standard": {
+    "ignore": [
+      ".next",
+      "node_modules"
+    ]
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^4.29.3",
-    "@typescript-eslint/parser": "^4.29.3",
-    "eslint": "^7.32.0",
-    "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-config-airbnb-typescript": "^14.0.0",
-    "eslint-plugin-import": "^2.24.2",
-    "eslint-webpack-plugin": "^3.0.1",
-    "fork-ts-checker-webpack-plugin": "^6.3.2",
-    "html-webpack-plugin": "^5.3.2",
-    "ts-loader": "^9.2.5",
-    "typescript": "^4.4.2",
-    "webpack-cli": "^4.8.0",
-    "webpack-dev-server": "^4.0.0"
+    "eslint": "7.32.0",
+    "eslint-config-next": "11.1.0"
   }
 }

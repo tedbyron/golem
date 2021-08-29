@@ -1,3 +1,2 @@
-.eslintrc.js
-webpack.config.js
-dist/
+next.config.js
+next-env.d.ts
