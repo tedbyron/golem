@@ -1,5 +1,9 @@
 use yew::{html, Component, ComponentLink, Html, ShouldRender};
 
+fn main() {
+    yew::start_app::<Model>();
+}
+
 #[derive(Debug)]
 pub struct Model;
 impl Component for Model {
@@ -27,8 +31,4 @@ impl Component for Model {
             </main>
         }
     }
-}
-
-fn main() {
-    yew::start_app::<Model>();
 }

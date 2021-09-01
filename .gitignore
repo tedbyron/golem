@@ -1,5 +1,11 @@
-# cargo build
-/target/
+# Cargo build
+target/
 
-# trunk build
-/dist/
+# Trunk build
+dist/
+
+# trunk config
+Trunk.toml
+
+# MacOS thingy
+.DS_Store
