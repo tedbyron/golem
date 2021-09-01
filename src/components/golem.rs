@@ -1,4 +1,4 @@
-use cellular_automaton::Automaton;
+use cellular_automaton::automaton_life_like::Automaton;
 use yew::{html, Component, ComponentLink, Html, ShouldRender};
 
 #[derive(Debug)]
