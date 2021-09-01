@@ -49,9 +49,9 @@ checksum = "c4872d67bab6358e59559027aa3b9157c53d9358c51423c17554809a8858e0f8"
 
 [[package]]
 name = "cellular-automaton"
-version = "0.1.8"
+version = "0.1.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5f06fad5123d74a4800b0b749e96cd86c85c4d4d3a7760d6190f80e88d580cea"
+checksum = "a4b6903b4f453cdc1aebec2454c1d55000028194ed25d79a7c7df81b0a276849"
 dependencies = [
  "cfg-if 1.0.0",
  "console_error_panic_hook",
@@ -167,6 +167,9 @@ name = "golem"
 version = "0.1.0"
 dependencies = [
  "cellular-automaton",
+ "gloo-timers",
+ "log",
+ "wasm-logger",
  "yew",
 ]
 
@@ -454,6 +457,17 @@ name = "wasm-bindgen-shared"
 version = "0.2.76"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "acdb075a845574a1fa5f09fd77e43f7747599301ea3417a9fbffdeedfc1f4a29"
+
+[[package]]
+name = "wasm-logger"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "074649a66bb306c8f2068c9016395fa65d8e08d2affcbf95acf3c24c3ab19718"
+dependencies = [
+ "log",
+ "wasm-bindgen",
+ "web-sys",
+]
 
 [[package]]
 name = "web-sys"

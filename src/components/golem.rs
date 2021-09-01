@@ -1,13 +1,19 @@
+use cellular_automaton::Automaton;
 use yew::{html, Component, ComponentLink, Html, ShouldRender};
 
 #[derive(Debug)]
-pub struct Golem;
+pub struct Golem {
+    automaton: Automaton,
+}
+
 impl Component for Golem {
     type Message = ();
     type Properties = ();
 
     fn create(_props: Self::Properties, _link: ComponentLink<Self>) -> Self {
-        Self
+        Self {
+            automaton: Automaton::new(500, 500),
+        }
     }
 
     fn update(&mut self, _msg: Self::Message) -> ShouldRender {
