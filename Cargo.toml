@@ -9,3 +9,6 @@ gloo-timers = "0.2.1"
 log = "0.4.14"
 wasm-logger = "0.2.0"
 yew = "0.18.0"
+
+[profile.dev]
+debug = 0
