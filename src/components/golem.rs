@@ -4,15 +4,17 @@ use yew::{html, Component, ComponentLink, Html, ShouldRender};
 #[derive(Debug)]
 pub struct Golem {
     automaton: Automaton,
+    link: ComponentLink<Self>,
 }
 
 impl Component for Golem {
     type Message = ();
     type Properties = ();
 
-    fn create(_props: Self::Properties, _link: ComponentLink<Self>) -> Self {
+    fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
         Self {
             automaton: Automaton::new(500, 500),
+            link,
         }
     }
 
@@ -26,10 +28,16 @@ impl Component for Golem {
 
     fn view(&self) -> Html {
         html! {
-            <main>
-                <img class="logo" src="https://yew.rs/img/logo.png" alt="Yew logo" />
-                <h1>{ "Hello World!" }</h1>
-                <span class="subtitle">{ "from Yew with " }<i class="heart" /></span>
+            <main role="main">
+                <section>
+                    <div class="golem-heading-wrapper">
+                        <h1 class="golem-heading">{ "Golem" }</h1>
+                    </div>
+                    <div className="golem-control">
+                        <GolemStats />
+                        <GolemOptions />
+                    </div>
+                </section>
             </main>
         }
     }
