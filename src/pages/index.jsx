@@ -38,13 +38,13 @@ const IndexPage = class extends React.Component {
     this.ticker = PIXI.Ticker.shared
   }
 
-  startStop () {
+  // TODO: this needs to be replaced by checking PIXI.Ticker.shared.started
+  startStop = () => {
     this.setState((state) => ({
       paused: !state.paused
     }), () => {
       const { paused } = this.state
 
-      // TODO: what does this do? who knows? but it's here?
       if (paused) {
         this.ticker.stop()
       } else {
@@ -53,7 +53,7 @@ const IndexPage = class extends React.Component {
     })
   }
 
-  step () {}
+  step = () => {}
 
   render () {
     const { cellSize, stepSize, rules, generation, paused, grid, colors } = this.state

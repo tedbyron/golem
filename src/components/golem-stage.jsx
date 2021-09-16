@@ -60,7 +60,7 @@ const GolemStage = class extends React.Component {
   }
 
   // TODO: resize automaton
-  resize () {
+  resize = () => {
     const { cellSize } = this.props
     const rows = Math.floor((MAX_HEIGHT - 4) / cellSize)
     const cols = Math.min(

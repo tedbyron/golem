@@ -96,5 +96,5 @@ export default GolemOptions
 GolemOptions.propTypes = {
   paused: PropTypes.bool.isRequired,
   handleStartStop: PropTypes.func.isRequired,
-  onStepClick: PropTypes.func.isRequired
+  handleStep: PropTypes.func.isRequired
 }

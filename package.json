@@ -49,9 +49,13 @@
     "sass": "^1.41.0"
   },
   "devDependencies": {
+    "@babel/eslint-parser": "*",
     "standard": "*"
   },
   "browserslist": [
     "> .5% and last 4 versions and supports wasm"
-  ]
+  ],
+  "standard": {
+    "parser": "@babel/eslint-parser"
+  }
 }
