@@ -1,0 +1,14 @@
+{
+  "presets": [
+    [
+      "babel-preset-gatsby",
+      {
+        "targets": {
+          "browsers": [
+            "> .5% and last 2 versions and supports wasm"
+          ]
+        }
+      }
+    ]
+  ]
+}

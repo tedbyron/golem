@@ -1,8 +1,0 @@
-[package]
-name = "golem"
-version = "0.1.0"
-edition = "2018"
-
-[dependencies]
-cellular-automaton = "0.1.8"
-yew = "0.18.0"

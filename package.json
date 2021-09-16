@@ -1,0 +1,57 @@
+{
+  "name": "@tedbyron/golem",
+  "version": "1.0.0",
+  "author": "Teddy Byron <ted@tedbyron.com>",
+  "description": "A cellular automaton simulator.",
+  "scripts": {
+    "dev": "gatsby develop",
+    "build": "gatsby build",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean",
+    "lint": "standard",
+    "preload-fonts": "gatsby-preload-fonts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tedbyron/golem.git"
+  },
+  "license": "MIT OR Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/tedbyron/golem/issues"
+  },
+  "homepage": "https://github.com/tedbyron/golem",
+  "dependencies": {
+    "@babel/core": "^7.15.5",
+    "@inlet/react-pixi": "^6.6.5",
+    "babel-preset-gatsby": "^1.13.0",
+    "gatsby": "^3.13.0",
+    "gatsby-plugin-canonical-urls": "^3.13.0",
+    "gatsby-plugin-html-attributes": "^1.0.5",
+    "gatsby-plugin-manifest": "^3.13.0",
+    "gatsby-plugin-netlify": "^3.14.0",
+    "gatsby-plugin-offline": "^4.13.0",
+    "gatsby-plugin-preload-fonts": "^2.13.0",
+    "gatsby-plugin-purgecss": "^6.0.2",
+    "gatsby-plugin-react-helmet": "^4.13.0",
+    "gatsby-plugin-sass": "^4.13.0",
+    "gatsby-plugin-sitemap": "^4.9.0",
+    "lib": "file:crate/pkg",
+    "normalize.css": "^8.0.1",
+    "pixi.js": "^6.1.3",
+    "prop-types": "^15.7.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-helmet": "^6.1.0",
+    "sass": "^1.41.0"
+  },
+  "devDependencies": {
+    "@babel/eslint-parser": "*",
+    "standard": "*"
+  },
+  "browserslist": [
+    "> .5% and last 2 versions and supports wasm"
+  ],
+  "standard": {
+    "parser": "@babel/eslint-parser"
+  }
+}
