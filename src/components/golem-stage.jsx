@@ -30,9 +30,11 @@ const GolemStage = class extends React.Component {
       backgroundColor: 0x212121,
       rows,
       cols,
-      automaton: new Automaton(rows, cols),
-      displayObj: new PIXI.Graphics()
+      automaton: new Automaton(rows, cols)
     }
+
+    const { automaton } = this.state
+    automaton.randomizeCells(50)
   }
 
   componentDidMount () {
@@ -47,16 +49,10 @@ const GolemStage = class extends React.Component {
       this.resize()
     }
     if (rules !== prevProps.rules) {
-      automaton.set_survival_rule(rules.survival)
-      automaton.set_birth_rule(rules.birth)
-      automaton.set_generation_rule(rules.generation)
+      automaton.rules.birth = rules.birth
+      automaton.rules.survival = rules.survival
+      automaton.rules.generation = rules.generation
     }
-  }
-
-  componentWillUnmount () {
-    const { automaton, displayObj } = this.state
-    automaton.free()
-    displayObj.destroy()
   }
 
   // TODO: resize automaton
@@ -77,8 +73,8 @@ const GolemStage = class extends React.Component {
   }
 
   render () {
-    const { cellSize, stepSize, paused, grid, colors } = this.props
-    const { width, height, backgroundColor, rows, cols, automaton, displayObj } = this.state
+    const { cellSize, grid, colors } = this.props
+    const { width, height, backgroundColor, rows, cols, automaton } = this.state
     const area = rows * cols
 
     return (
@@ -94,15 +90,12 @@ const GolemStage = class extends React.Component {
       >
         <GolemCells
           cellSize={cellSize}
-          stepSize={stepSize}
-          paused={paused}
           grid={grid}
           colors={colors}
           rows={rows}
           cols={cols}
+          cellsPtr={automaton.getCellsPtr()}
           area={area}
-          automaton={automaton}
-          displayObj={displayObj}
         />
       </Stage>
     )
@@ -113,13 +106,10 @@ export default GolemStage
 
 GolemStage.propTypes = {
   cellSize: PropTypes.number.isRequired,
-  stepSize: PropTypes.number.isRequired,
   rules: PropTypes.exact({
-    survival: PropTypes.arrayOf(PropTypes.number).isRequired,
     birth: PropTypes.arrayOf(PropTypes.number).isRequired,
+    survival: PropTypes.arrayOf(PropTypes.number).isRequired,
     generation: PropTypes.number.isRequired
   }).isRequired,
-  paused: PropTypes.bool.isRequired,
-  grid: PropTypes.bool.isRequired,
   colors: PropTypes.arrayOf(PropTypes.number).isRequired
 }

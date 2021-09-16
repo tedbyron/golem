@@ -21,7 +21,6 @@ module.exports = {
         lang: 'en'
       }
     },
-    'gatsby-plugin-loadable-components-ssr',
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
