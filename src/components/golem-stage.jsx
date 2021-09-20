@@ -1,5 +1,5 @@
 import { Stage } from '@inlet/react-pixi'
-import { Automaton } from 'lib'
+import { Automaton } from 'golem'
 import * as PIXI from 'pixi.js'
 import PropTypes from 'prop-types'
 import React from 'react'

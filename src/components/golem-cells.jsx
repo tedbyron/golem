@@ -1,5 +1,5 @@
 import { PixiComponent, withPixiApp } from '@inlet/react-pixi'
-import { memory } from 'lib/ca_bg.wasm'
+import { memory } from 'golem/lib_bg.wasm'
 import * as PIXI from 'pixi.js'
 
 const behavior = {

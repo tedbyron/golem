@@ -2,6 +2,6 @@
 
 //! A cellular automaton simulation library with support for `WebAssembly`.
 
-pub mod automaton_life_like;
+pub mod life_like;
 pub mod rule;
 pub mod ruleset;
