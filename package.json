@@ -5,7 +5,7 @@
   "description": "A cellular automaton simulator.",
   "scripts": {
     "build": "gatsby build",
-    "build-wasm": "wasm-pack build --out-name=lib",
+    "build-wasm": "wasm-pack build --release --out-name=lib",
     "clean": "gatsby clean; cargo clean",
     "dev": "gatsby develop",
     "lint": "standard",
