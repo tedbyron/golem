@@ -335,8 +335,8 @@ impl Automaton {
             for col in 0..self.cols {
                 let idx = self.index(row, col);
 
-                // TODO: only modify cells that change
-                // TODO: get all neighbor counts first and only update cells with state > 0 or neighbors
+                // TODO: only modify hot cells
+                // TODO: get neighbor counts then update cells with state > 0 or neighbors
                 self.cells_step[idx] = match (self.cells[idx], self.neighbors(row, col)) {
                     (0, n) => self.rules.birth.contains(&n) as u8,
                     (1, n) => self.rules.survival.contains(&n) as u8,
