@@ -20,7 +20,18 @@ impl BSC {
     /// # Examples
     ///
     /// ```
-    /// todo!()
+    /// use cellular_automaton::ruleset::BSC;
+    ///
+    /// let rules = BSC::default();
+    /// //  = BSC::new(&[3], &[2, 3], 2);
+    /// //  = BSC {
+    /// //      birth: vec![3],
+    /// //      survival: vec![2, 3],
+    /// //      generation: 1,
+    /// //  };
+    /// assert_eq!(rules.birth, vec![3]);
+    /// assert_eq!(rules.survival, vec![2, 3]);
+    /// assert_eq!(rules.generation, 1);
     /// ```
     #[wasm_bindgen(constructor)]
     #[must_use]

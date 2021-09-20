@@ -11,9 +11,9 @@
     "lint": "standard",
     "preload-fonts": "gatsby-preload-fonts",
     "serve": "gatsby serve",
-    "test-chrome": "wasm-pack test --headless --chrome",
-    "test-firefox": "wasm-pack test --headless --firefox",
-    "test-safari": "wasm-pack test --headless --safari"
+    "test-chrome": "cargo test && wasm-pack test --headless --chrome",
+    "test-firefox": "cargo test && wasm-pack test --headless --firefox",
+    "test-safari": "cargo test && wasm-pack test --headless --safari"
   },
   "repository": {
     "type": "git",

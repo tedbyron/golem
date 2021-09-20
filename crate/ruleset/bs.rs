@@ -14,12 +14,21 @@ pub struct BS {
 
 #[wasm_bindgen]
 impl BS {
-    /// Constructs a new ruleset containing birth, survival, and generation rules.
+    /// Constructs a new ruleset containing birth and survival rules.
     ///
     /// # Examples
     ///
     /// ```
-    /// todo!()
+    /// use cellular_automaton::ruleset::BS;
+    ///
+    /// let rules = BS::default();
+    /// //  = BS::new(&[3], &[2, 3]);
+    /// //  = BS {
+    /// //      birth: vec![3],
+    /// //      survival: vec![2, 3],
+    /// //  };
+    /// assert_eq!(rules.birth, vec![3]);
+    /// assert_eq!(rules.survival, vec![2, 3]);
     /// ```
     #[wasm_bindgen(constructor)]
     #[must_use]

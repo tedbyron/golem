@@ -1,5 +1,6 @@
 //! Life-like cellular automata.
 
+use rand::Rng;
 use std::{cmp::Ordering, iter, mem};
 use wasm_bindgen::prelude::wasm_bindgen;
 
@@ -33,7 +34,7 @@ impl Automaton {
     /// assert_eq!(a.rows(), 5);
     /// assert_eq!(a.cols(), 10);
     /// assert_eq!(a.rules, BSC::default());
-    /// assert_eq!(Vec::from(a), vec![0; 50]);
+    /// assert_eq!(<Vec<Vec<_>>>::from(&a), vec![[0; 10]; 5]);
     /// ```
     #[wasm_bindgen(constructor)]
     #[must_use]
@@ -81,7 +82,7 @@ impl Automaton {
 
     /// Resizes the automaton so that `rows` is equal to `new_rows`.
     ///
-    /// If `new_rows > self.rows`, the automaton's columns are extended by the
+    /// If `new_rows > rows`, the automaton's columns are extended by the
     /// difference, with each additional row filled with `0`. If `new_rows < rows`,
     /// the automaton's columns are simply truncated.
     ///
@@ -95,7 +96,7 @@ impl Automaton {
     ///
     /// a.set_rows(6);
     /// assert_eq!(a.rows(), 6);
-    /// assert_eq!(Vec::from(a), vec![0; 60])
+    /// assert_eq!(<Vec<Vec<_>>>::from(&a), vec![[0; 10]; 6]);
     /// ```
     #[wasm_bindgen(setter = rows)]
     pub fn set_rows(&mut self, new_rows: usize) {
@@ -140,7 +141,7 @@ impl Automaton {
     ///
     /// a.set_cols(9);
     /// assert_eq!(a.cols(), 9);
-    /// assert_eq!(Vec::from(a), vec![0; 45]);
+    /// assert_eq!(<Vec<Vec<_>>>::from(&a), vec![[0; 9]; 5]);
     /// ```
     #[wasm_bindgen(setter = cols)]
     pub fn set_cols(&mut self, new_cols: usize) {
@@ -195,11 +196,9 @@ impl Automaton {
     /// ```
     /// use cellular_automaton::life_like::Automaton;
     ///
-    /// let mut a = Automaton::new(2, 2);
-    /// assert_eq!(Vec::from(a.clone()), vec![0; 4]);
-    ///
-    /// a.toggle_cell(1, 2);
-    /// assert_eq!(Vec::from(a), vec![0, 1, 0, 0]);
+    /// let mut a = Automaton::new(2, 3);
+    /// a.toggle_cell(1, 1);
+    /// assert_eq!(<Vec<Vec<_>>>::from(&a), vec![[0, 0, 0], [0, 1, 0]]);
     /// ```
     #[wasm_bindgen(js_name = toggleCell)]
     pub fn toggle_cell(&mut self, row: usize, col: usize) {
@@ -223,13 +222,12 @@ impl Automaton {
     /// ```
     /// use cellular_automaton::life_like::Automaton;
     ///
-    /// let mut a = Automaton::new(2, 2);
-    /// assert_eq!(Vec::from(a.clone()), vec![0; 4]);
+    /// let mut a = Automaton::new(2, 3);
+    /// let coords = [[0, 1], [1, 1]];
+    /// let coords: Vec<usize> = coords.iter().copied().flatten().collect();
     ///
-    /// let coords = [[1, 2], [2, 2]];
-    /// let coords: Vec<usize> = coords.iter().cloned().flatten().collect();
     /// a.set_cells_on(&coords);
-    /// assert_eq!(Vec::from(a), vec![0, 1, 0, 1]);
+    /// assert_eq!(<Vec<Vec<_>>>::from(&a), vec![[0, 1, 0], [0, 1, 0]]);
     /// ```
     #[wasm_bindgen(js_name = setCellsOn)]
     pub fn set_cells_on(&mut self, locations: &[usize]) {
@@ -251,19 +249,17 @@ impl Automaton {
     /// rule.
     ///
     /// # Examples
+    ///
     /// ```
     /// use cellular_automaton::life_like::Automaton;
     ///
     /// let mut a = Automaton::new(5, 10);
-    /// assert_eq!(Vec::from(a.clone()), vec![0; 50]);
-    ///
     /// a.set_all_cells(1);
-    /// assert_eq!(Vec::from(a), vec![1; 50]);
+    /// assert_eq!(<Vec<Vec<_>>>::from(&a), vec![[1; 10]; 5]);
     /// ```
     #[wasm_bindgen(js_name = setAllCells)]
     pub fn set_all_cells(&mut self, n: u8) {
         if n <= self.rules.generation {
-            // FIXME: does `Vec::fill` fill to capacity or current length?
             self.cells.fill(n);
         }
     }
@@ -276,29 +272,65 @@ impl Automaton {
     /// actual ratio of live cells to dead cells is equal to `n`.
     ///
     /// # Examples
+    ///
     /// ```
-    /// todo!();
+    /// use cellular_automaton::life_like::Automaton;
+    ///
+    /// let mut a = Automaton::new(5, 10);
+    /// a.randomize_cells(0.5);
     /// ```
     #[wasm_bindgen(js_name = randomizeCells)]
     pub fn randomize_cells(&mut self, mut n: f64) {
+        // Ensure n is within bounds for comparison.
         if n < 0.0 {
             n = 0.0;
         } else if n > 1.0 {
             n = 1.0;
         }
 
+        // Cache the RNG.
+        let mut rng = rand::thread_rng();
+
+        // For every cell, generate and compare a random number to `n`.
         for cell in &mut self.cells {
-            *cell = if rand::random::<f64>() < n { 1 } else { 0 };
+            *cell = if rng.gen::<f64>() < n { 1 } else { 0 };
         }
     }
 
-    /// Calculates and the state of all cells in the automaton after `n` generations
+    /// Calculates next state of all cells in the automaton into `cells_next`,
+    /// and swaps `cells_next` with `cells`.
     ///
     /// # Examples
+    ///
     /// ```
-    /// todo!();
+    /// use cellular_automaton::life_like::Automaton;
+    ///
+    /// let mut a = Automaton::new(6, 6);
+    /// let coords = [[1, 2], [2, 3], [3, 1], [3, 2], [3, 3]];
+    /// let coords: Vec<usize> = coords.iter().copied().flatten().collect();
+    /// a.set_cells_on(&coords);
+    /// //       0  0  0  0  0  0
+    /// //       0  0  1  0  0  0
+    /// //       0  0  0  1  0  0
+    /// //       0  1  0  0  0  0
+    /// //       0  0  1  1  0  0
+    /// //       0  0  0  0  0  0
+    ///
+    /// a.step();
+    /// assert_eq!(
+    ///     <Vec<Vec<_>>>::from(&a),
+    ///     vec![
+    ///         [0, 0, 0, 0, 0, 0],
+    ///         [0, 0, 0, 0, 0, 0],
+    ///         [0, 1, 0, 1, 0, 0],
+    ///         [0, 0, 1, 1, 0, 0],
+    ///         [0, 0, 1, 0, 0, 0],
+    ///         [0, 0, 0, 0, 0, 0],
+    ///     ],
+    /// );
     /// ```
     pub fn step(&mut self) {
+        // Loop through every col of every row.
         for row in 0..self.rows {
             for col in 0..self.cols {
                 let idx = self.index(row, col);
@@ -319,15 +351,19 @@ impl Automaton {
             }
         }
 
+        // Swap the values of `cells` and `cells_step`. For a `Vec`, this means the
+        // pointers, lengths, and capacities are swapped.
         mem::swap(&mut self.cells, &mut self.cells_step);
     }
 
     // Returns the index of a cell from `row` and `col`.
+    #[inline]
     const fn index(&self, row: usize, col: usize) -> usize {
         row * self.cols + col
     }
 
     // Returns the count of a cell's live, first-generation neighbors.
+    #[inline]
     fn neighbors(&self, row: usize, col: usize) -> u8 {
         self.neighbor_deltas
             .iter()
@@ -345,6 +381,7 @@ impl Automaton {
 
     // Returns the offsets of neighboring cell locations. These deltas are required
     // for the automaton's `neighbors` method.
+    #[inline]
     fn set_neighbor_deltas(&mut self, rows: usize, cols: usize) {
         self.neighbor_deltas = [
             [rows - 1, cols - 1],
@@ -359,12 +396,23 @@ impl Automaton {
     }
 }
 
-// Implements `Vec::from<Automaton>` and `Automaton::into<Vec<u8>>` because
-// public fields in `#[wasm_bindgen]` structs must be `Copy` and the `cells`
-// field of `Automaton` is a `Vec`, which is not `Copy`.
-impl From<Automaton> for Vec<u8> {
-    fn from(a: Automaton) -> Self {
-        a.cells
+// Implements `Vec<u8>::from<Automaton>` and `Automaton::into<Vec<u8>>`. Public
+// fields in `#[wasm_bindgen]` structs must be `Copy` and the `cells` field of
+// `Automaton` is a `Vec`, which is not `Copy`, so this function may be used to
+// retrieve `cells`.
+impl From<&Automaton> for Vec<u8> {
+    #[inline]
+    fn from(a: &Automaton) -> Self {
+        a.cells.clone()
+    }
+}
+
+// Implements `Vec<Vec<u8>>::from<&Automaton>` and
+// `Automaton::into<Vec<Vec<u8>>`
+impl From<&Automaton> for Vec<Vec<u8>> {
+    #[inline]
+    fn from(a: &Automaton) -> Self {
+        a.cells.chunks_exact(a.cols).map(|c| c.to_vec()).collect()
     }
 }
 
@@ -375,16 +423,13 @@ mod tests {
 
     wasm_bindgen_test_configure!(run_in_browser);
 
-    // Flatten a slice of tuples that contain (x, y) locations of cells
-    fn flatten_locations(locations: &[(usize, usize)]) -> Vec<usize> {
-        locations
-            .iter()
-            .flat_map(|&(x, y)| iter::once(x).chain(iter::once(y)))
-            .collect()
+    // Flatten a slice of tuples that contain (x, y) locations of cells.
+    fn flatten_locations(locations: &[[usize; 2]]) -> Vec<usize> {
+        locations.iter().copied().flatten().collect()
     }
 
-    // Build an automaton from rows, cols, and locations of live cells
-    fn build_automaton(rows: usize, cols: usize, locations: &[(usize, usize)]) -> Automaton {
+    // Build an automaton from rows, cols, and locations of live cells.
+    fn build_automaton(rows: usize, cols: usize, locations: &[[usize; 2]]) -> Automaton {
         let mut a = Automaton::new(rows, cols);
         a.set_cells_on(&flatten_locations(locations));
         a
@@ -402,24 +447,21 @@ mod tests {
     fn automaton_set_cells_on() {
         let mut a = Automaton::new(3, 3);
         a.set_cells_on(&flatten_locations(&[
-            (0, 0),
-            (0, 1),
-            (0, 2),
-            (1, 0),
-            (1, 1),
-            (1, 2),
-            (2, 0),
-            (2, 1),
-            (2, 2),
+            [0, 1],
+            [0, 2],
+            [1, 0],
+            [1, 2],
+            [2, 0],
+            [2, 1],
         ]));
-        assert_eq!(a.cells, vec![1, 1, 1, 1, 1, 1, 1, 1, 1]);
+        assert_eq!(a.cells, vec![0, 1, 1, 1, 0, 1, 1, 1, 0]);
     }
 
     #[test]
     #[wasm_bindgen_test]
     fn automaton_new_rect() {
         let mut a = Automaton::new(2, 3);
-        a.set_cells_on(&flatten_locations(&[(1, 1)]));
+        a.set_cells_on(&flatten_locations(&[[1, 1]]));
         assert_eq!(a.cells, vec![0, 0, 0, 0, 1, 0]);
     }
 
@@ -472,8 +514,8 @@ mod tests {
     #[test]
     #[wasm_bindgen_test]
     fn automaton_wrapping() {
-        let mut a = build_automaton(2, 2, &[(0, 0), (0, 1)]);
-        let a_1 = build_automaton(2, 2, &[(0, 0), (0, 1)]);
+        let mut a = build_automaton(2, 2, &[[0, 0], [0, 1]]);
+        let a_1 = build_automaton(2, 2, &[[0, 0], [0, 1]]);
 
         a.step();
         assert_eq!(a.cells, a_1.cells);
@@ -482,8 +524,8 @@ mod tests {
     #[test]
     #[wasm_bindgen_test]
     fn automaton_step() {
-        let mut a = build_automaton(6, 6, &[(1, 2), (2, 3), (3, 1), (3, 2), (3, 3)]);
-        let a_1 = build_automaton(6, 6, &[(2, 1), (2, 3), (3, 2), (3, 3), (4, 2)]);
+        let mut a = build_automaton(6, 6, &[[1, 2], [2, 3], [3, 1], [3, 2], [3, 3]]);
+        let a_1 = build_automaton(6, 6, &[[2, 1], [2, 3], [3, 2], [3, 3], [4, 2]]);
 
         a.step();
         assert_eq!(a.cells, a_1.cells);
