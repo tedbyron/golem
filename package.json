@@ -2,7 +2,7 @@
   "name": "@tedbyron/golem",
   "version": "1.0.0",
   "author": "Teddy Byron <ted@tedbyron.com>",
-  "description": "A cellular automaton simulator.",
+  "description": "Customizable cellular automaton simulator.",
   "scripts": {
     "build": "gatsby build",
     "build-wasm": "wasm-pack build --release --out-name=lib",

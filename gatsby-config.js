@@ -2,7 +2,7 @@ module.exports = {
   siteMetadata: {
     defaultTitle: 'Golem',
     defaultAuthor: 'Teddy Byron',
-    defaultDescription: 'A cellular automaton simulator.',
+    defaultDescription: 'Customizable cellular automaton simulator.',
     siteUrl: 'https://teds.netlify.app',
     referrer: 'no-referrer-when-downgrade',
     colorScheme: 'only dark'
@@ -26,7 +26,7 @@ module.exports = {
       options: {
         name: 'Golem',
         short_name: 'Golem',
-        description: 'A cellular automaton simulator.',
+        description: 'Customizable cellular automaton simulator.',
         lang: 'en',
         display: 'minimal-ui',
         start_url: '/',

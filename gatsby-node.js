@@ -4,11 +4,14 @@ exports.onCreateWebpackConfig = ({ actions }) => {
   actions.setWebpackConfig({
     module: {
       rules: [
-
+        {
+          test: /\.wasm$/,
+          type: 'webassembly/sync'
+        }
       ]
-    }
+    },
     experiments: {
-      asyncWebAssembly: true
+      syncWebAssembly: true
     },
     plugins: [
       new WasmPackPlugin({

@@ -1,6 +1,6 @@
 [package]
 name = "cellular-automaton"
-description = "A cellular automaton simulation library with support for WebAssembly."
+description = "Cellular automaton simulation library."
 version = "0.1.10"
 authors = ["Teddy Byron <ted@tedbyron.com>"]
 repository = "https://github.com/tedbyron/golem"

@@ -34,7 +34,7 @@ const GolemStage = class extends React.Component {
     }
 
     const { automaton } = this.state
-    automaton.randomizeCells(50)
+    automaton.randomizeCells(0.5)
   }
 
   componentDidMount () {
