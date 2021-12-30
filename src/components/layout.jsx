@@ -19,7 +19,7 @@ const Layout = ({
       pathname={pathname}
     />
 
-    <main role='main'>
+    <main>
       {children}
     </main>
   </>

@@ -1,1 +1,1 @@
-// this file disables Gatsby's builtin ESLint
+/* https://www.gatsbyjs.com/docs/how-to/custom-configuration/eslint/#disabling-eslint */

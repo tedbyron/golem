@@ -412,7 +412,7 @@ impl From<&Automaton> for Vec<u8> {
 impl From<&Automaton> for Vec<Vec<u8>> {
     #[inline]
     fn from(a: &Automaton) -> Self {
-        a.cells.chunks_exact(a.cols).map(|c| c.to_vec()).collect()
+        a.cells.chunks_exact(a.cols).map(<[u8]>::to_vec).collect()
     }
 }
 

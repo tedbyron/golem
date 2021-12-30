@@ -2,104 +2,76 @@ import { Stage } from '@inlet/react-pixi'
 import { Automaton } from 'golem'
 import * as PIXI from 'pixi.js'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 import GolemCells from './golem-cells'
 
 PIXI.settings.RESOLUTION = window.devicePixelRatio
 PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST
+PIXI.settings.ROUND_PIXELS = true
 PIXI.settings.GC_MODE = PIXI.GC_MODES.MANUAL
 
 const MAX_WIDTH = 1200
 const MAX_HEIGHT = 400
+const BG_COLOR = 0x212121
 
-const GolemStage = class extends React.Component {
-  constructor (props) {
-    super(props)
+const GolemStage = ({ cellSize, rules, colors }) => {
+  const [rows, setRows] = useState(Math.floor((MAX_HEIGHT - 4) / cellSize))
+  const [cols, setCols] = useState(Math.min(
+    MAX_WIDTH / cellSize,
+    Math.floor((document.body.clientWidth - 4) / cellSize)
+  ))
+  const [width, setWidth] = useState(cols * cellSize)
+  const [height, setHeight] = useState(rows * cellSize)
 
-    const { cellSize } = this.props
-    const rows = Math.floor((MAX_HEIGHT - 4) / cellSize)
-    const cols = Math.min(
+  const [automaton] = useState(new Automaton(rows, cols))
+
+  const resize = () => {
+    setRows(Math.floor((MAX_HEIGHT - 4) / cellSize))
+    setCols(Math.min(
       MAX_WIDTH / cellSize,
       Math.floor((document.body.clientWidth - 4) / cellSize)
-    )
+    ))
+    setWidth(cols * cellSize)
+    setHeight(rows * cellSize)
+  }
 
-    this.state = {
-      width: cols * cellSize,
-      height: rows * cellSize,
-      backgroundColor: 0x212121,
-      rows,
-      cols,
-      automaton: new Automaton(rows, cols)
-    }
-
-    const { automaton } = this.state
+  useEffect(() => {
     automaton.randomizeCells(0.5)
-  }
+    window.addEventListener('resize', resize)
+  }, [])
 
-  componentDidMount () {
-    window.addEventListener('resize', this.resize)
-  }
+  useEffect(() => {
+    resize()
+  }, [cellSize])
 
-  componentDidUpdate (prevProps) {
-    const { cellSize, rules } = this.props
-    const { automaton } = this.state
+  useEffect(() => {
+    automaton.rules.birth = rules.birth
+    automaton.rules.survival = rules.survival
+    automaton.rules.generation = rules.generation
+  }, [rules])
 
-    if (cellSize !== prevProps.cellSize) {
-      this.resize()
-    }
-    if (rules !== prevProps.rules) {
-      automaton.rules.birth = rules.birth
-      automaton.rules.survival = rules.survival
-      automaton.rules.generation = rules.generation
-    }
-  }
-
-  // TODO: resize automaton
-  resize = () => {
-    const { cellSize } = this.props
-    const rows = Math.floor((MAX_HEIGHT - 4) / cellSize)
-    const cols = Math.min(
-      MAX_WIDTH / cellSize,
-      Math.floor((document.body.clientWidth - 4) / cellSize)
-    )
-
-    this.setState({
-      width: cols * cellSize,
-      height: rows * cellSize,
-      rows,
-      cols
-    })
-  }
-
-  render () {
-    const { cellSize, grid, colors } = this.props
-    const { width, height, backgroundColor, rows, cols, automaton } = this.state
-    const area = rows * cols
-
-    return (
-      <Stage
-        width={width}
-        height={height}
-        options={{
-          backgroundColor,
-          autoDensity: true,
-          forceFXAA: true
-        }}
-        className='golem-stage'
-      >
-        <GolemCells
-          cellSize={cellSize}
-          grid={grid}
-          colors={colors}
-          rows={rows}
-          cols={cols}
-          cellsPtr={automaton.getCellsPtr()}
-          area={area}
-        />
-      </Stage>
-    )
-  }
+  return (
+    <Stage
+      width={width}
+      height={height}
+      options={{
+        backgroundColor: BG_COLOR,
+        autoDensity: true,
+        forceFXAA: true
+      }}
+      className='golem-stage'
+    >
+      <GolemCells
+        cellSize={cellSize}
+        colors={colors}
+        rows={rows}
+        cols={cols}
+        cellsPtr={automaton.getCellsPtr()}
+        area={rows * cols}
+      />
+    </Stage>
+  )
 }
 
 export default GolemStage

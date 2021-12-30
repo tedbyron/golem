@@ -17,7 +17,9 @@ exports.onCreateWebpackConfig = ({ actions }) => {
       new WasmPackPlugin({
         crateDirectory: __dirname,
         forceMode: 'production',
-        outName: 'lib'
+        outName: 'lib',
+        args: '--log-level warn'
+        // extraArgs: '--no-typescript'
       })
     ]
   })
