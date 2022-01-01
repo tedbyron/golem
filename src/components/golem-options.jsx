@@ -8,8 +8,8 @@ const GolemOptions = ({
 }) => (
   <div className='golem-options'>
     <div className='golem-options-buttons'>
-      <input type='button' className='golem-input-button' id='golem-options-start' value={Ticker.shared.started ? 'Stop' : 'Start'} onClick={handleStartStop} />
-      <input type='button' className='golem-input-button' id='golem-options-step' value='Step' disabled={Ticker.shared.started} onClick={handleStep} />
+      <input type='button' className='golem-input-button' id='golem-options-start' value={Ticker.shared.started ? 'Start' : 'Stop'} onClick={handleStartStop} />
+      <input type='button' className='golem-input-button' id='golem-options-step' value='Step' disabled={!Ticker.shared.started} onClick={handleStep} />
       <input type='button' className='golem-input-button' value='Clear' />
       <input type='button' className='golem-input-button' value='Randomize' />
     </div>

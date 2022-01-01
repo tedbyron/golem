@@ -18,8 +18,8 @@ exports.onCreateWebpackConfig = ({ actions }) => {
         crateDirectory: __dirname,
         forceMode: 'production',
         outName: 'lib',
-        args: '--log-level warn'
-        // extraArgs: '--no-typescript'
+        args: '--log-level warn',
+        extraArgs: '--scope tedbyron'
       })
     ]
   })

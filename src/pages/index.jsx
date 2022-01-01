@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react'
-import { Ticker } from 'pixi.js'
+import React, { useState } from 'react'
 
 import GolemStage from '../components/golem-stage'
 import GolemStats from '../components/golem-stats'
@@ -21,14 +20,6 @@ const IndexPage = () => {
     generation: 2
   })
 
-  useEffect(() => {
-    if (run) {
-      Ticker.shared.start()
-    } else {
-      Ticker.shared.stop()
-    }
-  }, [run])
-
   return (
     <Layout>
       <section>
@@ -40,6 +31,7 @@ const IndexPage = () => {
           <GolemStage
             cellSize={cellSize}
             rules={rules}
+            run={run}
             colors={colors}
           />
         )}

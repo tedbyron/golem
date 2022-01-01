@@ -15,7 +15,7 @@ const MAX_WIDTH = 1200
 const MAX_HEIGHT = 400
 const BG_COLOR = 0x212121
 
-const GolemStage = ({ cellSize, rules, colors }) => {
+const GolemStage = ({ cellSize, rules, run, colors }) => {
   const [rows, setRows] = useState(Math.floor((MAX_HEIGHT - 4) / cellSize))
   const [cols, setCols] = useState(Math.min(
     MAX_WIDTH / cellSize,
@@ -39,6 +39,8 @@ const GolemStage = ({ cellSize, rules, colors }) => {
   useEffect(() => {
     automaton.randomizeCells(0.5)
     window.addEventListener('resize', resize)
+
+    return () => { automaton.free() }
   }, [])
 
   useEffect(() => {
@@ -51,6 +53,14 @@ const GolemStage = ({ cellSize, rules, colors }) => {
     automaton.rules.generation = rules.generation
   }, [rules])
 
+  useEffect(() => {
+    if (run) {
+      PIXI.Ticker.shared.start()
+    } else {
+      PIXI.Ticker.shared.stop()
+    }
+  }, [run])
+
   return (
     <Stage
       width={width}
@@ -58,7 +68,7 @@ const GolemStage = ({ cellSize, rules, colors }) => {
       options={{
         backgroundColor: BG_COLOR,
         autoDensity: true,
-        forceFXAA: true
+        sharedTicker: true
       }}
       className='golem-stage'
     >
@@ -67,7 +77,7 @@ const GolemStage = ({ cellSize, rules, colors }) => {
         colors={colors}
         rows={rows}
         cols={cols}
-        cellsPtr={automaton.getCellsPtr()}
+        automaton={automaton}
         area={rows * cols}
       />
     </Stage>
