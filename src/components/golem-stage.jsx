@@ -2,7 +2,7 @@ import { Stage } from '@inlet/react-pixi'
 import { Automaton } from 'golem'
 import * as PIXI from 'pixi.js'
 import PropTypes from 'prop-types'
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 
 import GolemCells from './golem-cells'
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import GolemStage from '../components/golem-stage'
 import GolemStats from '../components/golem-stats'

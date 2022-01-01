@@ -7,7 +7,7 @@
   "scripts": {
     "build": "gatsby build",
     "build-wasm": "wasm-pack build --release --out-name=lib",
-    "clean": "gatsby clean; cargo clean",
+    "clean": "gatsby clean",
     "dev": "gatsby develop",
     "lint": "standard",
     "lint:fix": "standard --fix",

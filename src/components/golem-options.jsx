@@ -1,6 +1,5 @@
 import { Ticker } from 'pixi.js'
 import PropTypes from 'prop-types'
-import React from 'react'
 
 const GolemOptions = ({
   handleStartStop,
