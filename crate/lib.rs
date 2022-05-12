@@ -10,6 +10,5 @@
 #![allow(clippy::use_self)]
 #![doc = include_str!("../README.md")]
 
-pub mod life_like;
-pub mod rule;
-pub mod ruleset;
+pub mod automaton;
+pub mod rules;

@@ -1,19 +1,30 @@
+//! Rules for cellular automata.
+
 use wasm_bindgen::prelude::wasm_bindgen;
 
-use crate::rule;
+/// A list containing values that represent the number of state-1 neighbors that
+/// must exist for a state-0 cell to be become state-1.
+pub type Birth = Vec<u8>;
+
+/// The number of possible cell states.
+pub type Generation = u8;
+
+/// A list containing values that represent the number of state-1 neighbors that
+/// must exist for a state-1 cell to remain state-1.
+pub type Survival = Vec<u8>;
 
 #[wasm_bindgen]
 #[derive(Clone, Debug, PartialEq, PartialOrd)]
-pub struct Bsc {
+pub struct Rules {
     #[wasm_bindgen(getter_with_clone)]
-    pub birth: rule::Birth,
+    pub birth: Birth,
     #[wasm_bindgen(getter_with_clone)]
-    pub survival: rule::Survival,
-    pub generation: rule::Generation,
+    pub survival: Survival,
+    pub generation: Generation,
 }
 
 #[wasm_bindgen]
-impl Bsc {
+impl Rules {
     #[wasm_bindgen(constructor)]
     #[must_use]
     pub fn new(b: &[u8], s: &[u8], c: u8) -> Self {
@@ -28,7 +39,7 @@ impl Bsc {
     }
 }
 
-impl Default for Bsc {
+impl Default for Rules {
     /// Rules from Conway's Game of Life.
     fn default() -> Self {
         Self {

@@ -5,7 +5,7 @@ use std::cmp::Ordering;
 use std::{iter, mem};
 use wasm_bindgen::prelude::*;
 
-use crate::ruleset;
+use crate::rules::Rules;
 
 /// A two-dimensional cellular automaton with a finite number of cells.
 #[wasm_bindgen(inspectable)]
@@ -16,7 +16,7 @@ pub struct Automaton {
     cells: Vec<u8>,
     cells_step: Vec<u8>,
     #[wasm_bindgen(getter_with_clone)]
-    pub rules: ruleset::Bsc,
+    pub rules: Rules,
     neighbor_deltas: [[usize; 2]; 8],
 }
 
@@ -44,7 +44,7 @@ impl Automaton {
             cols,
             cells: vec![0; cols * rows],
             cells_step: vec![0; cols * rows],
-            rules: ruleset::Bsc::default(),
+            rules: Rules::default(),
             neighbor_deltas,
         }
     }
