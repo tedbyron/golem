@@ -11,10 +11,10 @@
     "node": ">=16.13.0"
   },
   "scripts": {
-    "postinstall": "wasm-pack build --out-name=lib -s tedbyron && svelte-kit sync",
+    "init": "yarn build:wasm && svelte-kit sync",
     "dev": "svelte-kit dev",
-    "build:wasm": "wasm-pack build --release --out-name=lib -s tedbyron",
     "build": "yarn build:wasm && svelte-kit build",
+    "build:wasm": "wasm-pack build --release --out-name=lib -s tedbyron",
     "preview": "svelte-kit preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",

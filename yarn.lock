@@ -1914,8 +1914,8 @@ __metadata:
 
 "golem@file:pkg::locator=%40tedbyron%2Fgolem%40workspace%3A.":
   version: 1.0.0
-  resolution: "golem@file:pkg#pkg::hash=d39e4f&locator=%40tedbyron%2Fgolem%40workspace%3A."
-  checksum: bc9b45205f1efd716dc82385d1df10a03f070a602fd5e372e8a43ff61bbbdc29e677a756dd527396aa05297ef2666ce436044f7bb4ca320898247fe72e0c3b95
+  resolution: "golem@file:pkg#pkg::hash=dd613f&locator=%40tedbyron%2Fgolem%40workspace%3A."
+  checksum: 391cdf9e1012cdd5a0980b1f9f2af7e48f2551d24972171740f7eed0ab2afc82e00eb722c2a58115777026e6e92fcedc458dbd5d53b56e2876bb027e3cde8709
   languageName: node
   linkType: hard
 

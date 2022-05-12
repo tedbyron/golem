@@ -24,8 +24,8 @@ pub struct Automaton {
 impl Automaton {
     #[wasm_bindgen(constructor)]
     #[must_use]
+    #[inline]
     pub fn new(rows: usize, cols: usize) -> Self {
-        #[cfg(debug_assertions)]
         console_error_panic_hook::set_once();
 
         let neighbor_deltas = [
@@ -52,16 +52,17 @@ impl Automaton {
     #[allow(clippy::missing_const_for_fn)] // can only wasm_bindgen non-const fn
     #[wasm_bindgen(getter)]
     #[must_use]
+    #[inline]
     pub fn rows(&self) -> usize {
         self.rows
     }
 
     #[wasm_bindgen(setter = rows)]
+    #[inline]
     pub fn set_rows(&mut self, new_rows: usize) {
-        self.cells
-            .resize_with(self.cols * new_rows, Default::default);
+        self.cells.resize_with(self.cols * new_rows, u8::default);
         self.cells_step
-            .resize_with(self.cols * new_rows, Default::default);
+            .resize_with(self.cols * new_rows, u8::default);
         self.rows = new_rows;
         self.set_neighbor_deltas(self.cols, new_rows);
     }
@@ -69,6 +70,7 @@ impl Automaton {
     #[allow(clippy::missing_const_for_fn)] // can only wasm_bindgen non-const fn
     #[wasm_bindgen(getter)]
     #[must_use]
+    #[inline]
     pub fn cols(&self) -> usize {
         self.cols
     }
@@ -114,11 +116,13 @@ impl Automaton {
     /// Returns a raw pointer to the automaton's cells' memory buffer.
     #[wasm_bindgen(js_name = getCellsPtr)]
     #[must_use]
+    #[inline]
     pub fn cells_ptr(&self) -> *const u8 {
         self.cells.as_ptr()
     }
 
     #[wasm_bindgen(js_name = toggleCell)]
+    #[inline]
     pub fn toggle_cell(&mut self, row: usize, col: usize) {
         let idx = self.index(row, col);
         if let Some(cell) = self.cells.get_mut(idx) {
@@ -144,6 +148,7 @@ impl Automaton {
     }
 
     #[wasm_bindgen(js_name = setAllCells)]
+    #[inline]
     pub fn set_all_cells(&mut self, n: u8) {
         if n <= self.rules.generation {
             self.cells.fill(n);
@@ -159,10 +164,8 @@ impl Automaton {
             n = 1.0;
         }
 
-        // Cache the RNG.
         let mut rng = rand::thread_rng();
 
-        // For every cell, generate and compare a random number to `n`.
         for cell in &mut self.cells {
             *cell = if rng.gen::<f64>() < n { 1 } else { 0 };
         }
