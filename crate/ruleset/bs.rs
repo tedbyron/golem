@@ -2,10 +2,9 @@ use wasm_bindgen::prelude::wasm_bindgen;
 
 use crate::rule;
 
-/// A ruleset containing birth and survival (B/S) rules.
 #[wasm_bindgen]
 #[derive(Clone, Debug, PartialEq, PartialOrd)]
-pub struct BS {
+pub struct Bs {
     #[wasm_bindgen(getter_with_clone)]
     pub birth: rule::Birth,
     #[wasm_bindgen(getter_with_clone)]
@@ -13,23 +12,7 @@ pub struct BS {
 }
 
 #[wasm_bindgen]
-impl BS {
-    /// Constructs a new ruleset containing birth and survival rules.
-    ///
-    /// # Examples
-    ///
-    /// ```
-    /// use cellular_automaton::ruleset::BS;
-    ///
-    /// let rules = BS::default();
-    /// //  = BS::new(&[3], &[2, 3]);
-    /// //  = BS {
-    /// //      birth: vec![3],
-    /// //      survival: vec![2, 3],
-    /// //  };
-    /// assert_eq!(rules.birth, vec![3]);
-    /// assert_eq!(rules.survival, vec![2, 3]);
-    /// ```
+impl Bs {
     #[wasm_bindgen(constructor)]
     #[must_use]
     pub fn new(b: &[u8], s: &[u8]) -> Self {
@@ -43,7 +26,7 @@ impl BS {
     }
 }
 
-impl Default for BS {
+impl Default for Bs {
     /// Rules from Conway's Game of Life.
     fn default() -> Self {
         Self {
