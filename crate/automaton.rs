@@ -84,7 +84,7 @@ impl Automaton {
                     self.cells.extend(iter::repeat(0).take(diff));
                     self.cells.rotate_right(new_cols);
                 }
-                // TODO: benchmark against the following alternative
+                // TODO: benchmark
                 // let diff = new_cols - self.cols;
                 // let cols = self.cols;
                 // self.cells.reserve_exact(diff * self.rows);
@@ -98,7 +98,7 @@ impl Automaton {
                     self.cells.truncate(self.cells.len() - diff);
                     self.cells.rotate_right(new_cols);
                 }
-                // TODO: benchmark against the following alternative
+                // TODO: benchmark
                 // let diff = self.cols - new_cols;
                 // let cols = self.cols;
                 // for (start, end) in (1..=self.rows).rev().map(|n| (n * cols - diff, n * cols)) {
@@ -113,8 +113,8 @@ impl Automaton {
         self.set_neighbor_deltas(new_cols, self.rows);
     }
 
-    /// Returns a raw pointer to the automaton's cells' memory buffer.
-    #[wasm_bindgen(js_name = getCellsPtr)]
+    /// Returns a raw pointer to the automaton's cells' buffer.
+    #[wasm_bindgen(js_name = cellsPtr)]
     #[must_use]
     #[inline]
     pub fn cells_ptr(&self) -> *const u8 {

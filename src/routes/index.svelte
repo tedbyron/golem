@@ -1,9 +1,20 @@
 <script lang="ts">
-  import { onMount } from 'svelte'
+  import { onDestroy } from 'svelte'
+  import init, { Automaton } from 'golem'
 
-  onMount(async () => {
-    //
+  let a = new Automaton(100, 100)
+  let ptr = a.cellsPtr()
+
+  onDestroy(() => {
+    if (a) {
+      a.free()
+    }
   })
 </script>
 
-<span>HELLO</span>
+{#if a}
+  <div>
+    {a.rows}x{a.cols}
+    {ptr}
+  </div>
+{/if}

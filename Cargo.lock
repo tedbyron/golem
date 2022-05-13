@@ -38,7 +38,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "golem"
+name = "golem-lib"
 version = "1.0.0"
 dependencies = [
  "console_error_panic_hook",

@@ -27,6 +27,7 @@ pub struct Rules {
 impl Rules {
     #[wasm_bindgen(constructor)]
     #[must_use]
+    #[inline]
     pub fn new(b: &[u8], s: &[u8], c: u8) -> Self {
         #[cfg(debug_assertions)]
         console_error_panic_hook::set_once();
@@ -41,6 +42,7 @@ impl Rules {
 
 impl Default for Rules {
     /// Rules from Conway's Game of Life.
+    #[inline]
     fn default() -> Self {
         Self {
             birth: vec![3],

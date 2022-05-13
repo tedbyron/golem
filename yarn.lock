@@ -128,6 +128,76 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@pixi/constants@npm:^6.3.2":
+  version: 6.3.2
+  resolution: "@pixi/constants@npm:6.3.2"
+  checksum: e669b1a356f6629baad18fde10b4928ad33502a1398ac0de26ab24258408744d6160c04a308461e62f2cfc04db38b6e35fd74ab51d0d85d2be8235929d518039
+  languageName: node
+  linkType: hard
+
+"@pixi/core@npm:^6.3.2":
+  version: 6.3.2
+  resolution: "@pixi/core@npm:6.3.2"
+  dependencies:
+    "@types/offscreencanvas": ^2019.6.4
+  peerDependencies:
+    "@pixi/constants": 6.3.2
+    "@pixi/math": 6.3.2
+    "@pixi/runner": 6.3.2
+    "@pixi/settings": 6.3.2
+    "@pixi/ticker": 6.3.2
+    "@pixi/utils": 6.3.2
+  checksum: 0175d9d1e3045ced410eb3c24f83bdf0eef2b635b72dba25689e1418729feb1a6f7ffced1bad97c1d1dfe2ce07318a23760752437c8afbff7c922e7444475b4d
+  languageName: node
+  linkType: hard
+
+"@pixi/math@npm:^6.3.2":
+  version: 6.3.2
+  resolution: "@pixi/math@npm:6.3.2"
+  checksum: 2ae2d977e49d3abf5f01937fbb7a6b2b2ab9bc37d9bcf73d528cf9469ab1bb4617af4f4d8484be03fb653566f657fd07c5b25ee894c065027f25ae827e6fc0d6
+  languageName: node
+  linkType: hard
+
+"@pixi/runner@npm:^6.3.2":
+  version: 6.3.2
+  resolution: "@pixi/runner@npm:6.3.2"
+  checksum: 531053cd5c435b871a6ad63e9025fe505c038c678271bfc87c60e064a61acada10d671e8c890b62e70bc27edad93525441244d93efc683fceda9cba8f8fb2a2f
+  languageName: node
+  linkType: hard
+
+"@pixi/settings@npm:^6.3.2":
+  version: 6.3.2
+  resolution: "@pixi/settings@npm:6.3.2"
+  dependencies:
+    ismobilejs: ^1.1.0
+  checksum: 8e642efacf0fab95050071ad30d57d6a560e05eeb1f9a3857d7aec9770b8e2e471678bf96ab2443c7f796859f048092eaa6d4b4a08baaf928a3b3bb0c8e84041
+  languageName: node
+  linkType: hard
+
+"@pixi/ticker@npm:^6.3.2":
+  version: 6.3.2
+  resolution: "@pixi/ticker@npm:6.3.2"
+  peerDependencies:
+    "@pixi/settings": 6.3.2
+  checksum: eb2d5373e893563854181f7a60842b7763f14a5d192af1d3851965c23c18158e30b9669b820ab9b4589efeb268dfe2f42a655c0963dbdf1e3a51ef1c6e9db658
+  languageName: node
+  linkType: hard
+
+"@pixi/utils@npm:^6.3.2":
+  version: 6.3.2
+  resolution: "@pixi/utils@npm:6.3.2"
+  dependencies:
+    "@types/earcut": ^2.1.0
+    earcut: ^2.2.2
+    eventemitter3: ^3.1.0
+    url: ^0.11.0
+  peerDependencies:
+    "@pixi/constants": 6.3.2
+    "@pixi/settings": 6.3.2
+  checksum: e003cae4bf54dd8a2a2068ba7865ef027d08abee69aa9a54522369981acb8b6e1f33b552c034ff0d3b0bb0518680c4494eaf6c159ebdf3f2f17e4109a89eb637
+  languageName: node
+  linkType: hard
+
 "@rollup/pluginutils@npm:^4.2.1":
   version: 4.2.1
   resolution: "@rollup/pluginutils@npm:4.2.1"
@@ -220,6 +290,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@tedbyron/golem@workspace:."
   dependencies:
+    "@pixi/constants": ^6.3.2
+    "@pixi/core": ^6.3.2
+    "@pixi/math": ^6.3.2
+    "@pixi/runner": ^6.3.2
+    "@pixi/settings": ^6.3.2
+    "@pixi/ticker": ^6.3.2
+    "@pixi/utils": ^6.3.2
     "@sveltejs/adapter-auto": next
     "@sveltejs/kit": next
     "@typescript-eslint/eslint-plugin": ^4.33.0
@@ -232,16 +309,17 @@ __metadata:
     eslint-plugin-node: ^11.1.0
     eslint-plugin-promise: ^5.2.0
     eslint-plugin-svelte3: ^3.4.1
-    golem: "file:pkg"
     postcss: ^8.4.13
     prettier: ^2.6.2
     prettier-plugin-svelte: ^2.7.0
     svelte: ^3.48.0
     svelte-check: ^2.7.0
+    svelte-pixi: ^0.1.2
     svelte-preprocess: ^4.10.6
     tailwindcss: ^3.0.24
     tslib: ^2.4.0
     typescript: ~4.6.4
+    vite-plugin-wasm-pack: ^0.1.11
   languageName: unknown
   linkType: soft
 
@@ -249,6 +327,13 @@ __metadata:
   version: 2.0.0
   resolution: "@tootallnate/once@npm:2.0.0"
   checksum: ad87447820dd3f24825d2d947ebc03072b20a42bfc96cbafec16bff8bbda6c1a81fcb0be56d5b21968560c5359a0af4038a68ba150c3e1694fe4c109a063bed8
+  languageName: node
+  linkType: hard
+
+"@types/earcut@npm:^2.1.0":
+  version: 2.1.1
+  resolution: "@types/earcut@npm:2.1.1"
+  checksum: 7845dab97ba2bf379caeb4fb91bb732e6710b0ce018a8e357f023cb96ac2fa5c64352461e93ecac2504966dcf6b0b882d117c2258cf15a679bd0063b3cee0e14
   languageName: node
   linkType: hard
 
@@ -270,6 +355,13 @@ __metadata:
   version: 17.0.32
   resolution: "@types/node@npm:17.0.32"
   checksum: afb05704b42032566b3da8b2d80a68883cd3b888472d1b8b4dd6c84f8fad371454f083d4e28bd30c10589187296119d92aba255638b30067afe062b5922388a5
+  languageName: node
+  linkType: hard
+
+"@types/offscreencanvas@npm:^2019.6.4":
+  version: 2019.6.4
+  resolution: "@types/offscreencanvas@npm:2019.6.4"
+  checksum: ea05348b49cb0dc082fadf7ccc283e53c03ecf9b94c5ee096fce447edfcb563f6c060714609b72cee7848ea24589aa56297144a2b3a89a833e6ea24eaaa96da9
   languageName: node
   linkType: hard
 
@@ -750,7 +842,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chalk@npm:^4.0.0":
+"chalk@npm:^4.0.0, chalk@npm:^4.1.2":
   version: 4.1.2
   resolution: "chalk@npm:4.1.2"
   dependencies:
@@ -1001,6 +1093,13 @@ __metadata:
   dependencies:
     esutils: ^2.0.2
   checksum: fd7673ca77fe26cd5cba38d816bc72d641f500f1f9b25b83e8ce28827fe2da7ad583a8da26ab6af85f834138cf8dae9f69b0cd6ab925f52ddab1754db44d99ce
+  languageName: node
+  linkType: hard
+
+"earcut@npm:^2.2.2":
+  version: 2.2.3
+  resolution: "earcut@npm:2.2.3"
+  checksum: 4e3bab80366c49e0332a0bb061649a3b9354dcbfa636155c7eee250be0670d7139d53f2aebbcf90788507c71b76ec1713c20e36527f202b9abb79c9e5858ec35
   languageName: node
   linkType: hard
 
@@ -1631,6 +1730,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"eventemitter3@npm:^3.1.0":
+  version: 3.1.2
+  resolution: "eventemitter3@npm:3.1.2"
+  checksum: 81e4e82b8418f5cfd986d2b4a2fa5397ac4eb8134e09bcb47005545e22fdf8e9e61d5c053d34651112245aae411bdfe6d0ad5511da0400743fef5fc38bfcfbe3
+  languageName: node
+  linkType: hard
+
 "fast-deep-equal@npm:^3.1.1, fast-deep-equal@npm:^3.1.3":
   version: 3.1.3
   resolution: "fast-deep-equal@npm:3.1.3"
@@ -1722,6 +1828,17 @@ __metadata:
   version: 4.2.0
   resolution: "fraction.js@npm:4.2.0"
   checksum: 8c76a6e21dedea87109d6171a0ac77afa14205794a565d71cb10d2925f629a3922da61bf45ea52dbc30bce4d8636dc0a27213a88cbd600eab047d82f9a3a94c5
+  languageName: node
+  linkType: hard
+
+"fs-extra@npm:^10.0.0":
+  version: 10.1.0
+  resolution: "fs-extra@npm:10.1.0"
+  dependencies:
+    graceful-fs: ^4.2.0
+    jsonfile: ^6.0.1
+    universalify: ^2.0.0
+  checksum: dc94ab37096f813cc3ca12f0f1b5ad6744dfed9ed21e953d72530d103cea193c2f81584a39e9dee1bea36de5ee66805678c0dddc048e8af1427ac19c00fffc50
   languageName: node
   linkType: hard
 
@@ -1912,14 +2029,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"golem@file:pkg::locator=%40tedbyron%2Fgolem%40workspace%3A.":
-  version: 1.0.0
-  resolution: "golem@file:pkg#pkg::hash=dd613f&locator=%40tedbyron%2Fgolem%40workspace%3A."
-  checksum: 391cdf9e1012cdd5a0980b1f9f2af7e48f2551d24972171740f7eed0ab2afc82e00eb722c2a58115777026e6e92fcedc458dbd5d53b56e2876bb027e3cde8709
-  languageName: node
-  linkType: hard
-
-"graceful-fs@npm:^4.1.3, graceful-fs@npm:^4.2.6":
+"graceful-fs@npm:^4.1.3, graceful-fs@npm:^4.1.6, graceful-fs@npm:^4.2.0, graceful-fs@npm:^4.2.6":
   version: 4.2.10
   resolution: "graceful-fs@npm:4.2.10"
   checksum: 3f109d70ae123951905d85032ebeae3c2a5a7a997430df00ea30df0e3a6c60cf6689b109654d6fdacd28810a053348c4d14642da1d075049e6be1ba5216218da
@@ -2273,6 +2383,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ismobilejs@npm:^1.1.0":
+  version: 1.1.1
+  resolution: "ismobilejs@npm:1.1.1"
+  checksum: 937479c4ae13306f41391e0f57611b0835bc57325750b446cb12ed844d697407f66f050ebf7446538cc3aae9575df6382243224be3032c1574b61e2f955d8417
+  languageName: node
+  linkType: hard
+
 "js-tokens@npm:^4.0.0":
   version: 4.0.0
   resolution: "js-tokens@npm:4.0.0"
@@ -2321,6 +2438,19 @@ __metadata:
   bin:
     json5: lib/cli.js
   checksum: e76ea23dbb8fc1348c143da628134a98adf4c5a4e8ea2adaa74a80c455fc2cdf0e2e13e6398ef819bfe92306b610ebb2002668ed9fc1af386d593691ef346fc3
+  languageName: node
+  linkType: hard
+
+"jsonfile@npm:^6.0.1":
+  version: 6.1.0
+  resolution: "jsonfile@npm:6.1.0"
+  dependencies:
+    graceful-fs: ^4.1.6
+    universalify: ^2.0.0
+  dependenciesMeta:
+    graceful-fs:
+      optional: true
+  checksum: 7af3b8e1ac8fe7f1eccc6263c6ca14e1966fcbc74b618d3c78a0a2075579487547b94f72b7a1114e844a1e15bb00d440e5d1720bfc4612d790a6f285d5ea8354
   languageName: node
   linkType: hard
 
@@ -2610,6 +2740,13 @@ __metadata:
   bin:
     nanoid: bin/nanoid.cjs
   checksum: 2fddd6dee994b7676f008d3ffa4ab16035a754f4bb586c61df5a22cf8c8c94017aadd360368f47d653829e0569a92b129979152ff97af23a558331e47e37cd9c
+  languageName: node
+  linkType: hard
+
+"narrowing@npm:^1.4.0":
+  version: 1.4.0
+  resolution: "narrowing@npm:1.4.0"
+  checksum: 380e9bad72e8beb50b2aa72279e8df5fa946353345ac00cf1404bbac0b31a078225b8443dcb8aed7330a2d2a8a94fcc49aae19259ac76caa6a8338259a0a0ac3
   languageName: node
   linkType: hard
 
@@ -2968,10 +3105,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"punycode@npm:1.3.2":
+  version: 1.3.2
+  resolution: "punycode@npm:1.3.2"
+  checksum: b8807fd594b1db33335692d1f03e8beeddde6fda7fbb4a2e32925d88d20a3aa4cd8dcc0c109ccaccbd2ba761c208dfaaada83007087ea8bfb0129c9ef1b99ed6
+  languageName: node
+  linkType: hard
+
 "punycode@npm:^2.1.0":
   version: 2.1.1
   resolution: "punycode@npm:2.1.1"
   checksum: 823bf443c6dd14f669984dea25757b37993f67e8d94698996064035edd43bed8a5a17a9f12e439c2b35df1078c6bec05a6c86e336209eb1061e8025c481168e8
+  languageName: node
+  linkType: hard
+
+"querystring@npm:0.2.0":
+  version: 0.2.0
+  resolution: "querystring@npm:0.2.0"
+  checksum: 8258d6734f19be27e93f601758858c299bdebe71147909e367101ba459b95446fbe5b975bf9beb76390156a592b6f4ac3a68b6087cea165c259705b8b4e56a69
   languageName: node
   linkType: hard
 
@@ -3454,6 +3605,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"svelte-pixi@npm:^0.1.2":
+  version: 0.1.2
+  resolution: "svelte-pixi@npm:0.1.2"
+  peerDependencies:
+    pixi.js: ^6.0.0
+  checksum: 24c770cae91d6a376972e845b392324ecc79cfbd7f2648abc95ac75fb0528b6e3e6c21c22c6376d4a6c65999359351742b46565f5ad0bd87b7e5bf529d940b0e
+  languageName: node
+  linkType: hard
+
 "svelte-preprocess@npm:^4.0.0, svelte-preprocess@npm:^4.10.6":
   version: 4.10.6
   resolution: "svelte-preprocess@npm:4.10.6"
@@ -3700,12 +3860,29 @@ __metadata:
   languageName: node
   linkType: hard
 
+"universalify@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "universalify@npm:2.0.0"
+  checksum: 2406a4edf4a8830aa6813278bab1f953a8e40f2f63a37873ffa9a3bc8f9745d06cc8e88f3572cb899b7e509013f7f6fcc3e37e8a6d914167a5381d8440518c44
+  languageName: node
+  linkType: hard
+
 "uri-js@npm:^4.2.2":
   version: 4.4.1
   resolution: "uri-js@npm:4.4.1"
   dependencies:
     punycode: ^2.1.0
   checksum: 7167432de6817fe8e9e0c9684f1d2de2bb688c94388f7569f7dbdb1587c9f4ca2a77962f134ec90be0cc4d004c939ff0d05acc9f34a0db39a3c797dada262633
+  languageName: node
+  linkType: hard
+
+"url@npm:^0.11.0":
+  version: 0.11.0
+  resolution: "url@npm:0.11.0"
+  dependencies:
+    punycode: 1.3.2
+    querystring: 0.2.0
+  checksum: 50d100d3dd2d98b9fe3ada48cadb0b08aa6be6d3ac64112b867b56b19be4bfcba03c2a9a0d7922bfd7ac17d4834e88537749fe182430dfd9b68e520175900d90
   languageName: node
   linkType: hard
 
@@ -3720,6 +3897,17 @@ __metadata:
   version: 2.3.0
   resolution: "v8-compile-cache@npm:2.3.0"
   checksum: adb0a271eaa2297f2f4c536acbfee872d0dd26ec2d76f66921aa7fc437319132773483344207bdbeee169225f4739016d8d2dbf0553913a52bb34da6d0334f8e
+  languageName: node
+  linkType: hard
+
+"vite-plugin-wasm-pack@npm:^0.1.11":
+  version: 0.1.11
+  resolution: "vite-plugin-wasm-pack@npm:0.1.11"
+  dependencies:
+    chalk: ^4.1.2
+    fs-extra: ^10.0.0
+    narrowing: ^1.4.0
+  checksum: d3955c8d8dacfb04923657ad8c9192a7d6b2600aeb701ae4ec14aaa5814036b6beccd2d3c2a6b07c31321ec383ea4e5d37788fb728d28ee768b9f1d55f248657
   languageName: node
   linkType: hard
 

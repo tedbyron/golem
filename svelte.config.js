@@ -2,6 +2,7 @@ import path from 'path'
 
 import adapter from '@sveltejs/adapter-auto'
 import preprocess from 'svelte-preprocess'
+import wasmPack from 'vite-plugin-wasm-pack'
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -20,9 +21,14 @@ const config = {
       envPrefix: 'GOLEM_',
       resolve: {
         alias: {
+          'pixi.js': path.resolve('src', 'lib', 'pixi.ts'),
           $routes: path.resolve('src', 'routes'),
           $stores: path.resolve('src', 'stores')
         }
+      },
+      plugins: [wasmPack('./crate')],
+      optimizeDeps: {
+        exclude: ['./crate', 'svelte-pixi']
       }
     }
   }
