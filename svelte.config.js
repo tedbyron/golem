@@ -2,7 +2,7 @@ import path from 'path'
 
 import adapter from '@sveltejs/adapter-auto'
 import preprocess from 'svelte-preprocess'
-import wasmPack from 'vite-plugin-wasm-pack'
+// import wasmPack from 'vite-plugin-wasm-pack'
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -26,9 +26,9 @@ const config = {
           $stores: path.resolve('src', 'stores')
         }
       },
-      plugins: [wasmPack('./crate')],
+      // plugins: [wasmPack('./crate')],
       optimizeDeps: {
-        exclude: ['./crate', 'svelte-pixi']
+        exclude: [/* './crate', */ 'svelte-pixi']
       }
     }
   }

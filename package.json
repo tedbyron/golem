@@ -11,7 +11,7 @@
     "node": ">=16.13.0"
   },
   "scripts": {
-    "init": "yarn build:wasm && svelte-kit sync",
+    "dev:init": "yarn build:wasm && svelte-kit sync",
     "dev": "svelte-kit dev",
     "build": "yarn build:wasm && svelte-kit build",
     "build:wasm": "wasm-pack build --release --out-name=lib --scope tedbyron --target web",
@@ -52,7 +52,6 @@
     "svelte-preprocess": "^4.10.6",
     "tailwindcss": "^3.0.24",
     "tslib": "^2.4.0",
-    "typescript": "~4.6.4",
-    "vite-plugin-wasm-pack": "^0.1.11"
+    "typescript": "~4.6.4"
   }
 }
