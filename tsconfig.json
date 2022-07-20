@@ -1,40 +1,32 @@
 {
+  "include": ["svelte.config.js", "vite.config.ts", "src/**/*", "src/**/*.svelte"],
   "extends": "./.svelte-kit/tsconfig.json",
   "compilerOptions": {
+    /* Type Checking */
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "alwaysStrict": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strict": true,
+
     /* Modules */
-    "paths": {
-      "$lib": ["src/lib"],
-      "$lib/*": ["src/lib/*"],
-      "$routes": ["src/routes"],
-      "$routes/*": ["src/routes/*"],
-      "$stores": ["src/stores"],
-      "$stores/*": ["src/stores/*"]
-    },
-    "resolveJsonModule": true,
+    "types": ["@sveltejs/kit"],
+
+    /* JavaScript Support */
+    "allowJs": true,
+    "checkJs": true,
 
     /* Emit */
     "noEmit": true,
-    "outDir": ".svelte-kit",
 
     /* Interop Constraints */
     "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true,
-
-    /* Type Checking */
-    "strict": true,
-    "alwaysStrict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUncheckedIndexedAccess": true,
-    "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": true,
-    "allowUnusedLabels": false,
-    "allowUnreachableCode": false,
-
-    /* Projects */
-    "incremental": true,
 
     /* Completeness */
     "skipLibCheck": true

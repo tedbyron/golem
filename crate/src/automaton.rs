@@ -24,7 +24,6 @@ pub struct Automaton {
 impl Automaton {
     #[wasm_bindgen(constructor)]
     #[must_use]
-    #[inline]
     pub fn new(rows: usize, cols: usize) -> Self {
         console_error_panic_hook::set_once();
 
@@ -52,13 +51,11 @@ impl Automaton {
     #[allow(clippy::missing_const_for_fn)] // can only wasm_bindgen non-const fn
     #[wasm_bindgen(getter)]
     #[must_use]
-    #[inline]
     pub fn rows(&self) -> usize {
         self.rows
     }
 
     #[wasm_bindgen(setter = rows)]
-    #[inline]
     pub fn set_rows(&mut self, new_rows: usize) {
         self.cells.resize_with(self.cols * new_rows, u8::default);
         self.cells_step
@@ -70,7 +67,6 @@ impl Automaton {
     #[allow(clippy::missing_const_for_fn)] // can only wasm_bindgen non-const fn
     #[wasm_bindgen(getter)]
     #[must_use]
-    #[inline]
     pub fn cols(&self) -> usize {
         self.cols
     }
@@ -80,6 +76,7 @@ impl Automaton {
         match new_cols.cmp(&self.cols) {
             Ordering::Greater => {
                 let diff = new_cols - self.cols;
+
                 for _ in 0..self.rows {
                     self.cells.extend(iter::repeat(0).take(diff));
                     self.cells.rotate_right(new_cols);
@@ -94,6 +91,7 @@ impl Automaton {
             }
             Ordering::Less => {
                 let diff = self.cols - new_cols;
+
                 for _ in 0..self.rows {
                     self.cells.truncate(self.cells.len() - diff);
                     self.cells.rotate_right(new_cols);
@@ -107,6 +105,7 @@ impl Automaton {
             }
             Ordering::Equal => (),
         }
+
         self.cells_step
             .resize_with(new_cols * self.rows, Default::default);
         self.cols = new_cols;
@@ -116,13 +115,11 @@ impl Automaton {
     /// Returns a raw pointer to the automaton's cells' buffer.
     #[wasm_bindgen(js_name = cellsPtr)]
     #[must_use]
-    #[inline]
     pub fn cells_ptr(&self) -> *const u8 {
         self.cells.as_ptr()
     }
 
     #[wasm_bindgen(js_name = toggleCell)]
-    #[inline]
     pub fn toggle_cell(&mut self, row: usize, col: usize) {
         let idx = self.index(row, col);
         if let Some(cell) = self.cells.get_mut(idx) {
@@ -148,7 +145,6 @@ impl Automaton {
     }
 
     #[wasm_bindgen(js_name = setAllCells)]
-    #[inline]
     pub fn set_all_cells(&mut self, n: u8) {
         if n <= self.rules.generation {
             self.cells.fill(n);
@@ -195,12 +191,10 @@ impl Automaton {
         mem::swap(&mut self.cells, &mut self.cells_step);
     }
 
-    #[inline]
     const fn index(&self, row: usize, col: usize) -> usize {
         row * self.cols + col
     }
 
-    #[inline]
     fn neighbors(&self, row: usize, col: usize) -> u8 {
         self.neighbor_deltas
             .iter()
@@ -216,7 +210,6 @@ impl Automaton {
             })
     }
 
-    #[inline]
     fn set_neighbor_deltas(&mut self, rows: usize, cols: usize) {
         self.neighbor_deltas = [
             [rows - 1, cols - 1],
@@ -232,14 +225,12 @@ impl Automaton {
 }
 
 impl From<&Automaton> for Vec<u8> {
-    #[inline]
     fn from(a: &Automaton) -> Self {
         a.cells.clone()
     }
 }
 
 impl From<&Automaton> for Vec<Vec<u8>> {
-    #[inline]
     fn from(a: &Automaton) -> Self {
         a.cells.chunks_exact(a.cols).map(<[u8]>::to_vec).collect()
     }

@@ -1,20 +1,26 @@
 <script lang="ts">
-  import { onDestroy } from 'svelte'
-  import init, { Automaton } from 'golem'
+  import { Automaton } from 'golem'
+  import { onMount } from 'svelte'
 
-  let a = new Automaton(100, 100)
-  let ptr = a.cellsPtr()
+  import Canvas from '$components/Canvas.svelte'
+  import Options from '$components/Options.svelte'
+  import Stats from '$components/Stats.svelte'
+  import { automaton, rows, cols } from '$stores'
 
-  onDestroy(() => {
-    if (a) {
-      a.free()
-    }
+  onMount(() => {
+    $automaton = new Automaton($rows, $cols)
   })
 </script>
 
-{#if a}
-  <div>
-    {a.rows}x{a.cols}
-    {ptr}
+<section>
+  <div class="golem-heading-wrapper">
+    <h1 class="golem-heading">Golem</h1>
   </div>
-{/if}
+
+  <Canvas />
+
+  <div class="golem-control">
+    <Stats />
+    <Options />
+  </div>
+</section>

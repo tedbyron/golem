@@ -42,7 +42,6 @@ impl Rules {
 
 impl Default for Rules {
     /// Rules from Conway's Game of Life.
-    #[inline]
     fn default() -> Self {
         Self {
             birth: vec![3],

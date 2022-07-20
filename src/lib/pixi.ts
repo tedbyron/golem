@@ -1,5 +1,5 @@
-import * as utils from '@pixi/utils'
 import { Renderer, BatchRenderer } from '@pixi/core'
+import * as utils from '@pixi/utils'
 
 export { utils }
 export * from '@pixi/constants'
