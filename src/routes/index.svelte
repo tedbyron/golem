@@ -1,25 +1,34 @@
 <script lang="ts">
-  import { Automaton } from 'golem'
+  import init, { Automaton } from 'golem'
   import { onMount } from 'svelte'
 
-  import Canvas from '$components/Canvas.svelte'
+  import App from '$components/App.svelte'
   import Options from '$components/Options.svelte'
   import Stats from '$components/Stats.svelte'
-  import { automaton, rows, cols } from '$stores'
+  import { automaton, cols, rows } from '$stores'
 
-  onMount(() => {
+  let memory: WebAssembly.Memory | undefined
+
+  onMount(async () => {
+    const res = await init() // TODO: catch
+    memory = res.memory
     $automaton = new Automaton($rows, $cols)
+    $automaton.randomizeCells(0.5)
   })
 </script>
 
 <section>
-  <div class="golem-heading-wrapper">
-    <h1 class="golem-heading">Golem</h1>
+  <div class="flex flex-col items-center">
+    <h1 class="mx-1 mt-2 border-2 border-b-0 border-fg p-3 text-xl sm:text-2xl md:text-3xl">
+      Golem
+    </h1>
   </div>
 
-  <Canvas />
+  {#if memory !== undefined}
+    <App {memory} />
+  {/if}
 
-  <div class="golem-control">
+  <div class="mx-auto max-w-screen-lg px-12">
     <Stats />
     <Options />
   </div>

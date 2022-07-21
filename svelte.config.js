@@ -12,11 +12,6 @@ const config = {
       $components: 'src/components',
       $routes: 'src/routes',
       $stores: 'src/stores'
-    },
-    csp: {
-      directives: {
-        'default-src': ['self']
-      }
     }
   }
 }

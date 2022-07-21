@@ -1,10 +1,5 @@
 <script lang="ts">
   import { Ticker } from 'pixi.js'
-
-  import { run } from '$stores'
-
-  // TODO
-  const handleStep = () => {}
 </script>
 
 <div class="golem-options">
@@ -15,7 +10,7 @@
       id="golem-options-start"
       value={Ticker.shared.started ? 'Start' : 'Stop'}
       onClick={() => {
-        $run = !$run
+        Ticker.shared.started ? Ticker.shared.stop() : Ticker.shared.start()
       }}
     />
     <input
@@ -24,7 +19,7 @@
       id="golem-options-step"
       value="Step"
       disabled={!Ticker.shared.started}
-      onClick={handleStep}
+      onClick={() => {}}
     />
     <input type="button" class="golem-input-button" value="Clear" />
     <input type="button" class="golem-input-button" value="Randomize" />

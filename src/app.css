@@ -25,14 +25,6 @@
 }
 
 @layer components {
-  .golem-heading-wrapper {
-    @apply flex flex-col items-center;
-  }
-
-  .golem-heading {
-    @apply mx-[5px] mt-2 border-2 border-b-0 border-fg p-3 text-xl sm:text-2xl md:text-[2rem];
-  }
-
   .golem-subheading {
     @apply border-2 border-fg p-3 text-base sm:text-xl md:text-2xl;
   }
@@ -42,7 +34,7 @@
   }
 
   .golem-link {
-    @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-2 border-fg bg-bg p-3 text-center text-fg active:border-2 active:border-active sm:static sm:transform-none sm:text-xl;
+    @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-2 border-fg p-3 text-center active:border-2 active:border-active sm:static sm:transform-none sm:text-xl;
 
     &:hover:not(:disabled) {
       @apply cursor-pointer bg-hover;
@@ -51,14 +43,6 @@
 
   .golem-stage-fallback {
     @apply mx-auto flex items-center justify-center border-2 border-fg;
-  }
-
-  .golem-stage {
-    @apply mx-auto block border-2 border-fg;
-  }
-
-  .golem-control {
-    @apply mx-auto max-w-screen-lg px-12;
   }
 
   .golem-stats {
@@ -78,7 +62,7 @@
   }
 
   .golem-input-button {
-    @apply border-2 border-fg bg-bg p-2 text-fg active:border-active disabled:border-disabled disabled:text-disabled;
+    @apply border-2 border-fg p-2 active:border-active disabled:border-disabled disabled:text-disabled;
 
     &:hover:not(:disabled) {
       @apply cursor-pointer bg-hover;
@@ -95,7 +79,7 @@
 
   .golem-input-select,
   .golem-input-text {
-    @apply p-2;
+    @apply p-2 text-bg;
   }
 
   .golem-input-text-invalid {

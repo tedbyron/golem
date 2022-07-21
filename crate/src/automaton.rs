@@ -55,7 +55,7 @@ impl Automaton {
         self.rows
     }
 
-    #[wasm_bindgen(setter = rows)]
+    #[wasm_bindgen(setter)]
     pub fn set_rows(&mut self, new_rows: usize) {
         self.cells.resize_with(self.cols * new_rows, u8::default);
         self.cells_step
@@ -71,7 +71,7 @@ impl Automaton {
         self.cols
     }
 
-    #[wasm_bindgen(setter = cols)]
+    #[wasm_bindgen(setter)]
     pub fn set_cols(&mut self, new_cols: usize) {
         match new_cols.cmp(&self.cols) {
             Ordering::Greater => {
@@ -152,18 +152,18 @@ impl Automaton {
     }
 
     #[wasm_bindgen(js_name = randomizeCells)]
-    pub fn randomize_cells(&mut self, mut n: f64) {
-        // Ensure n is within bounds for comparison.
-        if n < 0.0 {
-            n = 0.0;
-        } else if n > 1.0 {
-            n = 1.0;
+    pub fn randomize_cells(&mut self, mut r: f64) {
+        // ensure r is within bounds for comparison
+        if r < 0.0 {
+            r = 0.0;
+        } else if r > 1.0 {
+            r = 1.0;
         }
 
         let mut rng = rand::thread_rng();
 
         for cell in &mut self.cells {
-            *cell = if rng.gen::<f64>() < n { 1 } else { 0 };
+            *cell = if rng.gen::<f64>() < r { 1 } else { 0 };
         }
     }
 

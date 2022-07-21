@@ -132,6 +132,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@pixi/app@npm:^6.4.2":
+  version: 6.4.2
+  resolution: "@pixi/app@npm:6.4.2"
+  peerDependencies:
+    "@pixi/core": 6.4.2
+    "@pixi/display": 6.4.2
+  checksum: c44eb8ab35c71a8066514607a719bc1bb88b050b09555cbf99fc20bc280dcfda9ec43c8dc515f71c54e83f877caf3e673e9bf844d63c06470344cd8d15188432
+  languageName: node
+  linkType: hard
+
 "@pixi/constants@npm:^6.4.2":
   version: 6.4.2
   resolution: "@pixi/constants@npm:6.4.2"
@@ -155,10 +165,48 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@pixi/display@npm:^6.4.2":
+  version: 6.4.2
+  resolution: "@pixi/display@npm:6.4.2"
+  peerDependencies:
+    "@pixi/math": 6.4.2
+    "@pixi/settings": 6.4.2
+    "@pixi/utils": 6.4.2
+  checksum: 07210a3edf9209a2876bd6dd6c05212d19dbb0582c6ea84cd8036d8d17d21dcbd5113b2c8d59fed03a77d646528c23c9722ae11439cdc8fcedea96ddb748bcf4
+  languageName: node
+  linkType: hard
+
+"@pixi/graphics@npm:^6.4.2":
+  version: 6.4.2
+  resolution: "@pixi/graphics@npm:6.4.2"
+  peerDependencies:
+    "@pixi/constants": 6.4.2
+    "@pixi/core": 6.4.2
+    "@pixi/display": 6.4.2
+    "@pixi/math": 6.4.2
+    "@pixi/sprite": 6.4.2
+    "@pixi/utils": 6.4.2
+  checksum: 9b8a19d92a5e91f19753b74156f95559f0de2bfb6523ead22c71e05dd856cc1d9ff4a86d341bd835ace0f26fc6faa34160e4d8915fa10f9f1f91cb35c41c6e1d
+  languageName: node
+  linkType: hard
+
 "@pixi/math@npm:^6.4.2":
   version: 6.4.2
   resolution: "@pixi/math@npm:6.4.2"
   checksum: 9c1df90dbd095a91b4a4f35c8b7849da2f07fd2304af0786893929eb61bb6748c7ebaa8988d2dc0de7c4d16b8f63f7a266590cd318d303648e3bf12d0514fcd0
+  languageName: node
+  linkType: hard
+
+"@pixi/particle-container@npm:^6.4.2":
+  version: 6.4.2
+  resolution: "@pixi/particle-container@npm:6.4.2"
+  peerDependencies:
+    "@pixi/constants": 6.4.2
+    "@pixi/core": 6.4.2
+    "@pixi/display": 6.4.2
+    "@pixi/math": 6.4.2
+    "@pixi/utils": 6.4.2
+  checksum: bdf983858a99ad5f7989f4db7e5cb65af3707c86385dcedd6853c310b81f7fa52999068bbc9165b92ffc24364d39a29b35821d29e24663c95764fec8a971bafd
   languageName: node
   linkType: hard
 
@@ -184,6 +232,15 @@ __metadata:
   peerDependencies:
     "@pixi/settings": 6.4.2
   checksum: 37c5323ae95d5a722232862b88320275cd5bca50a0ee3459e216464a54c1c89250b766d70ab6a804a3c7fe1750ab88042639e9b593520eede095dc2f4d7c194a
+  languageName: node
+  linkType: hard
+
+"@pixi/unsafe-eval@npm:^6.4.2":
+  version: 6.4.2
+  resolution: "@pixi/unsafe-eval@npm:6.4.2"
+  peerDependencies:
+    "@pixi/core": 6.4.2
+  checksum: bfc897a142637e915ee5a2eb7cda6acc26a4b2016619591c00874c7f81bb06b0be441dd8dac68ee528aa67ccc061c9c17b54e2534228115d2c78643f9429d0ba
   languageName: node
   linkType: hard
 
@@ -257,6 +314,147 @@ __metadata:
     diff-match-patch:
       optional: true
   checksum: e74559268fb2e425cc7d4cfc8514da6a75b5e032a81a1e9592cda03adde9ab2ec1e0e3cb72bf5e95f71c7967d7c8a4ff9f6cdb784b2db27ce0aba9be4ffb225e
+  languageName: node
+  linkType: hard
+
+"@swc/core-android-arm-eabi@npm:1.2.218":
+  version: 1.2.218
+  resolution: "@swc/core-android-arm-eabi@npm:1.2.218"
+  conditions: os=android & cpu=arm
+  languageName: node
+  linkType: hard
+
+"@swc/core-android-arm64@npm:1.2.218":
+  version: 1.2.218
+  resolution: "@swc/core-android-arm64@npm:1.2.218"
+  conditions: os=android & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@swc/core-darwin-arm64@npm:1.2.218":
+  version: 1.2.218
+  resolution: "@swc/core-darwin-arm64@npm:1.2.218"
+  conditions: os=darwin & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@swc/core-darwin-x64@npm:1.2.218":
+  version: 1.2.218
+  resolution: "@swc/core-darwin-x64@npm:1.2.218"
+  conditions: os=darwin & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@swc/core-freebsd-x64@npm:1.2.218":
+  version: 1.2.218
+  resolution: "@swc/core-freebsd-x64@npm:1.2.218"
+  conditions: os=freebsd & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@swc/core-linux-arm-gnueabihf@npm:1.2.218":
+  version: 1.2.218
+  resolution: "@swc/core-linux-arm-gnueabihf@npm:1.2.218"
+  conditions: os=linux & cpu=arm
+  languageName: node
+  linkType: hard
+
+"@swc/core-linux-arm64-gnu@npm:1.2.218":
+  version: 1.2.218
+  resolution: "@swc/core-linux-arm64-gnu@npm:1.2.218"
+  conditions: os=linux & cpu=arm64 & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@swc/core-linux-arm64-musl@npm:1.2.218":
+  version: 1.2.218
+  resolution: "@swc/core-linux-arm64-musl@npm:1.2.218"
+  conditions: os=linux & cpu=arm64 & libc=musl
+  languageName: node
+  linkType: hard
+
+"@swc/core-linux-x64-gnu@npm:1.2.218":
+  version: 1.2.218
+  resolution: "@swc/core-linux-x64-gnu@npm:1.2.218"
+  conditions: os=linux & cpu=x64 & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@swc/core-linux-x64-musl@npm:1.2.218":
+  version: 1.2.218
+  resolution: "@swc/core-linux-x64-musl@npm:1.2.218"
+  conditions: os=linux & cpu=x64 & libc=musl
+  languageName: node
+  linkType: hard
+
+"@swc/core-win32-arm64-msvc@npm:1.2.218":
+  version: 1.2.218
+  resolution: "@swc/core-win32-arm64-msvc@npm:1.2.218"
+  conditions: os=win32 & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@swc/core-win32-ia32-msvc@npm:1.2.218":
+  version: 1.2.218
+  resolution: "@swc/core-win32-ia32-msvc@npm:1.2.218"
+  conditions: os=win32 & cpu=ia32
+  languageName: node
+  linkType: hard
+
+"@swc/core-win32-x64-msvc@npm:1.2.218":
+  version: 1.2.218
+  resolution: "@swc/core-win32-x64-msvc@npm:1.2.218"
+  conditions: os=win32 & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@swc/core@npm:^1.2.147":
+  version: 1.2.218
+  resolution: "@swc/core@npm:1.2.218"
+  dependencies:
+    "@swc/core-android-arm-eabi": 1.2.218
+    "@swc/core-android-arm64": 1.2.218
+    "@swc/core-darwin-arm64": 1.2.218
+    "@swc/core-darwin-x64": 1.2.218
+    "@swc/core-freebsd-x64": 1.2.218
+    "@swc/core-linux-arm-gnueabihf": 1.2.218
+    "@swc/core-linux-arm64-gnu": 1.2.218
+    "@swc/core-linux-arm64-musl": 1.2.218
+    "@swc/core-linux-x64-gnu": 1.2.218
+    "@swc/core-linux-x64-musl": 1.2.218
+    "@swc/core-win32-arm64-msvc": 1.2.218
+    "@swc/core-win32-ia32-msvc": 1.2.218
+    "@swc/core-win32-x64-msvc": 1.2.218
+  dependenciesMeta:
+    "@swc/core-android-arm-eabi":
+      optional: true
+    "@swc/core-android-arm64":
+      optional: true
+    "@swc/core-darwin-arm64":
+      optional: true
+    "@swc/core-darwin-x64":
+      optional: true
+    "@swc/core-freebsd-x64":
+      optional: true
+    "@swc/core-linux-arm-gnueabihf":
+      optional: true
+    "@swc/core-linux-arm64-gnu":
+      optional: true
+    "@swc/core-linux-arm64-musl":
+      optional: true
+    "@swc/core-linux-x64-gnu":
+      optional: true
+    "@swc/core-linux-x64-musl":
+      optional: true
+    "@swc/core-win32-arm64-msvc":
+      optional: true
+    "@swc/core-win32-ia32-msvc":
+      optional: true
+    "@swc/core-win32-x64-msvc":
+      optional: true
+  bin:
+    swcx: run_swcx.js
+  checksum: 91299ba5ef8b4aa2fa160388da1767e38b3c8effb187684ebd45e5243e2cd1b5c8c4646d8b030260ec27939b8c5462279e56332a582fddc41d373dab9d79b7dc
   languageName: node
   linkType: hard
 
@@ -791,7 +989,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chalk@npm:^4.0.0, chalk@npm:^4.1.2":
+"chalk@npm:^4.0.0":
   version: 4.1.2
   resolution: "chalk@npm:4.1.2"
   dependencies:
@@ -1936,17 +2134,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fs-extra@npm:^10.0.0":
-  version: 10.1.0
-  resolution: "fs-extra@npm:10.1.0"
-  dependencies:
-    graceful-fs: ^4.2.0
-    jsonfile: ^6.0.1
-    universalify: ^2.0.0
-  checksum: dc94ab37096f813cc3ca12f0f1b5ad6744dfed9ed21e953d72530d103cea193c2f81584a39e9dee1bea36de5ee66805678c0dddc048e8af1427ac19c00fffc50
-  languageName: node
-  linkType: hard
-
 "fs-minipass@npm:^2.0.0, fs-minipass@npm:^2.1.0":
   version: 2.1.0
   resolution: "fs-minipass@npm:2.1.0"
@@ -2120,14 +2307,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"golem@file:pkg::locator=root-workspace-0b6124%40workspace%3A.":
+"golem@file:crate/pkg::locator=root-workspace-0b6124%40workspace%3A.":
   version: 1.0.0
-  resolution: "golem@file:pkg#pkg::hash=27b702&locator=root-workspace-0b6124%40workspace%3A."
-  checksum: 52012b03b2f133b6b3c7b22f8913238a15e4126d4fb79768680842b4eb74a5c8545ff1d0bdbdc85e481cf2938aa6e36144a2b358b15d622355979de4e018647c
+  resolution: "golem@file:crate/pkg#crate/pkg::hash=90e1cb&locator=root-workspace-0b6124%40workspace%3A."
+  checksum: 9dd7be4347136f1655c65896d440061b9b5fe2e54398407f122d46c854f96dc106a2291fa446602a7d2363bb5b5aa9405c6a06dad6f53314aba7a8c75a5a7582
   languageName: node
   linkType: hard
 
-"graceful-fs@npm:^4.1.3, graceful-fs@npm:^4.1.6, graceful-fs@npm:^4.2.0, graceful-fs@npm:^4.2.6":
+"graceful-fs@npm:^4.1.3, graceful-fs@npm:^4.2.6":
   version: 4.2.10
   resolution: "graceful-fs@npm:4.2.10"
   checksum: 3f109d70ae123951905d85032ebeae3c2a5a7a997430df00ea30df0e3a6c60cf6689b109654d6fdacd28810a053348c4d14642da1d075049e6be1ba5216218da
@@ -2510,19 +2697,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jsonfile@npm:^6.0.1":
-  version: 6.1.0
-  resolution: "jsonfile@npm:6.1.0"
-  dependencies:
-    graceful-fs: ^4.1.6
-    universalify: ^2.0.0
-  dependenciesMeta:
-    graceful-fs:
-      optional: true
-  checksum: 7af3b8e1ac8fe7f1eccc6263c6ca14e1966fcbc74b618d3c78a0a2075579487547b94f72b7a1114e844a1e15bb00d440e5d1720bfc4612d790a6f285d5ea8354
-  languageName: node
-  linkType: hard
-
 "kleur@npm:^4.1.5":
   version: 4.1.5
   resolution: "kleur@npm:4.1.5"
@@ -2823,13 +2997,6 @@ __metadata:
   bin:
     nanoid: bin/nanoid.cjs
   checksum: 2fddd6dee994b7676f008d3ffa4ab16035a754f4bb586c61df5a22cf8c8c94017aadd360368f47d653829e0569a92b129979152ff97af23a558331e47e37cd9c
-  languageName: node
-  linkType: hard
-
-"narrowing@npm:^1.4.0":
-  version: 1.5.0
-  resolution: "narrowing@npm:1.5.0"
-  checksum: dc515cff57e3c506c6eb6c9bbfda99c19c1ef1f46f4a2c2185fe7fdaec90c2d7fc8299d830f9865c6bc4cbe978b306a00feded184a4c236b88bfd37f75470fa9
   languageName: node
   linkType: hard
 
@@ -3741,12 +3908,17 @@ __metadata:
   resolution: "root-workspace-0b6124@workspace:."
   dependencies:
     "@fontsource/press-start-2p": ^4.5.9
+    "@pixi/app": ^6.4.2
     "@pixi/constants": ^6.4.2
     "@pixi/core": ^6.4.2
+    "@pixi/display": ^6.4.2
+    "@pixi/graphics": ^6.4.2
     "@pixi/math": ^6.4.2
+    "@pixi/particle-container": ^6.4.2
     "@pixi/runner": ^6.4.2
     "@pixi/settings": ^6.4.2
     "@pixi/ticker": ^6.4.2
+    "@pixi/unsafe-eval": ^6.4.2
     "@pixi/utils": ^6.4.2
     "@sveltejs/adapter-cloudflare": ^1.0.0-next.30
     "@sveltejs/kit": ^1.0.0-next.384
@@ -3762,7 +3934,7 @@ __metadata:
     eslint-plugin-n: ^15.2.4
     eslint-plugin-promise: ^6.0.0
     eslint-plugin-svelte3: ^4.0.0
-    golem: "file:pkg"
+    golem: "file:crate/pkg"
     postcss: ^8.4.14
     prettier: ^2.7.1
     prettier-plugin-tailwindcss: ^0.1.12
@@ -3773,7 +3945,8 @@ __metadata:
     tailwindcss: ^3.1.6
     typescript: ^4.7.4
     vite: ^3.0.2
-    vite-plugin-wasm-pack: ^0.1.12
+    vite-plugin-top-level-await: ^1.1.1
+    vite-plugin-wasm: ^2.1.0
   languageName: unknown
   linkType: soft
 
@@ -4333,13 +4506,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"universalify@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "universalify@npm:2.0.0"
-  checksum: 2406a4edf4a8830aa6813278bab1f953a8e40f2f63a37873ffa9a3bc8f9745d06cc8e88f3572cb899b7e509013f7f6fcc3e37e8a6d914167a5381d8440518c44
-  languageName: node
-  linkType: hard
-
 "update-browserslist-db@npm:^1.0.4":
   version: 1.0.5
   resolution: "update-browserslist-db@npm:1.0.5"
@@ -4387,14 +4553,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite-plugin-wasm-pack@npm:^0.1.12":
-  version: 0.1.12
-  resolution: "vite-plugin-wasm-pack@npm:0.1.12"
+"vite-plugin-top-level-await@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "vite-plugin-top-level-await@npm:1.1.1"
   dependencies:
-    chalk: ^4.1.2
-    fs-extra: ^10.0.0
-    narrowing: ^1.4.0
-  checksum: 78a93049c83c15089bce849e6323483a2533b89a9f1a029840f2af8350f08afd8ad87f75192f1dc82e3627d251fbb9baf4fe86b63231f376721efc5dc3b4731d
+    "@swc/core": ^1.2.147
+  peerDependencies:
+    vite: ">=2.8"
+  checksum: e4af9a255413c35d5a1eaa78b292168c3bf700de616b9135949db1eb00a9df90c462dba6eae6f1369b6ce571f1f098ed1074b4b33b09b69d858cddbd61447676
+  languageName: node
+  linkType: hard
+
+"vite-plugin-wasm@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "vite-plugin-wasm@npm:2.1.0"
+  peerDependencies:
+    vite: ^3
+  checksum: 16364b5ec6e2d3c49ca5547d0bb090433704056dfbf1922bfad3e75b0255a6662f588cbb079c5517222fa02f97c848625dbbdc012c37d29388822bb6d4f64467
   languageName: node
   linkType: hard
 
