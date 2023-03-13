@@ -1,40 +1,6 @@
 {
-  "[css]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[html]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[svelte]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[rust]": {
-    "editor.tabSize": 4
-  },
-  "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "editor.quickSuggestions": {
-    "strings": true
-  },
-  "css.lint.unknownAtRules": "ignore",
-  "css.lint.importStatement": "ignore",
-  "eslint.validate": ["svelte"],
-  "eslint.packageManager": "yarn",
-  "evenBetterToml.formatter.allowedBlankLines": 1,
-  "evenBetterToml.formatter.arrayTrailingComma": false,
-  "evenBetterToml.formatter.columnWidth": 100,
-  "evenBetterToml.semanticTokens": true,
-  "npm.packageManager": "yarn",
-  "prettier.documentSelectors": ["**/*.svelte"],
-  "rust-analyzer.checkOnSave.command": "clippy",
-  "rust-analyzer.imports.granularity.enforce": true,
-  "rust-analyzer.imports.granularity.group": "module",
-  "rust-analyzer.procMacro.enable": true
+  "css.validate": false,
+  "files.associations": {
+    "*.css": "tailwindcss"
+  }
 }

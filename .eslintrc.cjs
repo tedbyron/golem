@@ -1,25 +1,11 @@
+/** @type {import('@typescript-eslint/utils').TSESLint.Linter.Config} */
 module.exports = {
   root: true,
   parser: '@typescript-eslint/parser',
   extends: ['standard-with-typescript', 'prettier'],
   plugins: ['svelte3', '@typescript-eslint'],
-  ignorePatterns: ['*.cjs', '.yarn/**/*'],
-  settings: {
-    'svelte3/typescript': () => require('typescript')
-  },
-  parserOptions: {
-    project: './tsconfig.json',
-    sourceType: 'module',
-    ecmaVersion: 'latest',
-    ecmaFeatures: {
-      impliedStrict: true
-    },
-    extraFileExtensions: ['.svelte']
-  },
-  env: {
-    browser: true,
-    es2022: true
-  },
+  ignorePatterns: ['*.cjs', 'svelte.config.js', '.yarn/**/*'],
+  settings: { 'svelte3/typescript': () => require('typescript') },
   overrides: [
     {
       files: ['*.svelte'],
@@ -29,6 +15,18 @@ module.exports = {
       }
     }
   ],
+  parserOptions: {
+    ecmaFeatures: { impliedStrict: true },
+    ecmaVersion: 'latest',
+    extraFileExtensions: ['.svelte'],
+    project: './tsconfig.json',
+    sourceType: 'module'
+  },
+  env: {
+    browser: true,
+    es2022: true,
+    node: true
+  },
   rules: {
     'import/order': [
       'error',
@@ -39,7 +37,7 @@ module.exports = {
           ['internal', 'parent', 'sibling', 'index'],
           ['object', 'type']
         ],
-        'newlines-between': 'always',
+        'newlines-between': 'always-and-inside-groups',
         alphabetize: { order: 'asc' }
       }
     ]

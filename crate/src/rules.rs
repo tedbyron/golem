@@ -1,5 +1,3 @@
-//! Rules for cellular automata.
-
 use wasm_bindgen::prelude::wasm_bindgen;
 
 /// A list containing values that represent the number of state-1 neighbors that
@@ -14,7 +12,7 @@ pub type Generation = u8;
 pub type Survival = Vec<u8>;
 
 #[wasm_bindgen]
-#[derive(Clone, Debug, PartialEq, PartialOrd)]
+#[derive(Clone, Debug)]
 pub struct Rules {
     #[wasm_bindgen(getter_with_clone)]
     pub birth: Birth,
@@ -27,7 +25,6 @@ pub struct Rules {
 impl Rules {
     #[wasm_bindgen(constructor)]
     #[must_use]
-    #[inline]
     pub fn new(b: &[u8], s: &[u8], c: u8) -> Self {
         #[cfg(debug_assertions)]
         console_error_panic_hook::set_once();

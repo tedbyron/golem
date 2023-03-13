@@ -2,22 +2,10 @@
 name = "golem-lib"
 version = "1.0.0"
 edition = "2021"
-description = "Cellular automaton simulation library"
-repository = "https://github.com/tedbyron/golem"
-license-file = "../LICENSE"
 publish = false
 
 [lib]
 crate-type = ["cdylib"]
-
-[dependencies]
-console_error_panic_hook = "0.1.7"
-getrandom = { version = "0.2.7", features = ["js"] }
-rand = "0.8.5"
-wasm-bindgen = "0.2.81"
-
-[dev-dependencies]
-wasm-bindgen-test = "0.3.31"
 
 [profile.release]
 codegen-units = 1
@@ -25,3 +13,12 @@ lto = true
 # opt-level = "s"
 # panic = "abort"
 strip = true
+
+[dependencies]
+console_error_panic_hook = "0.1.7"
+getrandom = { version = "0.2.8", features = ["js"] }
+rand = "0.8.5"
+wasm-bindgen = "0.2.84"
+
+[dev-dependencies]
+wasm-bindgen-test = "0.3.34"

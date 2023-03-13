@@ -1,11 +1,9 @@
 {
-  "include": ["svelte.config.js", "vite.config.ts", "src/**/*", "src/**/*.svelte"],
   "extends": "./.svelte-kit/tsconfig.json",
   "compilerOptions": {
     /* Type Checking */
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
-    "alwaysStrict": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": true,
     "noImplicitReturns": true,
@@ -15,17 +13,23 @@
     "strict": true,
 
     /* Modules */
-    "types": ["@sveltejs/kit"],
-
-    /* JavaScript Support */
-    "allowJs": true,
-    "checkJs": true,
+    "resolveJsonModule": true,
 
     /* Emit */
+    "importsNotUsedAsValues": "error",
     "noEmit": true,
+    "sourceMap": true,
+
+    /* JavaScript Support */
+    "allowJs": false,
 
     /* Interop Constraints */
     "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+
+    /* Projects */
+    "incremental": true,
 
     /* Completeness */
     "skipLibCheck": true

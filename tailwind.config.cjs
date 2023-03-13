@@ -3,6 +3,9 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 module.exports = {
   content: ['./src/**/*.{html,svelte}'],
   theme: {
+    container: {
+      center: true
+    },
     extend: {
       colors: {
         bg: '#212121',
@@ -15,9 +18,6 @@ module.exports = {
       fontFamily: {
         sans: ['"Press Start 2P"', ...defaultTheme.fontFamily.sans]
       }
-    },
-    container: {
-      center: true
     }
   }
 }

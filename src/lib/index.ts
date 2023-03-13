@@ -12,9 +12,13 @@ export { colors }
 const maxWidth = 1200
 const maxHeight = 400
 const clientWidth = readable(document.body.clientWidth, (set) => {
-  const handleResize = (): void => set(document.body.clientWidth)
+  const handleResize = (): void => {
+    set(document.body.clientWidth)
+  }
   window.addEventListener('resize', handleResize)
-  return () => window.removeEventListener('resize', handleResize)
+  return () => {
+    window.removeEventListener('resize', handleResize)
+  }
 })
 export const rows = derived(cellSize, ($cellSize) => Math.floor((maxHeight - 4) / $cellSize))
 export const cols = derived([cellSize, clientWidth], ([$cellSize, $clientWidth]) => {

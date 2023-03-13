@@ -1,5 +1,3 @@
-//! Life-like cellular automata.
-
 use rand::Rng;
 use std::cmp::Ordering;
 use std::{iter, mem};
@@ -9,7 +7,7 @@ use crate::rules::Rules;
 
 /// A two-dimensional cellular automaton with a finite number of cells.
 #[wasm_bindgen(inspectable)]
-#[derive(Clone, Debug, PartialEq, PartialOrd)]
+#[derive(Clone, Debug)]
 pub struct Automaton {
     rows: usize,
     cols: usize,
@@ -153,17 +151,16 @@ impl Automaton {
 
     #[wasm_bindgen(js_name = randomizeCells)]
     pub fn randomize_cells(&mut self, mut r: f64) {
-        // ensure r is within bounds for comparison
-        if r < 0.0 {
-            r = 0.0;
-        } else if r > 1.0 {
-            r = 1.0;
+        r = r.clamp(0.0, 1.0);
+
+        if r.is_nan() {
+            return;
         }
 
         let mut rng = rand::thread_rng();
 
         for cell in &mut self.cells {
-            *cell = if rng.gen::<f64>() < r { 1 } else { 0 };
+            *cell = u8::from(rng.gen::<f64>() < r);
         }
     }
 
@@ -224,21 +221,22 @@ impl Automaton {
     }
 }
 
-impl From<&Automaton> for Vec<u8> {
-    fn from(a: &Automaton) -> Self {
-        a.cells.clone()
-    }
-}
+// impl From<&Automaton> for Vec<u8> {
+//     fn from(a: &Automaton) -> Self {
+//         a.cells.clone()
+//     }
+// }
 
-impl From<&Automaton> for Vec<Vec<u8>> {
-    fn from(a: &Automaton) -> Self {
-        a.cells.chunks_exact(a.cols).map(<[u8]>::to_vec).collect()
-    }
-}
+// impl From<&Automaton> for Vec<Vec<u8>> {
+//     fn from(a: &Automaton) -> Self {
+//         a.cells.chunks_exact(a.cols).map(<[u8]>::to_vec).collect()
+//     }
+// }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+
     use wasm_bindgen_test::{wasm_bindgen_test, wasm_bindgen_test_configure};
 
     wasm_bindgen_test_configure!(run_in_browser);

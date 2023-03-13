@@ -2,15 +2,16 @@
   import init, { Automaton } from 'golem'
   import { onMount } from 'svelte'
 
-  import App from '$components/App.svelte'
-  import Options from '$components/Options.svelte'
-  import Stats from '$components/Stats.svelte'
-  import { automaton, cols, rows } from '$stores'
+  import App from './App.svelte'
+  import Options from './Options.svelte'
+  import Stats from './Stats.svelte'
+
+  import { automaton, cols, rows } from '$lib'
 
   let memory: WebAssembly.Memory | undefined
 
   onMount(async () => {
-    const res = await init() // TODO: catch
+    const res = await init()
     memory = res.memory
     $automaton = new Automaton($rows, $cols)
     $automaton.randomizeCells(0.5)

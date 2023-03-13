@@ -7,32 +7,30 @@
     <input
       type="button"
       class="golem-input-button"
-      id="golem-options-start"
       value={Ticker.shared.started ? 'Start' : 'Stop'}
-      onClick={() => {
+      on:click={() => {
         Ticker.shared.started ? Ticker.shared.stop() : Ticker.shared.start()
       }}
     />
     <input
       type="button"
       class="golem-input-button"
-      id="golem-options-step"
       value="Step"
       disabled={!Ticker.shared.started}
-      onClick={() => {}}
+      on:click={() => {}}
     />
     <input type="button" class="golem-input-button" value="Clear" />
     <input type="button" class="golem-input-button" value="Randomize" />
   </div>
 
-  <label class="golem-options-label" for="golem-options-rules">
+  <label class="golem-options-label">
     <span class="golem-options-label-text">Rules (S/B/C)</span>
-    <input type="text" class="golem-input-text" id="golem-options-rules" />
+    <input type="text" class="golem-input-text" />
   </label>
 
-  <label class="golem-options-label" for="golem-options-presets">
+  <label class="golem-options-label">
     <span class="golem-options-label-text">Preset Rules</span>
-    <select class="golem-input-select" id="golem-options-presets">
+    <select class="golem-input-select">
       <option value="none" disabled>(None)</option>
       <option value="125/36/2">2x2</option>
       <option value="23/34/2">34 Life</option>
