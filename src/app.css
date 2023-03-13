@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root,
+  body {
+    @apply h-full;
+  }
+
+  :root {
+    @apply bg-bg text-fg;
+  }
+
+  body {
+    @apply relative font-sans text-xs;
+  }
+
+  input,
+  select {
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+@layer components {
+  .golem-subheading {
+    @apply border-2 border-fg p-3 text-base sm:text-xl md:text-2xl;
+  }
+
+  .golem-link-wrapper {
+    @apply mt-12 flex justify-center;
+  }
+
+  .golem-link {
+    @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-2 border-fg p-3 text-center active:border-2 active:border-active sm:static sm:transform-none sm:text-xl;
+
+    &:hover:not(:disabled) {
+      @apply cursor-pointer bg-hover;
+    }
+  }
+
+  .golem-stage-fallback {
+    @apply mx-auto flex items-center justify-center border-2 border-fg;
+  }
+
+  .golem-stats {
+    @apply mb-4 grid border-2 border-t-0 border-fg px-5 py-2 sm:grid-cols-[repeat(2,50%)] lg:text-center;
+
+    span:not(:last-child) {
+      @apply mb-2 sm:mb-0;
+    }
+  }
+
+  .golem-options {
+    @apply mb-4 grid grid-cols-[repeat(2,50%)] content-center gap-y-4;
+  }
+
+  .golem-options-buttons {
+    @apply col-[span_2] grid grid-cols-[repeat(2,calc(50%-0.5rem))] gap-4 sm:grid-cols-[repeat(4,calc(25%-.75rem))];
+  }
+
+  .golem-input-button {
+    @apply border-2 border-fg p-2 active:border-active disabled:border-disabled disabled:text-disabled;
+
+    &:hover:not(:disabled) {
+      @apply cursor-pointer bg-hover;
+    }
+  }
+
+  .golem-options-label {
+    @apply col-[span_2] grid grid-rows-[1fr] sm:grid-cols-[repeat(2,50%)] lg:col-start-auto lg:odd:ml-2 lg:even:mr-2;
+  }
+
+  .golem-options-label-text {
+    @apply flex items-center justify-center border-2 border-b-0 border-fg p-2 sm:border-r-0 sm:border-b-2;
+  }
+
+  .golem-input-select,
+  .golem-input-text {
+    @apply p-2 text-bg;
+  }
+
+  .golem-input-text-invalid {
+    @apply border-r border-r-invalid;
+  }
+}

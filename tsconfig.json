@@ -1,0 +1,37 @@
+{
+  "extends": "./.svelte-kit/tsconfig.json",
+  "compilerOptions": {
+    /* Type Checking */
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strict": true,
+
+    /* Modules */
+    "resolveJsonModule": true,
+
+    /* Emit */
+    "importsNotUsedAsValues": "error",
+    "noEmit": true,
+    "sourceMap": true,
+
+    /* JavaScript Support */
+    "allowJs": false,
+
+    /* Interop Constraints */
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+
+    /* Projects */
+    "incremental": true,
+
+    /* Completeness */
+    "skipLibCheck": true
+  }
+}

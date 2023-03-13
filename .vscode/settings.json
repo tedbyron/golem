@@ -1,0 +1,6 @@
+{
+  "css.validate": false,
+  "files.associations": {
+    "*.css": "tailwindcss"
+  }
+}
