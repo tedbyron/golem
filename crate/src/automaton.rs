@@ -5,7 +5,7 @@ use wasm_bindgen::prelude::*;
 
 use crate::rules::Rules;
 
-/// A two-dimensional cellular automaton with a finite number of cells.
+/// A 2D cellular automaton with a finite number of cells.
 #[wasm_bindgen(inspectable)]
 #[derive(Clone, Debug)]
 pub struct Automaton {
@@ -46,11 +46,18 @@ impl Automaton {
         }
     }
 
-    #[allow(clippy::missing_const_for_fn)] // can only wasm_bindgen non-const fn
+    #[allow(clippy::missing_const_for_fn)]
     #[wasm_bindgen(getter)]
     #[must_use]
     pub fn rows(&self) -> usize {
         self.rows
+    }
+
+    #[allow(clippy::missing_const_for_fn)]
+    #[wasm_bindgen(getter)]
+    #[must_use]
+    pub fn cols(&self) -> usize {
+        self.cols
     }
 
     #[wasm_bindgen(setter)]
@@ -62,44 +69,22 @@ impl Automaton {
         self.set_neighbor_deltas(self.cols, new_rows);
     }
 
-    #[allow(clippy::missing_const_for_fn)] // can only wasm_bindgen non-const fn
-    #[wasm_bindgen(getter)]
-    #[must_use]
-    pub fn cols(&self) -> usize {
-        self.cols
-    }
-
     #[wasm_bindgen(setter)]
     pub fn set_cols(&mut self, new_cols: usize) {
         match new_cols.cmp(&self.cols) {
             Ordering::Greater => {
-                let diff = new_cols - self.cols;
-
                 for _ in 0..self.rows {
-                    self.cells.extend(iter::repeat(0).take(diff));
+                    self.cells
+                        .extend(iter::repeat(0).take(new_cols - self.cols));
                     self.cells.rotate_right(new_cols);
                 }
-                // TODO: benchmark
-                // let diff = new_cols - self.cols;
-                // let cols = self.cols;
-                // self.cells.reserve_exact(diff * self.rows);
-                // for i in (0..self.rows).rev().map(|n| n * cols + cols) {
-                //     self.cells.splice(i..i, iter::repeat(0).take(diff));
-                // }
             }
             Ordering::Less => {
-                let diff = self.cols - new_cols;
-
                 for _ in 0..self.rows {
-                    self.cells.truncate(self.cells.len() - diff);
+                    self.cells
+                        .truncate(self.cells.len() - (self.cols - new_cols));
                     self.cells.rotate_right(new_cols);
                 }
-                // TODO: benchmark
-                // let diff = self.cols - new_cols;
-                // let cols = self.cols;
-                // for (start, end) in (1..=self.rows).rev().map(|n| (n * cols - diff, n * cols)) {
-                //     self.cells.splice(start..end, iter::empty());
-                // }
             }
             Ordering::Equal => (),
         }
@@ -110,7 +95,7 @@ impl Automaton {
         self.set_neighbor_deltas(new_cols, self.rows);
     }
 
-    /// Returns a raw pointer to the automaton's cells' buffer.
+    /// Raw pointer to the automaton's cells' buffer.
     #[wasm_bindgen(js_name = cellsPtr)]
     #[must_use]
     pub fn cells_ptr(&self) -> *const u8 {
@@ -220,18 +205,6 @@ impl Automaton {
         ];
     }
 }
-
-// impl From<&Automaton> for Vec<u8> {
-//     fn from(a: &Automaton) -> Self {
-//         a.cells.clone()
-//     }
-// }
-
-// impl From<&Automaton> for Vec<Vec<u8>> {
-//     fn from(a: &Automaton) -> Self {
-//         a.cells.chunks_exact(a.cols).map(<[u8]>::to_vec).collect()
-//     }
-// }
 
 #[cfg(test)]
 mod tests {

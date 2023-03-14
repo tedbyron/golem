@@ -2,19 +2,21 @@
   import init, { Automaton } from 'golem'
   import { onMount } from 'svelte'
 
+  import { automaton, cols, rows } from '$lib'
   import App from './App.svelte'
   import Options from './Options.svelte'
   import Stats from './Stats.svelte'
 
-  import { automaton, cols, rows } from '$lib'
-
   let memory: WebAssembly.Memory | undefined
 
-  onMount(async () => {
-    const res = await init()
-    memory = res.memory
-    $automaton = new Automaton($rows, $cols)
-    $automaton.randomizeCells(0.5)
+  onMount(() => {
+    init()
+      .then((res) => {
+        memory = res.memory
+        $automaton = new Automaton($rows, $cols)
+        $automaton.randomizeCells(0.5)
+      })
+      .catch(console.error)
   })
 </script>
 
@@ -25,8 +27,17 @@
     </h1>
   </div>
 
-  {#if memory !== undefined}
-    <App {memory} />
+  {#if $automaton === undefined || memory === undefined}
+    <!-- TODO: fallback
+    <div
+      style:width={$width}
+      style:height={$height}
+      class="mx-auto inline-flex items-center justify-center border-2 border-fg"
+    >
+      <span>Loading..</span>
+    </div> -->
+  {:else}
+    <App automaton={$automaton} {memory} />
   {/if}
 
   <div class="mx-auto max-w-screen-lg px-12">

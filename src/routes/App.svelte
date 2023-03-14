@@ -1,54 +1,90 @@
 <script lang="ts">
   import * as PIXI from 'pixi.js'
-  import { ParticleContainer, Renderer, Ticker } from 'svelte-pixi'
+  import { onDestroy, onMount } from 'svelte'
+  import { Container, Renderer, Ticker } from 'svelte-pixi'
 
-  import { automaton, cellSize, colors, cols, height, rows, width } from '$lib'
+  import { cellSize, colors, cols, height, rows, width } from '$lib'
+
+  import type { Automaton } from 'golem'
+
+  export let automaton: Automaton
+  export let memory: WebAssembly.Memory
 
   PIXI.utils.skipHello()
   PIXI.settings.RESOLUTION = window.devicePixelRatio
   PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST
   PIXI.settings.ROUND_PIXELS = true
 
-  export let memory: WebAssembly.Memory
-
   let renderer: PIXI.Renderer | undefined
-  let stage: PIXI.Container<PIXI.DisplayObject> | undefined
-  let textures: PIXI.Texture[] = []
-  let container: PIXI.ParticleContainer | undefined
-  let cells: PIXI.Sprite[] = []
+  let stage: PIXI.Container | undefined
+  let rect: PIXI.Graphics | undefined
+  let cells: PIXI.Graphics[] | undefined
 
   $: numCells = $rows * $cols
-  $: mem = new Uint8Array(memory.buffer, $automaton!.cellsPtr(), numCells)
+  $: mem = new Uint8Array(memory.buffer, automaton.cellsPtr(), numCells)
 
-  $: if (renderer !== undefined) {
-    textures = colors.map((color) =>
-      renderer!.generateTexture(
-        new PIXI.Graphics().beginFill(color).drawRect(0, 0, $cellSize, $cellSize).endFill()
-      )
-    )
+  const draw = (rows: number, cols: number, cellSize: number) => {
+    if (stage !== undefined) {
+      stage.removeChildren()
+      rect?.destroy()
+      cells?.forEach((c) => {
+        c.destroy()
+      })
+
+      cells = new Array(numCells)
+      rect = new PIXI.Graphics().beginFill(0xffffff).drawRect(0, 0, cellSize, cellSize).endFill()
+
+      for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col++) {
+          const i = row * cols + col
+
+          cells[i] = rect.clone()
+          cells[i]!.position.set(col * cellSize, row * cellSize)
+          cells[i]!.tint = colors[mem[i]!]!
+        }
+      }
+
+      stage.addChild(...cells)
+    }
   }
 
-  $: {
-    if (container !== undefined) {
-      cells = new Array(numCells)
+  const unsubCellSize = cellSize.subscribe((val) => {
+    draw($rows, $cols, val)
+  })
+  const unsubRows = rows.subscribe((val) => {
+    draw(val, $cols, $cellSize)
+  })
+  const unsubCols = cols.subscribe((val) => {
+    draw($rows, val, $cellSize)
+  })
 
-      for (let row = 0; row < $rows; row++) {
-        for (let col = 0; col < $cols; col++) {
-          const i = row * $cols + col
-          const state = mem[i]!
+  const onTick = ({ detail: _delta }: CustomEvent<number>) => {
+    automaton.step()
 
-          if (state > 0) {
-            cells[i] = new PIXI.Sprite(textures[state])
-            cells[i]?.anchor.set(col * $cellSize, row * $cellSize)
-          }
-        }
+    for (let row = 0; row < $rows; row++) {
+      for (let col = 0; col < $cols; col++) {
+        const i = row * $cols + col
+        cells![i]!.tint = colors[mem[i]!]!
       }
     }
 
-    if (container !== undefined && cells.length > 0) {
-      container.addChild(...cells)
-    }
+    renderer!.render(stage!)
   }
+
+  onMount(() => {
+    draw($rows, $cols, $cellSize)
+    renderer!.render(stage!)
+  })
+  onDestroy(() => {
+    unsubCellSize()
+    unsubRows()
+    unsubCols()
+
+    cells?.forEach((cell) => cell.destroy())
+    rect?.destroy()
+    stage?.destroy()
+    renderer?.destroy()
+  })
 </script>
 
 <div class="text-center leading-none">
@@ -62,8 +98,8 @@
   >
     <div slot="view" class="inline-block border-2 border-fg" />
 
-    <Ticker instance={PIXI.Ticker.shared} autoStart={false}>
-      <ParticleContainer bind:instance={container} interactiveChildren={false} maxSize={numCells} />
+    <Ticker instance={PIXI.Ticker.shared} autoStart={false} on:tick={onTick}>
+      <Container bind:instance={stage} interactiveChildren={false} />
     </Ticker>
   </Renderer>
 </div>

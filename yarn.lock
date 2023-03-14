@@ -2742,8 +2742,8 @@ __metadata:
 
 "golem@file:crate/pkg::locator=root-workspace-0b6124%40workspace%3A.":
   version: 1.0.0
-  resolution: "golem@file:crate/pkg#crate/pkg::hash=180cd4&locator=root-workspace-0b6124%40workspace%3A."
-  checksum: e0cb93fe8b4e2a2222d57de2e9d3ee820c083510ffbbbdca592746479c5478c44b82bb750f47f7f77cefc5a7840248d37ee5358285120377bbc24501d9f85b92
+  resolution: "golem@file:crate/pkg#crate/pkg::hash=a43449&locator=root-workspace-0b6124%40workspace%3A."
+  checksum: 95457e8a98df3e9b41834b6bb04e578fc45b46c6aea2129b846605fb45e8d53bebd4cf18d6e9bb12370fc415c11a00787976f525e47f8ec2aa96c3175294059e
   languageName: node
   linkType: hard
 

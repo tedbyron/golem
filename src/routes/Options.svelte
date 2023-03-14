@@ -1,26 +1,28 @@
 <script lang="ts">
-  import { Ticker } from 'pixi.js'
+  import * as PIXI from 'pixi.js'
 </script>
 
 <div class="golem-options">
   <div class="golem-options-buttons">
-    <input
+    <button
       type="button"
       class="golem-input-button"
-      value={Ticker.shared.started ? 'Start' : 'Stop'}
       on:click={() => {
-        Ticker.shared.started ? Ticker.shared.stop() : Ticker.shared.start()
+        PIXI.Ticker.shared.started ? PIXI.Ticker.shared.stop() : PIXI.Ticker.shared.start()
       }}
-    />
-    <input
+    >
+      {PIXI.Ticker.shared.started ? 'Start' : 'Stop'}
+    </button>
+    <button
       type="button"
       class="golem-input-button"
-      value="Step"
-      disabled={!Ticker.shared.started}
+      disabled={!PIXI.Ticker.shared.started}
       on:click={() => {}}
-    />
-    <input type="button" class="golem-input-button" value="Clear" />
-    <input type="button" class="golem-input-button" value="Randomize" />
+    >
+      Step
+    </button>
+    <button type="button" class="golem-input-button">Clear</button>
+    <button type="button" class="golem-input-button">Randomize</button>
   </div>
 
   <label class="golem-options-label">

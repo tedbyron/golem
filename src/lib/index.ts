@@ -15,32 +15,34 @@ const clientWidth = readable(document.body.clientWidth, (set) => {
   const handleResize = (): void => {
     set(document.body.clientWidth)
   }
+
   window.addEventListener('resize', handleResize)
+
   return () => {
     window.removeEventListener('resize', handleResize)
   }
 })
 export const rows = derived(cellSize, ($cellSize) => Math.floor((maxHeight - 4) / $cellSize))
-export const cols = derived([cellSize, clientWidth], ([$cellSize, $clientWidth]) => {
-  return Math.min(maxWidth / $cellSize, Math.floor(($clientWidth - 4) / $cellSize))
-})
+export const cols = derived([cellSize, clientWidth], ([$cellSize, $clientWidth]) =>
+  Math.min(maxWidth / $cellSize, Math.floor(($clientWidth - 4) / $cellSize))
+)
 export const width = derived([cols, cellSize], ([$cols, $cellSize]) => $cols * $cellSize)
 export const height = derived([rows, cellSize], ([$rows, $cellSize]) => $rows * $cellSize)
 
-export const automaton = writable<Automaton | undefined>(undefined)
+export const automaton = writable<Automaton | undefined>()
 
 rows.subscribe(($rows) => {
-  const inner = get(automaton)
+  const a = get(automaton)
 
-  if (inner !== undefined) {
-    inner.rows = $rows
+  if (a !== undefined) {
+    a.rows = $rows
   }
 })
 
 cols.subscribe(($cols) => {
-  const inner = get(automaton)
+  const a = get(automaton)
 
-  if (inner !== undefined) {
-    inner.cols = $cols
+  if (a !== undefined) {
+    a.cols = $cols
   }
 })
