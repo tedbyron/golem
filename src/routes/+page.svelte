@@ -16,7 +16,7 @@
         $automaton = new Automaton($rows, $cols)
         $automaton.randomizeCells(0.5)
       })
-      .catch(console.error)
+      .catch(console.error) // TODO
   })
 </script>
 
@@ -28,7 +28,7 @@
   </div>
 
   {#if $automaton === undefined || memory === undefined}
-    <!-- TODO: fallback
+    <!-- TODO: loading fallback; inline style no work wtf
     <div
       style:width={$width}
       style:height={$height}
