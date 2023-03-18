@@ -16,6 +16,10 @@
     @apply relative font-sans text-xs;
   }
 
+  #sveltekit {
+    @apply contents;
+  }
+
   input,
   select {
     &:focus {

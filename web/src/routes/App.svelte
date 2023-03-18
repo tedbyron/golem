@@ -3,12 +3,12 @@
   import { onDestroy, onMount } from 'svelte'
   import { Container, Renderer, Ticker } from 'svelte-pixi'
 
-  import { cellSize, colors, cols, height, rows, width } from '$lib'
+  import { cellSize, colors, cols, height, numCells, rows, width } from '$lib'
 
   import type { Automaton } from 'golem'
 
   export let automaton: Automaton
-  export let memory: WebAssembly.Memory
+  export let cells: Uint8Array
 
   PIXI.utils.skipHello()
   PIXI.settings.RESOLUTION = window.devicePixelRatio
@@ -18,33 +18,30 @@
   let renderer: PIXI.Renderer | undefined
   let stage: PIXI.Container | undefined
   let rect: PIXI.Graphics | undefined
-  let cells: PIXI.Graphics[] | undefined
-
-  $: numCells = $rows * $cols
-  $: mem = new Uint8Array(memory.buffer, automaton.cellsPtr(), numCells)
+  let graphics: PIXI.Graphics[] | undefined
 
   const draw = (rows: number, cols: number, cellSize: number) => {
     if (stage !== undefined) {
       stage.removeChildren()
       rect?.destroy()
-      cells?.forEach((c) => {
+      graphics?.forEach((c) => {
         c.destroy()
       })
 
-      cells = new Array(numCells)
+      graphics = new Array($numCells)
       rect = new PIXI.Graphics().beginFill(0xffffff).drawRect(0, 0, cellSize, cellSize).endFill()
 
       for (let row = 0; row < rows; row++) {
         for (let col = 0; col < cols; col++) {
           const i = row * cols + col
 
-          cells[i] = rect.clone()
-          cells[i]!.position.set(col * cellSize, row * cellSize)
-          cells[i]!.tint = colors[mem[i]!]!
+          graphics[i] = rect.clone()
+          graphics[i]!.position.set(col * cellSize, row * cellSize)
+          graphics[i]!.tint = colors[cells[i]!]!
         }
       }
 
-      stage.addChild(...cells)
+      stage.addChild(...graphics)
     }
   }
 
@@ -58,17 +55,21 @@
     draw($rows, val, $cellSize)
   })
 
-  const onTick = ({ detail: _delta }: CustomEvent<number>) => {
+  const step = () => {
     automaton.step()
 
     for (let row = 0; row < $rows; row++) {
       for (let col = 0; col < $cols; col++) {
         const i = row * $cols + col
-        cells![i]!.tint = colors[mem[i]!]!
+        graphics![i]!.tint = colors[cells[i]!]!
       }
     }
 
     renderer!.render(stage!)
+  }
+
+  const onTick = ({ detail: _delta }: CustomEvent<number>) => {
+    step()
   }
 
   onMount(() => {
@@ -80,7 +81,7 @@
     unsubRows()
     unsubCols()
 
-    cells?.forEach((cell) => cell.destroy())
+    graphics?.forEach((cell) => cell.destroy())
     rect?.destroy()
     stage?.destroy()
     renderer?.destroy()
@@ -94,7 +95,7 @@
     autoDensity
     width={$width}
     height={$height}
-    backgroundColor={0x212121}
+    backgroundColor={colors[0]}
   >
     <div slot="view" class="inline-block border-2 border-fg" />
 

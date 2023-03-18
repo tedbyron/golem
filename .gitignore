@@ -3,9 +3,7 @@ target/
 pkg/
 
 node_modules
-/build
-/.svelte-kit
-/package
+.svelte-kit
 *.tsbuildinfo
 
 .DS_Store

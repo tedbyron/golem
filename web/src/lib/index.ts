@@ -26,10 +26,15 @@ export const rows = derived(cellSize, ($cellSize) => Math.floor((maxHeight - 4) 
 export const cols = derived([cellSize, clientWidth], ([$cellSize, $clientWidth]) =>
   Math.min(maxWidth / $cellSize, Math.floor(($clientWidth - 4) / $cellSize))
 )
+
+export const numCells = derived([rows, cols], ([$rows, $cols]) => $rows * $cols)
 export const width = derived([cols, cellSize], ([$cols, $cellSize]) => $cols * $cellSize)
 export const height = derived([rows, cellSize], ([$rows, $cellSize]) => $rows * $cellSize)
 
 export const automaton = writable<Automaton | undefined>()
+export const cells = writable<Uint8Array | undefined>()
+
+export const generation = writable(0)
 
 rows.subscribe(($rows) => {
   const a = get(automaton)

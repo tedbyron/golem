@@ -2,21 +2,20 @@
   import init, { Automaton } from 'golem'
   import { onMount } from 'svelte'
 
-  import { automaton, cols, rows } from '$lib'
+  import { automaton, cells, cols, numCells, rows } from '$lib'
   import App from './App.svelte'
   import Options from './Options.svelte'
   import Stats from './Stats.svelte'
 
-  let memory: WebAssembly.Memory | undefined
-
-  onMount(() => {
-    init()
-      .then((res) => {
-        memory = res.memory
-        $automaton = new Automaton($rows, $cols)
-        $automaton.randomizeCells(0.5)
-      })
-      .catch(console.error) // TODO
+  onMount(async () => {
+    try {
+      const res = await init()
+      $automaton = new Automaton($rows, $cols)
+      $automaton.randomizeCells(0.5)
+      $cells = new Uint8Array(res.memory.buffer, $automaton.cellsPtr(), $numCells)
+    } catch (e) {
+      console.error(e)
+    }
   })
 </script>
 
@@ -27,7 +26,7 @@
     </h1>
   </div>
 
-  {#if $automaton === undefined || memory === undefined}
+  {#if $automaton === undefined || $cells === undefined}
     <!-- TODO: loading fallback; inline style no work wtf
     <div
       style:width={$width}
@@ -37,7 +36,7 @@
       <span>Loading..</span>
     </div> -->
   {:else}
-    <App automaton={$automaton} {memory} />
+    <App automaton={$automaton} cells={$cells} />
   {/if}
 
   <div class="mx-auto max-w-screen-lg px-12">

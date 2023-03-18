@@ -9,6 +9,11 @@ import topLevelAwait from 'vite-plugin-top-level-await'
 import wasm from 'vite-plugin-wasm'
 
 export default defineConfig(({ mode }) => ({
+  server: {
+    fs: {
+      allow: ['../lib/pkg']
+    }
+  },
   plugins: [wasm(), topLevelAwait(), sveltekit()],
   optimizeDeps: {
     include: ['pixi.js'],
