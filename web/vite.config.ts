@@ -9,11 +9,8 @@ import topLevelAwait from 'vite-plugin-top-level-await'
 import wasm from 'vite-plugin-wasm'
 
 export default defineConfig(({ mode }) => ({
-  server: {
-    fs: {
-      allow: ['../lib/pkg']
-    }
-  },
+  esbuild: { drop: mode === 'development' ? [] : ['console', 'debugger'] },
+  server: { fs: { allow: ['../lib/pkg'] } },
   plugins: [wasm(), topLevelAwait(), sveltekit()],
   optimizeDeps: {
     include: ['pixi.js'],
@@ -24,17 +21,17 @@ export default defineConfig(({ mode }) => ({
       plugins: [
         nesting(),
         tailwindcss(),
-        ...(mode === 'production'
-          ? [
+        autoprefixer(),
+        ...(mode === 'development'
+          ? []
+          : [
               cssnano({
                 preset: advancedPreset({
-                  autoprefixer: { add: true },
                   convertValues: { length: true },
                   discardComments: { removeAll: true }
                 })
               })
-            ]
-          : [autoprefixer()])
+            ])
       ]
     }
   }

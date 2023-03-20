@@ -129,7 +129,7 @@ impl Automaton {
 
     #[wasm_bindgen(js_name = setAllCells)]
     pub fn set_all_cells(&mut self, n: u8) {
-        if n <= self.rules.generation {
+        if n < self.rules.generation {
             self.cells.fill(n);
         }
     }
@@ -156,16 +156,33 @@ impl Automaton {
 
                 // TODO: only modify hot cells
                 // TODO: get neighbor counts then update cells with state > 0 or neighbors
-                self.cells_step[idx] = match (self.cells[idx], self.neighbors(row, col)) {
-                    (0, n) => u8::from(self.rules.birth.contains(&n)),
-                    (1, n) => u8::from(self.rules.survival.contains(&n)),
-                    (s, _) => {
-                        if s < self.rules.generation {
-                            s + 1
-                        } else {
-                            0
-                        }
+                // self.cells_step[idx] = match (self.cells[idx], self.neighbors(row, col)) {
+                //     (0, n) => u8::from(self.rules.birth.contains(&n)),
+                //     (1, n) => u8::from(self.rules.survival.contains(&n)),
+                //     (s, _) => {
+                //         if s < self.rules.generation {
+                //             s + 1
+                //         } else {
+                //             0
+                //         }
+                //     }
+                // }
+
+                let cell = self.cells[idx];
+                let neighbors = self.neighbors(row, col);
+
+                if cell == 0 {
+                    self.cells_step[idx] = u8::from(self.rules.birth.contains(&neighbors));
+                } else if cell < self.rules.generation - 1 || self.rules.generation == 2 {
+                    if !self.rules.survival.contains(&neighbors) {
+                        self.cells_step[idx] = (cell + 1) % self.rules.generation;
+                    } else if cell == 1 {
+                        self.cells_step[idx] = cell;
+                    } else {
+                        self.cells_step[idx] = cell + 1;
                     }
+                } else {
+                    self.cells_step[idx] = 0;
                 }
             }
         }
@@ -210,9 +227,7 @@ impl Automaton {
 mod tests {
     use super::*;
 
-    use wasm_bindgen_test::{wasm_bindgen_test, wasm_bindgen_test_configure};
-
-    wasm_bindgen_test_configure!(run_in_browser);
+    use wasm_bindgen_test::wasm_bindgen_test;
 
     fn flatten_locations(locations: &[[usize; 2]]) -> Vec<usize> {
         locations.iter().copied().flatten().collect()
@@ -297,26 +312,46 @@ mod tests {
         let mut a = Automaton::new(3, 3);
         a.set_all_cells(1);
         a.set_rows(2);
-        assert_eq!(a.cells, vec![1, 1, 1, 1, 1, 1]);
+        assert_eq!(a.cells, vec![1; 6]);
     }
 
     #[test]
     #[wasm_bindgen_test]
     fn automaton_wrapping() {
         let mut a = build_automaton(2, 2, &[[0, 0], [0, 1]]);
-        let a_1 = build_automaton(2, 2, &[[0, 0], [0, 1]]);
-
         a.step();
+        let a_1 = build_automaton(2, 2, &[[0, 0], [0, 1]]);
         assert_eq!(a.cells, a_1.cells);
     }
 
     #[test]
     #[wasm_bindgen_test]
     fn automaton_step() {
+        // 0 0 0 0 0 0
+        // 0 0 1 0 0 0
+        // 0 0 0 1 1 0
+        // 0 1 1 1 0 0
+        // 0 0 0 0 0 0
+        // 0 0 0 0 0 0
         let mut a = build_automaton(6, 6, &[[1, 2], [2, 3], [3, 1], [3, 2], [3, 3]]);
-        let a_1 = build_automaton(6, 6, &[[2, 1], [2, 3], [3, 2], [3, 3], [4, 2]]);
-
         a.step();
+        let a_1 = build_automaton(6, 6, &[[2, 1], [2, 3], [3, 2], [3, 3], [4, 2]]);
         assert_eq!(a.cells, a_1.cells);
+    }
+
+    #[test]
+    #[wasm_bindgen_test]
+    fn automaton_neighbors() {
+        // 1 1 0 0
+        // 0 1 1 0
+        // 0 0 0 0
+        // 1 0 0 1
+        let a = build_automaton(4, 4, &[[0, 0], [0, 1], [1, 1], [1, 2], [3, 0], [3, 3]]);
+        assert_eq!(a.neighbors(0, 0), 4);
+        assert_eq!(a.neighbors(0, 1), 4);
+        assert_eq!(a.neighbors(1, 1), 3);
+        assert_eq!(a.neighbors(1, 2), 2);
+        assert_eq!(a.neighbors(3, 0), 3);
+        assert_eq!(a.neighbors(3, 3), 2);
     }
 }

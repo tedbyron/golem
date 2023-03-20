@@ -2,9 +2,11 @@
   "packageManager": "pnpm@7.28.0",
   "scripts": {
     "dev": "pnpm -F ./web dev",
-    "build": "wasm-pack build lib --release --out-name=lib --scope tedbyron --target web && pnpm -F ./web build",
+    "build": "pnpm build:wasm && pnpm -F ./web build",
+    "build:wasm": "wasm-pack build lib --release --out-name=lib --scope tedbyron --target web",
     "preview": "pnpm -F ./web preview",
     "lint": "pnpm -F ./web lint",
-    "format": "pnpm -F ./web format"
+    "format": "pnpm -F ./web format",
+    "test": "wasm-pack test --node lib"
   }
 }

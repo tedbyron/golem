@@ -38,7 +38,6 @@ export const generation = writable(0)
 
 rows.subscribe(($rows) => {
   const a = get(automaton)
-
   if (a !== undefined) {
     a.rows = $rows
   }
@@ -46,7 +45,6 @@ rows.subscribe(($rows) => {
 
 cols.subscribe(($cols) => {
   const a = get(automaton)
-
   if (a !== undefined) {
     a.cols = $cols
   }
