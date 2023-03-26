@@ -16,7 +16,7 @@
   import { onDestroy, onMount } from 'svelte'
   import { Container, Renderer, Ticker } from 'svelte-pixi'
 
-  import { cellSize, colors, cols, generation, height, numCells, rows, started, width } from '$lib'
+  import { cellSize, colors, cols, generation, height, numCells, rows, width } from '$lib'
 
   import type { Automaton } from 'golem'
 
@@ -93,10 +93,6 @@
   }
 
   onMount(() => {
-    PIXI.Ticker.shared.add(function () {
-      $started = this.started
-    }, PIXI.Ticker.shared)
-
     automaton.randomizeCells(0.5)
     draw($rows, $cols, $cellSize)
     renderer!.render(stage!)
