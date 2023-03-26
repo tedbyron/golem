@@ -50,11 +50,11 @@ impl Rules {
             "{}/{}/{}",
             self.survival
                 .iter()
-                .map(|&n| (b'0' + n) as char)
+                .map(|&n| char::from(b'0' + n))
                 .collect::<String>(),
             self.birth
                 .iter()
-                .map(|&n| (b'0' + n) as char)
+                .map(|&n| char::from(b'0' + n))
                 .collect::<String>(),
             self.generation
         )
