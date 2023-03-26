@@ -32,9 +32,9 @@ export const width = derived([cols, cellSize], ([$cols, $cellSize]) => $cols * $
 export const height = derived([rows, cellSize], ([$rows, $cellSize]) => $rows * $cellSize)
 
 export const automaton = writable<Automaton | undefined>()
-export const cells = writable<Uint8Array | undefined>()
 
 export const generation = writable(0)
+export const started = writable(false)
 
 rows.subscribe(($rows) => {
   const a = get(automaton)

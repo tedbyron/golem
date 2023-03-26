@@ -2,19 +2,20 @@
   import init, { Automaton } from 'golem'
   import { onMount } from 'svelte'
 
-  import { automaton, cells, cols, numCells, rows } from '$lib'
+  import { automaton, cols, rows } from '$lib'
   import App from './App.svelte'
-  import Options from './Options.svelte'
+  import Controls from './Controls.svelte'
   import Stats from './Stats.svelte'
+
+  let memBuf: ArrayBuffer | undefined
 
   onMount(async () => {
     try {
-      const res = await init()
+      const { memory } = await init()
       $automaton = new Automaton($rows, $cols)
-      $automaton.randomizeCells(0.5)
-      $cells = new Uint8Array(res.memory.buffer, $automaton.cellsPtr(), $numCells)
+      memBuf = memory.buffer
     } catch (e) {
-      console.error(e)
+      console.error(e) // TODO
     }
   })
 </script>
@@ -26,7 +27,7 @@
     </h1>
   </div>
 
-  {#if $automaton === undefined || $cells === undefined}
+  {#if $automaton === undefined || memBuf === undefined}
     <!-- TODO: loading fallback; inline style no work wtf
     <div
       style:width={$width}
@@ -36,11 +37,11 @@
       <span>Loading..</span>
     </div> -->
   {:else}
-    <App automaton={$automaton} cells={$cells} />
+    <App automaton={$automaton} {memBuf} />
   {/if}
 
   <div class="mx-auto max-w-screen-lg px-12">
     <Stats />
-    <Options />
+    <Controls />
   </div>
 </section>

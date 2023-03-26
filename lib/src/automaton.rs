@@ -46,14 +46,14 @@ impl Automaton {
         }
     }
 
-    #[allow(clippy::missing_const_for_fn)]
+    #[allow(clippy::missing_const_for_fn)] // wasm_bindgen doesn't support const fns
     #[wasm_bindgen(getter)]
     #[must_use]
     pub fn rows(&self) -> usize {
         self.rows
     }
 
-    #[allow(clippy::missing_const_for_fn)]
+    #[allow(clippy::missing_const_for_fn)] // wasm_bindgen doesn't support const fns
     #[wasm_bindgen(getter)]
     #[must_use]
     pub fn cols(&self) -> usize {
@@ -153,21 +153,6 @@ impl Automaton {
         for row in 0..self.rows {
             for col in 0..self.cols {
                 let idx = self.index(row, col);
-
-                // TODO: only modify hot cells
-                // TODO: get neighbor counts then update cells with state > 0 or neighbors
-                // self.cells_step[idx] = match (self.cells[idx], self.neighbors(row, col)) {
-                //     (0, n) => u8::from(self.rules.birth.contains(&n)),
-                //     (1, n) => u8::from(self.rules.survival.contains(&n)),
-                //     (s, _) => {
-                //         if s < self.rules.generation {
-                //             s + 1
-                //         } else {
-                //             0
-                //         }
-                //     }
-                // }
-
                 let cell = self.cells[idx];
                 let neighbors = self.neighbors(row, col);
 
@@ -239,14 +224,12 @@ mod tests {
         a
     }
 
-    #[test]
     #[wasm_bindgen_test]
     fn automaton_new() {
         let a = Automaton::new(64, 64);
         assert_eq!(a.cells, vec![0; 64 * 64]);
     }
 
-    #[test]
     #[wasm_bindgen_test]
     fn automaton_set_cells_on() {
         let mut a = Automaton::new(3, 3);
@@ -261,7 +244,6 @@ mod tests {
         assert_eq!(a.cells, vec![0, 1, 1, 1, 0, 1, 1, 1, 0]);
     }
 
-    #[test]
     #[wasm_bindgen_test]
     fn automaton_new_rect() {
         let mut a = Automaton::new(2, 3);
@@ -269,7 +251,6 @@ mod tests {
         assert_eq!(a.cells, vec![0, 0, 0, 0, 1, 0]);
     }
 
-    #[test]
     #[wasm_bindgen_test]
     fn automaton_set_all_cells() {
         let mut a = Automaton::new(3, 3);
@@ -279,7 +260,6 @@ mod tests {
         assert_eq!(a.cells, vec![0, 0, 0, 0, 0, 0, 0, 0, 0]);
     }
 
-    #[test]
     #[wasm_bindgen_test]
     fn automaton_set_cols_larger() {
         let mut a = Automaton::new(3, 3);
@@ -288,7 +268,6 @@ mod tests {
         assert_eq!(a.cells, vec![1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0]);
     }
 
-    #[test]
     #[wasm_bindgen_test]
     fn automaton_set_cols_smaller() {
         let mut a = Automaton::new(3, 3);
@@ -297,7 +276,6 @@ mod tests {
         assert_eq!(a.cells, vec![1, 1, 1, 1, 1, 1]);
     }
 
-    #[test]
     #[wasm_bindgen_test]
     fn automaton_set_rows_larger() {
         let mut a = Automaton::new(3, 3);
@@ -306,7 +284,6 @@ mod tests {
         assert_eq!(a.cells, vec![1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0]);
     }
 
-    #[test]
     #[wasm_bindgen_test]
     fn automaton_set_rows_smaller() {
         let mut a = Automaton::new(3, 3);
@@ -315,7 +292,6 @@ mod tests {
         assert_eq!(a.cells, vec![1; 6]);
     }
 
-    #[test]
     #[wasm_bindgen_test]
     fn automaton_wrapping() {
         let mut a = build_automaton(2, 2, &[[0, 0], [0, 1]]);
@@ -324,7 +300,6 @@ mod tests {
         assert_eq!(a.cells, a_1.cells);
     }
 
-    #[test]
     #[wasm_bindgen_test]
     fn automaton_step() {
         // 0 0 0 0 0 0
@@ -339,7 +314,6 @@ mod tests {
         assert_eq!(a.cells, a_1.cells);
     }
 
-    #[test]
     #[wasm_bindgen_test]
     fn automaton_neighbors() {
         // 1 1 0 0

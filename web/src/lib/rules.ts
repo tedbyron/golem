@@ -5,29 +5,34 @@ import { automaton } from '.'
 
 export type RuleString = (typeof rules)[number]['ruleString']
 
-const ruleStringToRules = (ruleString: RuleString): Rules | null => {
-  const split = ruleString.split('/')
-  if (split.length !== 3) {
+/**
+ * Converts a string to rules.
+ * @param input
+ * @returns an array of rules, or `null` if `input` is not a valid rulestring
+ */
+export const stringToRules = (input: string): ConstructorParameters<typeof Rules> | null => {
+  const trimmed = input.trim()
+  const match = trimmed.match(/^(\d*)\/(\d+)\/(\d+)$/)
+  if (match === null) {
     return null
   }
 
-  const s = new Uint8Array(split[0]!.split('').map((n) => parseInt(n, 10)))
-  const b = new Uint8Array(split[1]!.split('').map((n) => parseInt(n, 10)))
-  const c = parseInt(split[2]!, 10)
+  const [, survival, birth, generation] = match
+  const s = Uint8Array.from(new Set(survival!.split('').map((n) => parseInt(n, 10))))
+  const b = Uint8Array.from(new Set(birth!.split('').map((n) => parseInt(n, 10))))
+  const c = Math.min(Math.max(parseInt(generation!, 10), 0), 255)
 
-  return new Rules(s, b, c)
+  return [s, b, c]
 }
 
-export const updateRules = (ruleString: RuleString): void => {
-  const r = ruleStringToRules(ruleString)
-  if (r === null) {
-    return
-  }
-
+/**
+ * Updates the automaton's rules.
+ * @param rules
+ */
+export const updateRules = (rules: ConstructorParameters<typeof Rules>): void => {
   const a = get(automaton)
   if (a !== undefined) {
-    a.rules = r
-    console.log(a.rules.toJSON())
+    a.rules = new Rules(...rules)
   }
 }
 

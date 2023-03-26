@@ -41,4 +41,22 @@ impl Rules {
             generation: c,
         }
     }
+
+    #[allow(clippy::inherent_to_string)] // wasm_bindgen doesn't support trait impls
+    #[wasm_bindgen(js_name = toString)]
+    #[must_use]
+    pub fn to_string(&self) -> String {
+        format!(
+            "{}/{}/{}",
+            self.survival
+                .iter()
+                .map(|&n| (b'0' + n) as char)
+                .collect::<String>(),
+            self.birth
+                .iter()
+                .map(|&n| (b'0' + n) as char)
+                .collect::<String>(),
+            self.generation
+        )
+    }
 }

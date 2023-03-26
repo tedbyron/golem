@@ -1,3 +1,15 @@
+const importOrderOptions = {
+  groups: [
+    'builtin',
+    'external',
+    ['internal', 'unknown', 'parent', 'sibling', 'index'],
+    'type',
+    'object'
+  ],
+  'newlines-between': 'always',
+  alphabetize: { order: 'asc' }
+}
+
 /** @type {import('@typescript-eslint/utils').TSESLint.Linter.Config} */
 module.exports = {
   root: true,
@@ -11,7 +23,11 @@ module.exports = {
       files: ['*.svelte'],
       processor: 'svelte3/svelte3',
       rules: {
-        'import/first': 'off'
+        'import/first': 'off',
+        'import/order': [
+          'error',
+          { ...importOrderOptions, 'newlines-between': 'always-and-inside-groups' }
+        ]
       }
     }
   ],
@@ -29,19 +45,6 @@ module.exports = {
   },
   rules: {
     '@typescript-eslint/no-non-null-assertion': 0,
-    'import/order': [
-      'error',
-      {
-        groups: [
-          'builtin',
-          'external',
-          ['internal', 'unknown', 'parent', 'sibling', 'index'],
-          'type',
-          'object'
-        ],
-        'newlines-between': 'always',
-        alphabetize: { order: 'asc' }
-      }
-    ]
+    'import/order': ['error', importOrderOptions]
   }
 }
