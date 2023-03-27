@@ -2,7 +2,7 @@
   "packageManager": "pnpm@7.28.0",
   "scripts": {
     "dev": "pnpm -F ./web dev",
-    "build": "pnpm build:wasm && pnpm -F ./web build",
+    "build": "pnpm -F ./web build",
     "build:wasm": "wasm-pack build lib --release --out-name=lib --scope tedbyron --target web",
     "preview": "pnpm -F ./web preview",
     "publish:wasm": "wasm-pack publish lib --access public",

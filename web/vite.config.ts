@@ -28,7 +28,8 @@ export default defineConfig(({ mode }) => ({
               cssnano({
                 preset: advancedPreset({
                   convertValues: { length: true },
-                  discardComments: { removeAll: true }
+                  discardComments: { removeAll: true },
+                  discardUnused: { fontFace: false }
                 })
               })
             ])
