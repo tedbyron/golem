@@ -18,9 +18,14 @@ export const stringToRules = (input: string): ConstructorParameters<typeof Rules
   }
 
   const [, survival, birth, generation] = match
+
+  const c = Math.min(Math.max(parseInt(generation!, 10), 2), 24) // currently max 24 generations
+  if (generation !== c.toString()) {
+    return null
+  }
+
   const s = Uint8Array.from(new Set(survival!.split('').map((n) => parseInt(n, 10))))
   const b = Uint8Array.from(new Set(birth!.split('').map((n) => parseInt(n, 10))))
-  const c = Math.min(Math.max(parseInt(generation!, 10), 0), 255)
 
   return [s, b, c]
 }

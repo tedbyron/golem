@@ -1,11 +1,20 @@
 [package]
 name = "golem-lib"
-version = "1.0.0"
+version = "1.0.1"
+authors = ["Teddy Byron <ted@tedbyron.com>"]
 edition = "2021"
+description = "Customizable cellular automaton simulator"
+repository = "https://github.com/tedbyron/golem"
+license = "Apache-2.0"
+keywords = ["wasm", "webassembly", "game-of-life", "cellular-automaton", "cellular-automata"]
+categories = ["wasm"]
 publish = false
 
 [lib]
 crate-type = ["cdylib"]
+
+[profile.dev]
+debug = 0
 
 [profile.release]
 codegen-units = 1

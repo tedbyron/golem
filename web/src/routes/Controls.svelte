@@ -3,16 +3,16 @@
 
   import { automaton, generation } from '$lib'
   import { rules, stringToRules, updateRules, type RuleString } from '$lib/rules'
-  import { redraw, step } from './App.svelte'
+  import { redraw, step, updateCellsView } from './App.svelte'
 
   const initialRules = '23/3/2'
 
   let started = false
   let rulesInput = initialRules
   let invalidRulesInput = false
-  let rulesSelect = initialRules
+  let rulesSelect: RuleString = initialRules
 
-  const onStartStop = () => {
+  const startStop = () => {
     if (started) {
       PIXI.Ticker.shared.stop()
       started = false
@@ -34,6 +34,7 @@
     $generation = 0
   }
 
+  // FIXME: wasm mem buffer sometimes detaches - switch generation rule to 2, then > 2
   const onRulesInput = (e: Event): void => {
     const input = (e.currentTarget as HTMLInputElement).value
     rulesInput = input
@@ -44,8 +45,12 @@
     } else {
       invalidRulesInput = false
       updateRules(newRules)
+      updateCellsView()
+
       const found = rules.find(({ ruleString }) => ruleString === $automaton?.rules.toString())
-      if (found !== undefined) {
+      if (found === undefined) {
+        rulesSelect = 'none'
+      } else {
         rulesSelect = found.ruleString
       }
     }
@@ -63,10 +68,19 @@
 
 <div class="options">
   <div class="options-buttons">
-    <button type="button" class="input-button" on:click={onStartStop}>
+    <button type="button" class="input-button" on:click={startStop}>
       {started ? 'Stop' : 'Start'}
     </button>
-    <button type="button" class="input-button" disabled={started} on:click={step}> Step </button>
+    <button
+      type="button"
+      class="input-button"
+      disabled={started}
+      on:click={() => {
+        step()
+      }}
+    >
+      Step
+    </button>
     <button type="button" class="input-button" on:click={clear}>Clear</button>
     <button type="button" class="input-button" on:click={randomize}>Randomize</button>
   </div>

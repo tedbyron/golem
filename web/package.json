@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@fontsource/press-start-2p": "4.5.11",
-    "golem": "workspace:@tedbyron/golem-lib@*",
+    "golem": "npm:@tedbyron/golem-lib@*",
     "pixi.js": "6.5.9",
     "svelte-pixi": "0.1.3"
   },

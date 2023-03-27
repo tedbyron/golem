@@ -25,7 +25,7 @@ importers:
       eslint-plugin-n: 15.6.1
       eslint-plugin-promise: 6.1.1
       eslint-plugin-svelte3: 4.0.0
-      golem: workspace:@tedbyron/golem-lib@*
+      golem: npm:@tedbyron/golem-lib@*
       pixi.js: 6.5.9
       postcss: 8.4.21
       prettier: 2.8.7

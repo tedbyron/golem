@@ -39,8 +39,8 @@ impl Automaton {
         Self {
             rows,
             cols,
-            cells: vec![0; cols * rows],
-            cells_step: vec![0; cols * rows],
+            cells: vec![0; rows * cols],
+            cells_step: vec![0; rows * cols],
             rules: Rules::default(),
             neighbor_deltas,
         }
@@ -62,9 +62,8 @@ impl Automaton {
 
     #[wasm_bindgen(setter)]
     pub fn set_rows(&mut self, new_rows: usize) {
-        self.cells.resize_with(self.cols * new_rows, u8::default);
-        self.cells_step
-            .resize_with(self.cols * new_rows, u8::default);
+        self.cells.resize(self.cols * new_rows, 0);
+        self.cells_step.resize(self.cols * new_rows, 0);
         self.rows = new_rows;
         self.set_neighbor_deltas(self.cols, new_rows);
     }
@@ -156,18 +155,18 @@ impl Automaton {
                 let cell = self.cells[idx];
                 let neighbors = self.neighbors(row, col);
 
-                if cell == 0 {
-                    self.cells_step[idx] = u8::from(self.rules.birth.contains(&neighbors));
+                self.cells_step[idx] = if cell == 0 {
+                    u8::from(self.rules.birth.contains(&neighbors))
                 } else if cell < self.rules.generation - 1 || self.rules.generation == 2 {
                     if !self.rules.survival.contains(&neighbors) {
-                        self.cells_step[idx] = (cell + 1) % self.rules.generation;
+                        (cell + 1) % self.rules.generation
                     } else if cell == 1 {
-                        self.cells_step[idx] = cell;
+                        cell
                     } else {
-                        self.cells_step[idx] = cell + 1;
+                        cell + 1
                     }
                 } else {
-                    self.cells_step[idx] = 0;
+                    0
                 }
             }
         }

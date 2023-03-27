@@ -10,6 +10,8 @@
   export let redraw: () => void
   /** Steps to the next generation, updates cell colors, and renders. */
   export let step: () => void
+  /** Reconstructs the wasm memory view. */
+  export let updateCellsView: () => void
 </script>
 
 <script lang="ts">
@@ -76,6 +78,22 @@
     renderer!.render(stage!)
   }
 
+  step = () => {
+    automaton.step()
+    redraw()
+    $generation += 1
+  }
+
+  updateCellsView = () => {
+    cellsView = new Uint8Array(memBuf, automaton.cellsPtr(), $numCells)
+  }
+
+  onMount(() => {
+    automaton.randomizeCells(0.5)
+    draw($rows, $cols, $cellSize)
+    renderer!.render(stage!)
+  })
+
   const unsubCellSize = cellSize.subscribe((val) => {
     draw($rows, $cols, val)
   })
@@ -86,17 +104,6 @@
     draw($rows, val, $cellSize)
   })
 
-  step = () => {
-    automaton.step()
-    redraw()
-    $generation += 1
-  }
-
-  onMount(() => {
-    automaton.randomizeCells(0.5)
-    draw($rows, $cols, $cellSize)
-    renderer!.render(stage!)
-  })
   onDestroy(() => {
     unsubCellSize()
     unsubRows()
@@ -109,7 +116,7 @@
   })
 </script>
 
-<div class="text-center leading-none">
+<div class="flex justify-center">
   <Renderer
     bind:instance={renderer}
     bind:stage
@@ -118,7 +125,7 @@
     height={$height}
     backgroundColor={colors[0]}
   >
-    <div slot="view" class="inline-block border-2 border-fg" />
+    <div slot="view" class="border-2 border-fg" />
 
     <Ticker instance={PIXI.Ticker.shared} autoStart={false} on:tick={step}>
       <Container bind:instance={stage} interactiveChildren={false} />
