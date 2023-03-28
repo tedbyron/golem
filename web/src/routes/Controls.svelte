@@ -9,7 +9,7 @@
 
   let started = false
   let rulesInput = initialRules
-  let invalidRulesInput = false
+  let invalidRulesInput = stringToRules(initialRules) === null
   let rulesSelect: RuleString = rules.some(({ ruleString }) => ruleString === initialRules)
     ? (initialRules as RuleString)
     : 'none'
