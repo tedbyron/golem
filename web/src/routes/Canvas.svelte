@@ -94,6 +94,7 @@
         sprites![i]!.tint = colors[cellsView[i]!]!
       }
     }
+
     renderer!.render(stage!)
   }
 
@@ -131,16 +132,12 @@
   >
     <div slot="view" class="border-2 border-fg" />
 
-    <Ticker
-      instance={PIXI.Ticker.shared}
-      autoStart={false}
-      priority={PIXI.UPDATE_PRIORITY.NORMAL}
-      on:tick={step}
-    >
+    <Ticker autoStart={false} maxFPS={60} instance={PIXI.Ticker.shared} on:tick={step}>
       <Container
         bind:instance={stage}
         accessibleChildren={false}
         accessiblePointerEvents="none"
+        interactive={false}
         interactiveChildren={false}
       />
     </Ticker>

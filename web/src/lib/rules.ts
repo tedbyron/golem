@@ -19,7 +19,7 @@ export const stringToRules = (input: string): ConstructorParameters<typeof Rules
 
   const [, survival, birth, generation] = match
 
-  const c = Math.min(Math.max(parseInt(generation!, 10), 2), 24) // currently max 24 generations
+  const c = Math.min(Math.max(parseInt(generation!, 10), 2), 64) // currently max 64 generations
   if (generation !== c.toString()) {
     return null
   }
@@ -104,6 +104,6 @@ export const rules = [
   { ruleString: '2578/2578/6', name: "(Ted's) Runners" },
   { ruleString: '0123/3/2', name: "(Ted's) SlowMaze" },
   { ruleString: '34678/3678/3', name: "(Ted's) Starry Night" },
-  { ruleString: '345/357/4', name: "(Ted's) Sunbursts" },
+  { ruleString: '345/357/4', name: "(Ted's) Flares" },
   { ruleString: '3467/2468/13', name: "(Ted's) Zoomies" },
 ] as const

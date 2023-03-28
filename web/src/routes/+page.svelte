@@ -17,6 +17,7 @@
     try {
       memory = (await init()).memory
       $automaton = new Automaton($rows, $cols)
+
       const storedRules = localStorage.getItem('rules')
       if (storedRules !== null) {
         const rules = stringToRules(storedRules)

@@ -4,7 +4,7 @@ import type { Automaton } from 'golem'
 
 export const cellSize = writable(5)
 const colors = [0x212121, 0xffd600]
-for (let i = 0; i <= 22; i++) {
+for (let i = 0; i <= 64 - 2; i++) {
   colors.push(parseInt(Math.floor(Math.random() * 0xffffff).toString(16), 16))
 }
 export { colors }
