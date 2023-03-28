@@ -3,17 +3,17 @@
   import { onMount } from 'svelte'
 
   import { automaton, cols, rows } from '$lib'
-  import App from './App.svelte'
+  import Canvas from './Canvas.svelte'
   import Controls from './Controls.svelte'
   import Stats from './Stats.svelte'
 
-  let memBuf: ArrayBuffer | undefined
+  let memory: WebAssembly.Memory | undefined
 
   onMount(async () => {
     try {
-      const { memory } = await init()
+      const wasm = await init()
       $automaton = new Automaton($rows, $cols)
-      memBuf = memory.buffer
+      memory = wasm.memory
     } catch (e) {
       console.error(e) // TODO
     }
@@ -22,13 +22,11 @@
 
 <section>
   <div class="flex flex-col items-center">
-    <h1 class="mx-1 mt-2 border-2 border-b-0 border-fg p-3 text-xl sm:text-2xl md:text-3xl">
-      Golem
-    </h1>
+    <h1 class="mt-2 border-2 border-b-0 border-fg p-3 text-xl sm:text-2xl md:text-3xl">Golem</h1>
   </div>
 
-  {#if $automaton === undefined || memBuf === undefined}
-    <!-- TODO: loading fallback; inline style no work wtf
+  {#if $automaton === undefined || memory === undefined}
+    <!-- TODO: loading fallback
     <div
       style:width={$width}
       style:height={$height}
@@ -37,7 +35,7 @@
       <span>Loading..</span>
     </div> -->
   {:else}
-    <App automaton={$automaton} {memBuf} />
+    <Canvas automaton={$automaton} {memory} />
   {/if}
 
   <div class="mx-auto max-w-screen-lg px-12">

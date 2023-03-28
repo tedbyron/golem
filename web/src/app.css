@@ -41,11 +41,11 @@
     }
   }
 
-  .options {
+  .controls {
     @apply mb-4 grid grid-cols-[repeat(2,50%)] content-center gap-y-4;
   }
 
-  .options-buttons {
+  .controls-buttons {
     @apply col-[span_2] grid grid-cols-[repeat(2,calc(50%-0.5rem))] gap-4 sm:grid-cols-[repeat(4,calc(25%-.75rem))];
   }
 
@@ -57,11 +57,11 @@
     }
   }
 
-  .options-label {
+  .controls-label {
     @apply col-[span_2] grid grid-rows-[1fr] sm:grid-cols-[repeat(2,50%)] lg:col-start-auto lg:odd:ml-2 lg:even:mr-2;
   }
 
-  .options-label-text {
+  .controls-label-text {
     @apply flex items-center justify-center border-2 border-b-0 border-fg p-2 sm:border-r-0 sm:border-b-2;
   }
 

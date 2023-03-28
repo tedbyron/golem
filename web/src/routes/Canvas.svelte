@@ -10,8 +10,6 @@
   export let redraw: () => void
   /** Steps to the next generation, updates cell colors, and renders. */
   export let step: () => void
-  /** Reconstructs the wasm memory view. */
-  export let updateCellsView: () => void
 </script>
 
 <script lang="ts">
@@ -23,14 +21,18 @@
   import type { Automaton } from 'golem'
 
   export let automaton: Automaton
-  export let memBuf: ArrayBuffer
+  export let memory: WebAssembly.Memory
 
-  $: cellsView = new Uint8Array(memBuf, automaton.cellsPtr(), $numCells)
+  let cellsView = new Uint8Array(memory.buffer, automaton.cellsPtr(), $numCells)
 
   let renderer: PIXI.Renderer | undefined
   let stage: PIXI.Container | undefined
   let rect: PIXI.Graphics | undefined
   let graphics: PIXI.Graphics[] | undefined
+
+  const unsubNumCells = numCells.subscribe((val) => {
+    cellsView = new Uint8Array(memory.buffer, automaton.cellsPtr(), val)
+  })
 
   /**
    * Destroys graphics objects and creates new ones based on the current state.
@@ -39,7 +41,7 @@
    * @param cellSize
    */
   const draw = (rows: number, cols: number, cellSize: number) => {
-    cellsView = new Uint8Array(memBuf, automaton.cellsPtr(), $numCells)
+    cellsView = new Uint8Array(memory.buffer, automaton.cellsPtr(), $numCells)
 
     if (stage !== undefined) {
       stage.removeChildren()
@@ -65,8 +67,27 @@
     }
   }
 
+  const unsubCellSize = cellSize.subscribe((val) => {
+    if (!(renderer === undefined || stage === undefined)) {
+      draw($rows, $cols, val)
+      renderer.render(stage!)
+    }
+  })
+  const unsubRows = rows.subscribe((val) => {
+    if (!(renderer === undefined || stage === undefined)) {
+      draw(val, $cols, $cellSize)
+      renderer.render(stage!)
+    }
+  })
+  const unsubCols = cols.subscribe((val) => {
+    if (!(renderer === undefined || stage === undefined)) {
+      draw($rows, val, $cellSize)
+      renderer.render(stage!)
+    }
+  })
+
   redraw = () => {
-    cellsView = new Uint8Array(memBuf, automaton.cellsPtr(), $numCells)
+    cellsView = new Uint8Array(memory.buffer, automaton.cellsPtr(), $numCells)
 
     for (let row = 0; row < $rows; row++) {
       for (let col = 0; col < $cols; col++) {
@@ -84,27 +105,14 @@
     $generation += 1
   }
 
-  updateCellsView = () => {
-    cellsView = new Uint8Array(memBuf, automaton.cellsPtr(), $numCells)
-  }
-
   onMount(() => {
     automaton.randomizeCells(0.5)
     draw($rows, $cols, $cellSize)
     renderer!.render(stage!)
   })
 
-  const unsubCellSize = cellSize.subscribe((val) => {
-    draw($rows, $cols, val)
-  })
-  const unsubRows = rows.subscribe((val) => {
-    draw(val, $cols, $cellSize)
-  })
-  const unsubCols = cols.subscribe((val) => {
-    draw($rows, val, $cellSize)
-  })
-
   onDestroy(() => {
+    unsubNumCells()
     unsubCellSize()
     unsubRows()
     unsubCols()

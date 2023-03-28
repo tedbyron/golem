@@ -3,7 +3,7 @@
 
   import { automaton, generation } from '$lib'
   import { rules, stringToRules, updateRules, type RuleString } from '$lib/rules'
-  import { redraw, step, updateCellsView } from './App.svelte'
+  import { redraw, step } from './Canvas.svelte'
 
   const initialRules = '23/3/2'
 
@@ -45,7 +45,6 @@
     } else {
       invalidRulesInput = false
       updateRules(newRules)
-      updateCellsView()
 
       const found = rules.find(({ ruleString }) => ruleString === $automaton?.rules.toString())
       if (found === undefined) {
@@ -66,8 +65,8 @@
   }
 </script>
 
-<div class="options">
-  <div class="options-buttons">
+<div class="controls">
+  <div class="controls-buttons">
     <button type="button" class="input-button" on:click={startStop}>
       {started ? 'Stop' : 'Start'}
     </button>
@@ -85,13 +84,13 @@
     <button type="button" class="input-button" on:click={randomize}>Randomize</button>
   </div>
 
-  <label class="options-label">
-    <span class="options-label-text" class:text-invalid={invalidRulesInput}>Rules (S/B/C)</span>
+  <label class="controls-label">
+    <span class="controls-label-text" class:text-invalid={invalidRulesInput}>Rules (S/B/C)</span>
     <input type="text" bind:value={rulesInput} on:input={onRulesInput} class="input-text" />
   </label>
 
-  <label class="options-label">
-    <span class="options-label-text">Preset Rules</span>
+  <label class="controls-label">
+    <span class="controls-label-text">Preset Rules</span>
     <select class="input-select" bind:value={rulesSelect} on:change={onRulesSelect}>
       {#each rules as { ruleString, name } (ruleString)}
         <option
