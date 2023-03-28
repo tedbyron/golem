@@ -1,11 +1,15 @@
 <script lang="ts">
-  import init, { Automaton } from 'golem'
+  import init, { Automaton, Rules } from 'golem'
   import { onMount } from 'svelte'
 
   import { automaton, cols, rows } from '$lib'
+  import { rules, stringToRules } from '$lib/rules'
   import Canvas from './Canvas.svelte'
   import Controls from './Controls.svelte'
   import Stats from './Stats.svelte'
+
+  const initialRules =
+    localStorage.getItem('rules') ?? rules.find(({ name }) => name === 'Life')!.ruleString
 
   let memory: WebAssembly.Memory | undefined
 
@@ -13,6 +17,13 @@
     try {
       memory = (await init()).memory
       $automaton = new Automaton($rows, $cols)
+      const storedRules = localStorage.getItem('rules')
+      if (storedRules !== null) {
+        const rules = stringToRules(storedRules)
+        if (rules !== null) {
+          $automaton.rules = new Rules(...rules)
+        }
+      }
     } catch (e) {
       console.error(e) // TODO
     }
@@ -39,6 +50,6 @@
 
   <div class="mx-auto max-w-screen-lg px-12">
     <Stats />
-    <Controls />
+    <Controls {initialRules} />
   </div>
 </section>

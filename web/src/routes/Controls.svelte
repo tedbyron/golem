@@ -5,12 +5,14 @@
   import { rules, stringToRules, updateRules, type RuleString } from '$lib/rules'
   import { redraw, step } from './Canvas.svelte'
 
-  const initialRules = '23/3/2'
+  export let initialRules: string
 
   let started = false
   let rulesInput = initialRules
   let invalidRulesInput = false
-  let rulesSelect: RuleString = initialRules
+  let rulesSelect: RuleString = rules.some(({ ruleString }) => ruleString === initialRules)
+    ? (initialRules as RuleString)
+    : 'none'
 
   const startStop = () => {
     if (started) {
@@ -34,10 +36,10 @@
     $generation = 0
   }
 
-  // FIXME: wasm mem buffer sometimes detaches - switch generation rule to 2, then > 2
   const onRulesInput = (e: Event): void => {
     const input = (e.currentTarget as HTMLInputElement).value
     rulesInput = input
+    localStorage.setItem('rules', input)
 
     const newRules = stringToRules(input)
     if (newRules === null) {
@@ -58,6 +60,7 @@
   const onRulesSelect = (e: Event): void => {
     const ruleString = (e.currentTarget as HTMLSelectElement).value as RuleString
     rulesInput = ruleString
+    localStorage.setItem('rules', ruleString)
     invalidRulesInput = false
 
     const newRules = stringToRules(ruleString)
@@ -95,7 +98,7 @@
       {#each rules as { ruleString, name } (ruleString)}
         <option
           value={ruleString}
-          selected={ruleString === initialRules}
+          selected={ruleString === rulesSelect}
           disabled={ruleString === 'none' || ruleString === ''}>{name}</option
         >
       {/each}
