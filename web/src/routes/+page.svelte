@@ -11,9 +11,8 @@
 
   onMount(async () => {
     try {
-      const wasm = await init()
+      memory = (await init()).memory
       $automaton = new Automaton($rows, $cols)
-      memory = wasm.memory
     } catch (e) {
       console.error(e) // TODO
     }

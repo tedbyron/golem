@@ -4,10 +4,10 @@ const importOrderOptions = {
     'external',
     ['internal', 'unknown', 'parent', 'sibling', 'index'],
     'type',
-    'object'
+    'object',
   ],
   'newlines-between': 'always',
-  alphabetize: { order: 'asc' }
+  alphabetize: { order: 'asc' },
 }
 
 /** @type {import('@typescript-eslint/utils').TSESLint.Linter.Config} */
@@ -26,25 +26,25 @@ module.exports = {
         'import/first': 'off',
         'import/order': [
           'error',
-          { ...importOrderOptions, 'newlines-between': 'always-and-inside-groups' }
-        ]
-      }
-    }
+          { ...importOrderOptions, 'newlines-between': 'always-and-inside-groups' },
+        ],
+      },
+    },
   ],
   parserOptions: {
     ecmaFeatures: { impliedStrict: true },
     ecmaVersion: 'latest',
     extraFileExtensions: ['.svelte'],
     project: './tsconfig.json',
-    sourceType: 'module'
+    sourceType: 'module',
   },
   env: {
     browser: true,
     es2022: true,
-    node: true
+    node: true,
   },
   rules: {
     '@typescript-eslint/no-non-null-assertion': 0,
-    'import/order': ['error', importOrderOptions]
-  }
+    'import/order': ['error', importOrderOptions],
+  },
 }

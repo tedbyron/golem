@@ -14,7 +14,7 @@ export default defineConfig(({ mode }) => ({
   plugins: [wasm(), topLevelAwait(), sveltekit()],
   optimizeDeps: {
     include: ['pixi.js'],
-    exclude: ['golem']
+    exclude: ['golem'],
   },
   css: {
     postcss: {
@@ -29,11 +29,11 @@ export default defineConfig(({ mode }) => ({
                 preset: advancedPreset({
                   convertValues: { length: true },
                   discardComments: { removeAll: true },
-                  discardUnused: { fontFace: false }
-                })
-              })
-            ])
-      ]
-    }
-  }
+                  discardUnused: { fontFace: false },
+                }),
+              }),
+            ]),
+      ],
+    },
+  },
 }))

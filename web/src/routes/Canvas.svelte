@@ -1,12 +1,13 @@
 <script lang="ts" context="module">
   import * as PIXI from 'pixi.js'
 
-  PIXI.utils.skipHello()
+  PIXI.settings.GC_MODE = PIXI.GC_MODES.MANUAL
   PIXI.settings.RESOLUTION = window.devicePixelRatio
-  PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST
   PIXI.settings.ROUND_PIXELS = true
+  PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST
+  PIXI.utils.skipHello()
 
-  /** Calculates automaton cell colors and renders. */
+  /** Calculates automaton cell colors, and renders. */
   export let redraw: () => void
   /** Steps to the next generation, updates cell colors, and renders. */
   export let step: () => void
@@ -24,66 +25,64 @@
   export let memory: WebAssembly.Memory
 
   let cellsView = new Uint8Array(memory.buffer, automaton.cellsPtr(), $numCells)
-
   let renderer: PIXI.Renderer | undefined
   let stage: PIXI.Container | undefined
-  let rect: PIXI.Graphics | undefined
-  let graphics: PIXI.Graphics[] | undefined
+  let sprites: PIXI.Sprite[] | undefined
 
-  const unsubNumCells = numCells.subscribe((val) => {
-    cellsView = new Uint8Array(memory.buffer, automaton.cellsPtr(), val)
-  })
-
-  /**
-   * Destroys graphics objects and creates new ones based on the current state.
-   * @param rows
-   * @param cols
-   * @param cellSize
-   */
+  /** Destroys sprites and creates new ones based on the current state. */
   const draw = (rows: number, cols: number, cellSize: number) => {
-    cellsView = new Uint8Array(memory.buffer, automaton.cellsPtr(), $numCells)
-
-    if (stage !== undefined) {
-      stage.removeChildren()
-      rect?.destroy()
-      graphics?.forEach((c) => {
-        c.destroy()
-      })
-
-      graphics = new Array($numCells)
-      rect = new PIXI.Graphics().beginFill(0xffffff).drawRect(0, 0, cellSize, cellSize).endFill()
-
-      for (let row = 0; row < rows; row++) {
-        for (let col = 0; col < cols; col++) {
-          const i = row * cols + col
-
-          graphics[i] = rect.clone()
-          graphics[i]!.position.set(col * cellSize, row * cellSize)
-          graphics[i]!.tint = colors[cellsView[i]!]!
-        }
-      }
-
-      stage.addChild(...graphics)
+    if (renderer === undefined || stage === undefined) {
+      return
     }
+
+    sprites?.forEach((sprite) => {
+      sprite.destroy(true)
+    })
+    stage.removeChildren()
+
+    cellsView = new Uint8Array(memory.buffer, automaton.cellsPtr(), $numCells)
+    sprites = new Array($numCells)
+    const templateShape = new PIXI.Graphics()
+      .beginFill(0xffffff)
+      .drawRect(0, 0, cellSize, cellSize)
+      .endFill()
+    const renderTexture = PIXI.RenderTexture.create({
+      width: cellSize,
+      height: cellSize,
+      multisample: PIXI.MSAA_QUALITY.NONE,
+    })
+    renderer.render(templateShape, {
+      renderTexture,
+      transform: new PIXI.Matrix(1, 0, 0, 1),
+    })
+    renderer.framebuffer.blit()
+    templateShape.destroy(true)
+
+    for (let row = 0; row < rows; row++) {
+      for (let col = 0; col < cols; col++) {
+        const i = row * cols + col
+
+        sprites[i] = new PIXI.Sprite(renderTexture)
+        sprites[i]!.position.set(col * cellSize, row * cellSize)
+        sprites[i]!.tint = colors[cellsView[i]!]!
+      }
+    }
+
+    stage.addChild(...sprites)
+    renderer.render(stage)
   }
 
+  const unsubNumCells = numCells.subscribe(() => {
+    draw($rows, $cols, $cellSize)
+  })
   const unsubCellSize = cellSize.subscribe((val) => {
-    if (!(renderer === undefined || stage === undefined)) {
-      draw($rows, $cols, val)
-      renderer.render(stage!)
-    }
+    draw($rows, $cols, val)
   })
   const unsubRows = rows.subscribe((val) => {
-    if (!(renderer === undefined || stage === undefined)) {
-      draw(val, $cols, $cellSize)
-      renderer.render(stage!)
-    }
+    draw(val, $cols, $cellSize)
   })
   const unsubCols = cols.subscribe((val) => {
-    if (!(renderer === undefined || stage === undefined)) {
-      draw($rows, val, $cellSize)
-      renderer.render(stage!)
-    }
+    draw($rows, val, $cellSize)
   })
 
   redraw = () => {
@@ -92,10 +91,9 @@
     for (let row = 0; row < $rows; row++) {
       for (let col = 0; col < $cols; col++) {
         const i = row * $cols + col
-        graphics![i]!.tint = colors[cellsView[i]!]!
+        sprites![i]!.tint = colors[cellsView[i]!]!
       }
     }
-
     renderer!.render(stage!)
   }
 
@@ -108,7 +106,6 @@
   onMount(() => {
     automaton.randomizeCells(0.5)
     draw($rows, $cols, $cellSize)
-    renderer!.render(stage!)
   })
 
   onDestroy(() => {
@@ -117,9 +114,7 @@
     unsubRows()
     unsubCols()
 
-    graphics?.forEach((cell) => cell.destroy())
-    rect?.destroy()
-    stage?.destroy()
+    stage?.destroy(true)
     renderer?.destroy()
   })
 </script>
@@ -128,15 +123,26 @@
   <Renderer
     bind:instance={renderer}
     bind:stage
-    autoDensity
+    clearBeforeRender={true}
+    powerPreference="high-performance"
     width={$width}
     height={$height}
     backgroundColor={colors[0]}
   >
     <div slot="view" class="border-2 border-fg" />
 
-    <Ticker instance={PIXI.Ticker.shared} autoStart={false} on:tick={step}>
-      <Container bind:instance={stage} interactiveChildren={false} />
+    <Ticker
+      instance={PIXI.Ticker.shared}
+      autoStart={false}
+      priority={PIXI.UPDATE_PRIORITY.NORMAL}
+      on:tick={step}
+    >
+      <Container
+        bind:instance={stage}
+        accessibleChildren={false}
+        accessiblePointerEvents="none"
+        interactiveChildren={false}
+      />
     </Ticker>
   </Renderer>
 </div>

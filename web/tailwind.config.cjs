@@ -4,7 +4,7 @@ module.exports = {
   content: ['./src/**/*.{html,svelte}'],
   theme: {
     container: {
-      center: true
+      center: true,
     },
     extend: {
       colors: {
@@ -13,11 +13,11 @@ module.exports = {
         active: '#cfd8dc',
         disabled: '#616161',
         hover: '#484848',
-        invalid: '#dd2c00'
+        invalid: '#dd2c00',
       },
       fontFamily: {
-        sans: ['"Press Start 2P"', ...defaultTheme.fontFamily.sans]
-      }
-    }
-  }
+        sans: ['"Press Start 2P"', ...defaultTheme.fontFamily.sans],
+      },
+    },
+  },
 }

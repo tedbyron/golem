@@ -105,5 +105,5 @@ export const rules = [
   { ruleString: '0123/3/2', name: "(Ted's) SlowMaze" },
   { ruleString: '34678/3678/3', name: "(Ted's) Starry Night" },
   { ruleString: '345/357/4', name: "(Ted's) Sunbursts" },
-  { ruleString: '3467/2468/13', name: "(Ted's) Zoomies" }
+  { ruleString: '3467/2468/13', name: "(Ted's) Zoomies" },
 ] as const
