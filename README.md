@@ -2,4 +2,4 @@
 
 Customizable cellular automaton simulator
 
-![golem preview](./web/static/golem.gif)
+![golem preview](./golem.gif)

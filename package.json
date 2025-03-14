@@ -1,5 +1,8 @@
 {
-  "packageManager": "pnpm@7.28.0",
+  "packageManager": "pnpm@9.9.0",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "dev": "pnpm -F ./web dev",
     "build": "pnpm -F ./web build",
