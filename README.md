@@ -1,7 +1,5 @@
-<div align="center">
-  <h1><code>golem</code></h1>
+# golem
 
-  <p>
-    <strong>Customizable cellular automaton simulator</strong>
-  </p>
-</div>
+Customizable cellular automaton simulator
+
+![golem preview](./web/static/golem.gif)
